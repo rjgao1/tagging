@@ -7,6 +7,8 @@ What happens when a new tag is created?
 
 Which class is keeping track of the association between tags and files?
 
-What happens if we want to check the histroy of tags of the image file
+What happens if we want to check the histroy of tags of the image file?
 
-What happens if we want to go back to 
+What happens if we want to go back to an old version of tags?
+
+What part of the program is responsible for deleting an existi tag?
