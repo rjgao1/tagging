@@ -10,18 +10,24 @@ public class Image {
     private File file;
 
     public Image(String pathname) {
-
+        logManager = new LogManager(pathname);
+        observers = new ArrayList<>(0);
+        file = new File(pathname);
     }
 
     public void rename(String newPathname) {
-
+        file.renameTo(new File(newPathname));
     }
 
     public void registerObserver(Observer observer) {
-
+        observers.add(observer);
     }
 
     public void deleteObserver(Observer observer) {
+        observers.remove(observer);
+    }
 
+    public boolean hasObserver(Observer observer) {
+        return observers.contains(observer);
     }
 }
