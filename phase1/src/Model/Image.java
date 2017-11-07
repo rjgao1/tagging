@@ -30,4 +30,8 @@ public class Image {
     public boolean hasObserver(Observer observer) {
         return observers.contains(observer);
     }
+
+    public LogManager getLogManager() {
+        return logManager;
+    }
 }

@@ -1,11 +1,16 @@
 package Model;
 
+import java.io.File;
+
 public class Config {
 
     private static boolean viewTags;
+    private static String defaultPath;
 
     public static boolean hasConfigFile() {
-        return true;
+        String dir = System.getProperty("user.dir");
+        File configFile = new File(dir, "config.txt");
+        return configFile.isFile();
     }
 
     public static void readConfigFile() {
@@ -24,4 +29,7 @@ public class Config {
         return Config.viewTags;
     }
 
+    public static String getDefaultPath() {
+        return defaultPath;
+    }
 }
