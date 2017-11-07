@@ -14,7 +14,7 @@ public class FileManager {
         this.directory = new File(directoryRoute);
         imageFileNames = new ArrayList<>(0);
         directoryNames = new ArrayList<>(0);
-
+        renewDirectory();
     }
 
     public ArrayList<String> getImageFileNames() {
