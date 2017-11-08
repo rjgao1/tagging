@@ -16,4 +16,8 @@ public class TagInfo {
     public Tag[] getTagList() {
         return tagList;
     }
+
+    public String toString() {
+        return new String();
+    }
 }
