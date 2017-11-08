@@ -16,12 +16,7 @@ public class LogManager {
 
     private boolean logFileExists() {
         Path filePath = logFile.toPath();
-        if (Files.exists(filePath)) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return Files.exists(filePath);
     }
 
     public void createLogFile() {
