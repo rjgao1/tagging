@@ -1,10 +1,11 @@
 package Model;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.nio.file.*;
-import java.nio.charset.*;
+
 
 public class LogManager {
 
@@ -27,7 +28,14 @@ public class LogManager {
     }
 
     public void createLogFile() {
-
+        if (!logFileExists()) {
+            try {
+                Files.write(logFilePath, tagLogsStrings, Charset.forName("UTF-8"));
+            }
+            catch (IOException e){
+                System.err.format("error occurred when creating log file: %s%n", e);
+            }
+        }
     }
 
     public void writeLogFile() {
