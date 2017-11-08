@@ -10,7 +10,7 @@ public class LogManager {
     private ArrayList<Observer> observers;
 
     public LogManager(String pathname) {
-
+        logFile = new File(pathname);
     }
 
     private boolean logFileExists() {
@@ -18,7 +18,7 @@ public class LogManager {
     }
 
     public void createLogFile() {
-
+        
     }
 
     public void writeLogFile() {
@@ -30,7 +30,7 @@ public class LogManager {
     }
 
     public void addTagInfo(TagInfo tagInfo) {
-
+        tagLogs.add(tagInfo);
     }
 
     public void registerObserver(Observer observer) {
