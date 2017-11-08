@@ -2,6 +2,7 @@ package Model;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.nio.file.*;
 
 public class LogManager {
 
@@ -14,11 +15,17 @@ public class LogManager {
     }
 
     private boolean logFileExists() {
-        return true;
+        Path filePath = logFile.toPath();
+        if (Files.exists(filePath)) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public void createLogFile() {
-        
+
     }
 
     public void writeLogFile() {
