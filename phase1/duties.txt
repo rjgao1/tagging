@@ -2,6 +2,7 @@ Sitao Wang:
 Implement FileManager and Image.
 
 #########
-
+Jingyuan Gao:
+Implement LogManager
 
 #########
