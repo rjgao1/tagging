@@ -27,14 +27,9 @@ public class LogManager {
         return Files.exists(logFilePath);
     }
 
-    public void createLogFile() {
+    public void createLogFile() throws IOException {
         if (!logFileExists()) {
-            try {
-                Files.write(logFilePath, tagLogsStrings, Charset.forName("UTF-8"));
-            }
-            catch (IOException e){
-                System.err.format("error occurred when creating log file: %s%n", e);
-            }
+            Files.write(logFilePath, tagLogsStrings, Charset.forName("UTF-8"));
         }
     }
 
