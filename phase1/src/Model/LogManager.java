@@ -42,13 +42,10 @@ public class LogManager {
 
     }
 
-    public void renameLogFile(String newName) {
-        try {
-            Files.move(logFilePath, logFilePath.resolveSibling(newName));
-        }
-        catch (IOException e) {
-            System.err.format("error occurred when renaming log file: %s%n", e);
-        }
+    public void renameLogFile(String newName) throws IOException {
+        Files.move(logFilePath, logFilePath.resolveSibling(newName));
+
+
     }
 
     public void addTagInfo(TagInfo tagInfo) {
