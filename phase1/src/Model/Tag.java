@@ -14,6 +14,6 @@ public class Tag {
 
     @Override
     public boolean equals(Object obj) {
-        return true;
+        return obj instanceof Tag && this.content.equals(((Tag) obj).content);
     }
 }
