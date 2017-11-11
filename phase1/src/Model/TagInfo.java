@@ -14,6 +14,9 @@ public class TagInfo {
     }
 
     public String getTime() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date dateObj = new Date();
+        time = dateFormat.format(dateObj);
         return time;
     }
 
