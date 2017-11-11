@@ -18,7 +18,7 @@ public class TagInfo {
     }
 
     public Tag[] getTagList() {
-        return tagList;
+        return tagList.clone();
     }
 
     public String toString() {
