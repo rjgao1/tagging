@@ -6,3 +6,7 @@ Jingyuan Gao:
 Implement LogManager
 
 #########
+Aphrodite Rizou:
+Implement Tag and TagInfo
+
+#########
