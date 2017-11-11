@@ -25,6 +25,23 @@ public class TagInfo {
     }
 
     public String toString() {
-        return new String();
+        StringBuilder result = new StringBuilder("");
+        result.append("Time: ");
+        result.append(this.getTime());
+        result.append(System.getProperty("line.separator"));
+        result.append("Tags: ");
+        if (tagList.length == 0) {
+            result.append("");
+        } else {
+            int i = 0;
+            while (i < tagList.length - 1) {
+                StringBuilder element = new StringBuilder(tagList[i].getContent());
+                result.append(element);
+                result.append(", ");
+                i = i + 1;
+            }
+            result.append(tagList[tagList.length - 1].getContent());
+        }
+        return result.toString();
     }
 }
