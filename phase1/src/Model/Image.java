@@ -17,6 +17,9 @@ public class Image {
 
     public void rename(String newPathname) {
         file.renameTo(new File(newPathname));
+        for (Observer observer: observers) {
+            observer.update();
+        }
     }
 
     public void registerObserver(Observer observer) {
