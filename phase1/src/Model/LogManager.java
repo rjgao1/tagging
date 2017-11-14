@@ -1,5 +1,6 @@
 package Model;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -9,7 +10,7 @@ import java.nio.file.*;
 
 public class LogManager {
 
-//    private File logFile;
+    //    private File logFile;
     private Path logFilePath;
     private ArrayList<TagInfo> tagLogs;
     private ArrayList<String> tagLogsStrings;
@@ -33,8 +34,11 @@ public class LogManager {
         }
     }
 
-    public void writeLogFile() {
-
+    public void writeLogFile() throws IOException {
+        if (!logFileExists()) {
+            BufferedWriter bufferedWriter = Files.newBufferedWriter(logFilePath, Charset.forName("UTF-8"));
+            bufferedWriter.write(tagLogsStrings.get(tagLogsStrings.size() - 1));
+        }
     }
 
     public void renameLogFile(String newName) throws IOException {
