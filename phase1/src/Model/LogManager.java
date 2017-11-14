@@ -9,14 +9,14 @@ import java.nio.file.*;
 
 public class LogManager {
 
-    private File logFile;
+//    private File logFile;
     private Path logFilePath;
     private ArrayList<TagInfo> tagLogs;
     private ArrayList<String> tagLogsStrings;
     private ArrayList<Observer> observers;
 
     public LogManager(String pathname) {
-        logFile = new File(pathname);
+        File logFile = new File(pathname);
         logFilePath = logFile.toPath();
         for (TagInfo element : tagLogs) {
             tagLogsStrings.add(element.toString());
