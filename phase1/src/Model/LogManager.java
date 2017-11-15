@@ -12,15 +12,15 @@ public class LogManager {
 
     //    private File logFile;
     private Path logFilePath;
-    private ArrayList<TagInfo> tagLogs;
-    private ArrayList<String> tagLogsStrings;
+    private ArrayList<TagInfo> tagInfos;
+    private ArrayList<String> tagInfosStrings;
     private ArrayList<Observer> observers;
 
     public LogManager(String pathname) {
         File logFile = new File(pathname);
         logFilePath = logFile.toPath();
-        for (TagInfo element : tagLogs) {
-            tagLogsStrings.add(element.toString());
+        for (TagInfo element : tagInfos) {
+            tagInfosStrings.add(element.toString());
         }
     }
 
@@ -30,14 +30,14 @@ public class LogManager {
 
     public void createLogFile() throws IOException {
         if (!logFileExists()) {
-            Files.write(logFilePath, tagLogsStrings, Charset.forName("UTF-8"));
+            Files.write(logFilePath, tagInfosStrings, Charset.forName("UTF-8"));
         }
     }
 
     public void writeLogFile() throws IOException {
         if (!logFileExists()) {
             BufferedWriter bufferedWriter = Files.newBufferedWriter(logFilePath, Charset.forName("UTF-8"));
-            bufferedWriter.write(tagLogsStrings.get(tagLogsStrings.size() - 1));
+            bufferedWriter.write(tagInfosStrings.get(tagInfosStrings.size() - 1));
         }
     }
 
@@ -48,7 +48,7 @@ public class LogManager {
     }
 
     public void addTagInfo(TagInfo tagInfo) {
-        tagLogs.add(tagInfo);
+        tagInfos.add(tagInfo);
     }
 
     public void registerObserver(Observer observer) {
