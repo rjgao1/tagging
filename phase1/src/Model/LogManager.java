@@ -59,5 +59,9 @@ public class LogManager {
         observers.remove(observer);
     }
 
+    public ArrayList<TagInfo> getTagInfos() {
+        return tagInfos;
+    }
+
 
 }
