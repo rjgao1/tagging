@@ -19,7 +19,6 @@
     </padding>
 
 
-
     <Label text="Choose default directory:">
         <font>
             <Font size="26.0"/>

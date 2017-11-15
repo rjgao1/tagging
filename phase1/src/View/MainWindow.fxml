@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Separator?>
+
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="Controller.MainWindowController">
+
+
+    <MenuBar>
+        <Menu mnemonicParsing="false" text="File">
+            <MenuItem mnemonicParsing="false" text="New Window" onAction="#openMainWindow"/>
+            <MenuItem mnemonicParsing="false" text="Close" onAction="#closeWindow"/>
+            <MenuItem mnemonicParsing="false" text="Open Directory..." onAction="#openDirectory"/>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+            <MenuItem mnemonicParsing="false" text="About"/>
+        </Menu>
+    </MenuBar>
+
+
+    <HBox>
+
+        <ListView/>
+
+        <ListView/>
+
+        <VBox alignment="CENTER">
+            <TextField promptText="Tags to be added" fx:id="tagText">
+                <VBox.margin>
+                    <Insets bottom="10.0" top="10.0"/>
+                </VBox.margin>
+            </TextField>
+            <Button mnemonicParsing="false" text="Add Tag(s)" onAction="#addTags">
+                <VBox.margin>
+                    <Insets bottom="10.0" top="10.0"/>
+                </VBox.margin>
+            </Button>
+
+            <Separator>
+                <VBox.margin>
+                    <Insets bottom="10.0" top="10.0"/>
+                </VBox.margin>
+            </Separator>
+
+            <Button mnemonicParsing="false" text="Delete Tag(s)" onAction="#deleteTags">
+                <VBox.margin>
+                    <Insets bottom="10.0" top="10.0"/>
+                </VBox.margin>
+            </Button>
+
+            <Separator>
+                <VBox.margin>
+                    <Insets bottom="10.0" top="10.0"/>
+                </VBox.margin>
+            </Separator>
+
+            <Button mnemonicParsing="false" text="View History" onAction="#viewHistory">
+                <VBox.margin>
+                    <Insets bottom="10.0" top="10.0"/>
+                </VBox.margin>
+            </Button>
+        </VBox>
+    </HBox>
+</VBox>
