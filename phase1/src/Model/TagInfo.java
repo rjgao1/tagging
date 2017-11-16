@@ -11,13 +11,13 @@ public class TagInfo {
 
     public TagInfo(Tag[] tagList) {
         this.tagList = tagList;
-    }
-
-    public String getTime() {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date dateObj = new Date();
         time = dateFormat.format(dateObj);
-        return time;
+    }
+
+    public String getTime() {
+        return this.time;
     }
 
     public Tag[] getTagList() {
