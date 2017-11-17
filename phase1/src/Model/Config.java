@@ -7,29 +7,49 @@ import java.io.OutputStreamWriter;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.nio.file.Files;
 
 public class Config {
 
     private static boolean viewTags;
     private static String defaultPath;
-    private static File configFile;
+    private static final File configFile = new File(System.getProperty("user.dir"), "config.txt");
 
     public static boolean hasConfigFile() {
-        String dir = System.getProperty("user.dir");
-        configFile = new File(dir, "config.txt");
         return configFile.isFile();
     }
 
-    public static void readConfigFile() throws IOException{
+    public static void readConfigFile() throws IOException, ClassCastException {
         BufferedReader configBR = new BufferedReader(new FileReader(configFile));
 
-        viewTags = Boolean.getBoolean(configBR.readLine());
+        String line = configBR.readLine();
+        if (!(line.equals("true") || line.equals("false"))) {
+            throw new ClassCastException();
+        }
+        viewTags = Boolean.getBoolean(line);
         defaultPath = configBR.readLine();
+        File defaultPathFile = new File(defaultPath);
+        if (!defaultPathFile.isDirectory()) {
+            throw new ClassCastException();
+        }
 
         configBR.close();
     }
 
-    public static void writeConfigFile() throws IOException{
+    public static void deleteConfigFile() {
+        configFile.delete();
+    }
+
+    public static void createConfigFile() {
+        try {
+            configFile.createNewFile();
+        } catch (IOException e) {
+
+        }
+    }
+
+
+    public static void writeConfigFile() throws IOException {
         FileOutputStream configFOS = new FileOutputStream(configFile);
         BufferedWriter configBW = new BufferedWriter(new OutputStreamWriter(configFOS));
 
