@@ -35,14 +35,8 @@ public class ConfigPageController {
             throw new RuntimeException(exception);
         }
         stage.setScene(new Scene(root));
-    }
 
-    public Stage getStage(){
-        return  stage;
-    }
-
-    @FXML
-    public void initialize() {
+        // Read the config file if there is one
         if (Config.hasConfigFile()) {
             try {
                 Config.readConfigFile();
@@ -59,6 +53,10 @@ public class ConfigPageController {
                 viewWithoutTags.setSelected(true);
             }
         }
+    }
+
+    public Stage getStage(){
+        return  stage;
     }
 
     public void selectDirectory() {
