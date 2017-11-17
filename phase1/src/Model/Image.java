@@ -37,4 +37,15 @@ public class Image {
     public LogManager getLogManager() {
         return logManager;
     }
+
+    public static Tag[] getTagsFromName(String filename) {
+        Tag[] tags;
+        filename = filename.substring(filename.lastIndexOf(System.getProperty("file.separator")));
+        String[] array = filename.split(" @");
+        tags = new Tag[array.length - 1];
+        for (int i = 1; i < array.length; i++) {
+            tags[i - 1] = new Tag(array[i]);
+        }
+        return tags;
+    }
 }
