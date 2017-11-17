@@ -18,7 +18,6 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 
 public class MainWindowController {
@@ -110,11 +109,18 @@ public class MainWindowController {
             }
             TagInfo newTagInfo = new TagInfo(newTagList);
             image.getLogManager().addTagInfo(newTagInfo);
+
+            loadFileList();
+            //Load tagList
+            tags = FXCollections.observableArrayList(newTagNameList);
+            tagList.setItems(tags);
         }
     }
 
     public void deleteTags() {
+        if (tagList.getSelectionModel().getSelectedItem() == null) {
 
+        }
     }
 
     public void viewHistory() {
