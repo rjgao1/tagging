@@ -48,4 +48,8 @@ public class Image {
         }
         return tags;
     }
+
+    public File getFile() {
+        return this.file;
+    }
 }

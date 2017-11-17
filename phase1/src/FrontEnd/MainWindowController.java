@@ -124,7 +124,8 @@ public class MainWindowController {
     }
 
     public void viewHistory() {
-
+        String fileString = image.getFile().getPath();
+        TagHistoryController tagHistoryController = new TagHistoryController(image.getLogManager(), fileString);
     }
 
     public void loadFileList() {
