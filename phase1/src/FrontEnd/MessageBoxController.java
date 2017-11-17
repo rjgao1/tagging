@@ -1,9 +1,12 @@
 package FrontEnd;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
+import java.io.IOException;
 
 public class MessageBoxController {
 
@@ -16,6 +19,14 @@ public class MessageBoxController {
     public MessageBoxController(String message, String title) {
         this.message = message;
         this.title = title;
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MessageBox.fxml"));
+        fxmlLoader.setRoot(this);
+        fxmlLoader.setController(this);
+        try {
+            fxmlLoader.load();
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
     }
 
     @FXML
