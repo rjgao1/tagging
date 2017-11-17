@@ -54,6 +54,8 @@ public class ConfigPageController {
                 viewWithoutTags.setSelected(true);
             }
         }
+
+        stage.show();
     }
 
     public Stage getStage(){

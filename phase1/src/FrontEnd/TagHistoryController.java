@@ -51,17 +51,17 @@ public class TagHistoryController{
         }
         stage.setScene(new Scene(root));
         stage.setTitle("History");
+
+        // Load the data
+        data = FXCollections.observableArrayList(logManager.getTagInfos());
+        timeColumn.setCellValueFactory(new PropertyValueFactory<TagInfo, String>("time"));
+        tagsColumn.setCellValueFactory(new PropertyValueFactory<TagInfo, Tag[]>("tagList"));
+
+        stage.show();
     }
 
     public Stage getStage() {
         return stage;
-    }
-
-    @FXML
-    public void initialize() {
-        data = FXCollections.observableArrayList(logManager.getTagInfos());
-        timeColumn.setCellValueFactory(new PropertyValueFactory<TagInfo, String>("time"));
-        tagsColumn.setCellValueFactory(new PropertyValueFactory<TagInfo, Tag[]>("tagList"));
     }
 
 

@@ -34,6 +34,8 @@ public class MessageBoxController {
         stage.setResizable(false);
         stage.setAlwaysOnTop(true);
         stage.initStyle(StageStyle.UNDECORATED);
+
+        stage.show();
     }
 
     public Stage getStage() {
