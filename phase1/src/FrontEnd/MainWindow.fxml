@@ -31,7 +31,7 @@
 
     <HBox>
 
-        <ListView fx:id="fileList"/>
+        <ListView fx:id="fileList" onMouseClicked="#chooseFile"/>
 
         <ListView fx:id="tagList"/>
 
