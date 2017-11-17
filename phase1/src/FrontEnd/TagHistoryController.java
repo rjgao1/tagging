@@ -1,4 +1,4 @@
-package Controller;
+package FrontEnd;
 
 import Model.LogManager;
 import Model.TagInfo;

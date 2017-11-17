@@ -1,4 +1,4 @@
-package Controller;
+package FrontEnd;
 
 public class MainWindowController {
 
