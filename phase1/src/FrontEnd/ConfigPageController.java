@@ -35,6 +35,7 @@ public class ConfigPageController {
             throw new RuntimeException(exception);
         }
         stage.setScene(new Scene(root));
+        stage.setTitle("Configuration");
 
         // Read the config file if there is one
         if (Config.hasConfigFile()) {

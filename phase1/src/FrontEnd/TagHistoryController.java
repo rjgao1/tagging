@@ -7,6 +7,9 @@ import Model.Tag;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
@@ -29,12 +32,29 @@ public class TagHistoryController{
     private TableColumn<TagInfo, Tag[]> tagsColumn;
     @FXML
     private Button closeButton;
+    private Stage stage;
+
     private ObservableList<TagInfo> data;
 
 
     public TagHistoryController(LogManager logManager, String file) {
         this.logManager = logManager;
         this.file = file;
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("TagHistory.fxml"));
+        fxmlLoader.setRoot(this);
+        fxmlLoader.setController(this);
+        Parent root;
+        try {
+            root = fxmlLoader.load();
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+        stage.setScene(new Scene(root));
+        stage.setTitle("History");
+    }
+
+    public Stage getStage() {
+        return stage;
     }
 
     @FXML
