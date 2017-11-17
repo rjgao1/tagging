@@ -56,14 +56,9 @@ public class MainWindowController {
         }
         stage.setScene(new Scene(root));
 
-        //Load fileList
-        ArrayList<String> list = fileManager.getImageFileNames();
-        list.addAll(fileManager.getDirectoryNames());
-        files = FXCollections.observableArrayList(list);
-        fileList.setItems(files);
+        loadFileList();
 
         fileList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        tagList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
         stage.show();
     }
@@ -82,10 +77,7 @@ public class MainWindowController {
         File selectedDirectory = directoryChooser.showDialog(stage);
         fileManager = new FileManager(selectedDirectory.getAbsolutePath());
 
-        // Reload fileList
-        ArrayList<String> list = fileManager.getImageFileNames();
-        list.addAll(fileManager.getDirectoryNames());
-        files = FXCollections.observableArrayList(list);
+        loadFileList();
     }
 
     public void chooseFile(MouseEvent e) {
@@ -105,16 +97,13 @@ public class MainWindowController {
         } else if(e.getClickCount() == 2) {
             if (file.isDirectory()) {
                 fileManager = new FileManager(file.getAbsolutePath());
-                // Reload fileList
-                ArrayList<String> list = fileManager.getImageFileNames();
-                list.addAll(fileManager.getDirectoryNames());
-                files = FXCollections.observableArrayList(list);
+                loadFileList();
             }
         }
     }
 
     public void addTags() {
-
+        
     }
 
     public void deleteTags() {
@@ -123,6 +112,19 @@ public class MainWindowController {
 
     public void viewHistory() {
 
+    }
+
+    public void loadFileList() {
+        ArrayList<String> list = fileManager.getImageFileNames();
+        for (String s: list) {
+            s = s.substring(s.lastIndexOf(System.getProperty("file.separator") + 1));
+            if (!Config.getViewTags()) {
+                s = s.substring(0, s.indexOf(" @"));
+            }
+        }
+        list.addAll(fileManager.getDirectoryNames());
+        files = FXCollections.observableArrayList(list);
+        fileList.setItems(files);
     }
 
 }
