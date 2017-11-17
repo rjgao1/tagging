@@ -1,9 +1,6 @@
 package FrontEnd;
 
-import Model.Config;
-import Model.FileManager;
-import Model.Image;
-import Model.Tag;
+import Model.*;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -103,7 +100,17 @@ public class MainWindowController {
     }
 
     public void addTags() {
-        
+        if (!tagText.getText().matches("@(\\w)+( @(\\w)+)*")) {
+            MessageBoxController m = new MessageBoxController("Warning", "Please enter tags with pattern @tag");
+        } else {
+            String[] newTagNameList = tagText.getText().split("( )?@");
+            Tag[] newTagList = new Tag[newTagNameList.length];
+            for (int i = 0; i < newTagNameList.length; i++) {
+                newTagList[i] = new Tag(newTagNameList[i]);
+            }
+            TagInfo newTagInfo = new TagInfo(newTagList);
+            image.getLogManager().addTagInfo(newTagInfo);
+        }
     }
 
     public void deleteTags() {
