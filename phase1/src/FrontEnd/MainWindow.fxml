@@ -31,9 +31,9 @@
 
     <HBox>
 
-        <ListView/>
+        <ListView fx:id="fileList"/>
 
-        <ListView/>
+        <ListView fx:id="tagList"/>
 
         <VBox alignment="CENTER">
             <TextField promptText="Tags to be added" fx:id="tagText">
