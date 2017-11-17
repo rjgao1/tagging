@@ -5,6 +5,7 @@ import Model.Config;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
@@ -21,16 +22,23 @@ public class ConfigPageController {
     private RadioButton viewWithTags;
     @FXML
     private RadioButton viewWithoutTags;
+    private Stage stage;
 
     public ConfigPageController() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ConfigPage.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
+        Parent root;
         try {
-            fxmlLoader.load();
+            root = fxmlLoader.load();
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+        stage.setScene(new Scene(root));
+    }
+
+    public Stage getStage(){
+        return  stage;
     }
 
     @FXML
@@ -56,7 +64,7 @@ public class ConfigPageController {
     public void selectDirectory() {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Choose default directory");
-        File selectedDirectory = directoryChooser.showDialog(viewWithTags.getScene().getWindow());
+        File selectedDirectory = directoryChooser.showDialog(stage);
         Config.setDefaultPath(selectedDirectory.getAbsolutePath());
         directory.setText(selectedDirectory.getAbsolutePath());
     }
@@ -64,17 +72,20 @@ public class ConfigPageController {
     public void applyButtonClicked() {
         File directoryPath = new File(directory.getText());
         if (!directoryPath.isDirectory()) {
-            String s = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
-            File f = new File(s);
-            f = new File(f.getParent());
-            s = f.getAbsolutePath();
-            s = s + System.getProperty("file.separator") + "View" + System.getProperty("file.separator") + "MessageBox.fxml";
-
+            MessageBoxController messageBox = new MessageBoxController("Warning","Directory does not exist.");
+        } else {
+            Config.setDefaultPath(directory.getText());
+            Config.setViewTags(viewWithTags.isSelected());
+            stage.close();
         }
     }
 
     public void cancelButtonClicked() {
-
+        if (!Config.getDefaultPath().equals("")) {
+            stage.close();
+        } else {
+            MessageBoxController messageBox = new MessageBoxController("Warning","Please select a default directory.");
+        }
     }
 
 }
