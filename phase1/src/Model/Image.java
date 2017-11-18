@@ -1,6 +1,7 @@
 package Model;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Image implements Observer {
@@ -9,7 +10,7 @@ public class Image implements Observer {
     private ArrayList<Observer> observers;
     private File file;
 
-    public Image(String pathname) {
+    public Image(String pathname) throws IOException{
         logManager = new LogManager(pathname);
         logManager.registerObserver(this);
         observers = new ArrayList<>(0);
