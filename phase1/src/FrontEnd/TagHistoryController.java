@@ -49,7 +49,7 @@ public class TagHistoryController {
     public void loadData() {
         data = FXCollections.observableArrayList(logManager.getTagInfos());
         timeColumn.setCellValueFactory(new PropertyValueFactory<TagInfo, String>("time"));
-        tagsColumn.setCellValueFactory(new PropertyValueFactory<TagInfo, Tag[]>("tagList"));
+        tagsColumn.setCellValueFactory(new PropertyValueFactory<TagInfo, Tag[]>("tagListString"));
     }
 
 

@@ -1,6 +1,7 @@
 package Model;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Image implements Observer {
@@ -9,7 +10,7 @@ public class Image implements Observer {
     private ArrayList<Observer> observers;
     private File file;
 
-    public Image(String pathname) {
+    public Image(String pathname) throws IOException{
         logManager = new LogManager(pathname);
         logManager.registerObserver(this);
         observers = new ArrayList<>(0);
@@ -59,10 +60,15 @@ public class Image implements Observer {
         String newFileName = file.getAbsolutePath();
         int index;
         index = newFileName.indexOf(" @", newFileName.lastIndexOf(System.getProperty("file.separator")));
-        newFileName = newFileName.substring(0, index);
+        String postfix = newFileName.substring(newFileName.lastIndexOf("."));
+        newFileName = newFileName.substring(0, newFileName.lastIndexOf("."));
+        if (index != -1) {
+            newFileName = newFileName.substring(0, index);
+        }
         for (Tag tag: logManager.getTagInfos().get(logManager.getTagInfos().size() - 1).getTagList()) {
             newFileName = newFileName + " @" + tag.getContent();
         }
+        newFileName = newFileName + postfix;
         rename(newFileName);
     }
 }

@@ -70,9 +70,14 @@ public class MainWindowController implements Observer {
         loadFileList();
     }
 
-    public void chooseFile(MouseEvent e) {
-        File file = new File(fileManager.getDirectoryAbsolutePath() + System.getProperty("file.separator")
-                + fileList.getSelectionModel().getSelectedItem());
+    public void chooseFile(MouseEvent e) throws IOException{
+        String fileName = fileManager.getDirectoryAbsolutePath() + System.getProperty("file.separator");
+        if (fileList.getSelectionModel().getSelectedIndex() < fileManager.getImageFileNames().size()) {
+            fileName = fileName + fileManager.getImageFileNames().get(fileList.getSelectionModel().getSelectedIndex());
+        } else {
+            fileName = fileName + fileList.getSelectionModel().getSelectedItem();
+        }
+        File file = new File(fileName);
         if (e.getClickCount() == 1) {
             if (file.isFile()) {
                 image = new Image(file.getAbsolutePath());
@@ -142,7 +147,7 @@ public class MainWindowController implements Observer {
     }
 
     private void loadFileList() {
-        ArrayList<String> list = fileManager.getImageFileNames();
+        ArrayList<String> list = (ArrayList<String>) fileManager.getImageFileNames().clone();
         list.addAll(fileManager.getDirectoryNames());
         for (int i = 0; i < list.size(); i++) {
             String s = list.get(i);
@@ -162,10 +167,14 @@ public class MainWindowController implements Observer {
     }
 
     private void loadTagList() {
-        Tag[] list = image.getLogManager().getTagInfos().get(image.getLogManager().getTagInfos().size() - 1).getTagList();
-        tags = FXCollections.observableArrayList();
-        for (Tag tag : list) {
-            tags.add(tag.getContent());
+        if (image.getLogManager().getTagInfos().size() > 0) {
+            Tag[] list = image.getLogManager().getTagInfos().get(image.getLogManager().getTagInfos().size() - 1).getTagList();
+            tags = FXCollections.observableArrayList();
+            for (Tag tag : list) {
+                tags.add(tag.getContent());
+            }
+        } else {
+            tags = FXCollections.observableArrayList();
         }
         tagList.setItems(tags);
     }
