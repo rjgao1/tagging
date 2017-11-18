@@ -69,13 +69,17 @@ public class ConfigPageController {
         } else {
             Config.setDefaultPath(directory.getText());
             Config.setViewTags(viewWithTags.isSelected());
-            stage.close();
+            if (!Config.hasConfigFile()) {
+                Config.createConfigFile();
+            }
+            Config.writeConfigFile();
             if (Main.getMainWindowCount() == 0) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("MainWindow.fxml"));
                 Stage mainWindow = loader.load();
                 mainWindow.show();
                 Main.incrementMainWindowCount();
             }
+            stage.close();
         }
     }
 
