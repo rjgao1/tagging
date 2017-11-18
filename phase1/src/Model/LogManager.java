@@ -11,14 +11,23 @@ import java.nio.file.*;
 public class LogManager {
 
     //    private File logFile;
+    private Path logDir;
     private Path logFilePath;
     private ArrayList<TagInfo> tagInfos;
     private ArrayList<String> tagInfosStrings;
     private ArrayList<Observer> observers;
 
-    public LogManager(String pathname) {
-        File logFile = new File(pathname);
-        logFilePath = logFile.toPath();
+    public LogManager(String pathname) throws IOException {
+        String userDirString = System.getProperty("user.dir");
+        String imageFileName = pathname.substring(pathname.lastIndexOf(System.getProperty(File.separator)));
+        String logDirString = userDirString + System.getProperty("file.separator") + "logs";
+        logDir = Paths.get(logDirString);
+        if (!Files.exists(logDir)) {
+            Files.createDirectory(logDir);
+        }
+//        File logFile = new File(pathname);
+
+        logFilePath = Paths.get(logDirString + System.getProperty("file.separator") + pathname);
         for (TagInfo element : tagInfos) {
             tagInfosStrings.add(element.toString());
         }
