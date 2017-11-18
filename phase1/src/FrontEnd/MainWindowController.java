@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
-public class MainWindowController {
+public class MainWindowController implements Observer{
 
 
     private Stage stage;
@@ -141,4 +141,18 @@ public class MainWindowController {
         fileList.setItems(files);
     }
 
+    public void loadtagList() {
+        Tag[] list = image.getLogManager().getTagInfos().get(image.getLogManager().getTagInfos().size() - 1).getTagList();
+        tags = FXCollections.observableArrayList();
+        for (Tag tag: list) {
+            tags.add(tag.getContent());
+        }
+        tagList.setItems(tags);
+    }
+
+    @Override
+    public void update() {
+        loadFileList();
+        loadtagList();
+    }
 }
