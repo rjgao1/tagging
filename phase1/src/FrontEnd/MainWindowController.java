@@ -145,7 +145,7 @@ public class MainWindowController implements Observer {
         ArrayList<String> list = fileManager.getImageFileNames();
         for (int i = 0; i < list.size(); i++) {
             String s = list.get(i);
-            s = s.substring(s.lastIndexOf(System.getProperty("file.separator") + 1));
+            s = s.substring(s.lastIndexOf(System.getProperty("file.separator")));
             if (!Config.getViewTags()) {
                 s = s.substring(0, s.indexOf(" @"));
             }
@@ -153,7 +153,7 @@ public class MainWindowController implements Observer {
         }
 
         for (String s : list) {
-            s = s.substring(s.lastIndexOf(System.getProperty("file.separator") + 1));
+            s = s.substring(s.lastIndexOf(System.getProperty("file.separator")));
             if (!Config.getViewTags()) {
                 s = s.substring(0, s.indexOf(" @"));
             }
