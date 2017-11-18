@@ -70,7 +70,7 @@ public class MainWindowController implements Observer {
         loadFileList();
     }
 
-    public void chooseFile(MouseEvent e) {
+    public void chooseFile(MouseEvent e) throws IOException{
         File file = new File(fileManager.getDirectoryAbsolutePath() + System.getProperty("file.separator")
                 + fileList.getSelectionModel().getSelectedItem());
         if (e.getClickCount() == 1) {
@@ -162,10 +162,14 @@ public class MainWindowController implements Observer {
     }
 
     private void loadTagList() {
-        Tag[] list = image.getLogManager().getTagInfos().get(image.getLogManager().getTagInfos().size() - 1).getTagList();
-        tags = FXCollections.observableArrayList();
-        for (Tag tag : list) {
-            tags.add(tag.getContent());
+        if (image.getLogManager().getTagInfos().size() > 0) {
+            Tag[] list = image.getLogManager().getTagInfos().get(image.getLogManager().getTagInfos().size() - 1).getTagList();
+            tags = FXCollections.observableArrayList();
+            for (Tag tag : list) {
+                tags.add(tag.getContent());
+            }
+        } else {
+            tags = FXCollections.observableArrayList();
         }
         tagList.setItems(tags);
     }

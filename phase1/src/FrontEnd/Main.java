@@ -23,8 +23,6 @@ public class Main extends Application {
             primaryStage.show();
         } else {
             Config.readConfigFile();
-            System.out.println(Config.getDefaultPath());
-            System.out.println(Config.getViewTags());
             primaryStage = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
             primaryStage.show();
         }
