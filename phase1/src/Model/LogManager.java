@@ -1,7 +1,6 @@
 package Model;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -11,26 +10,35 @@ import java.nio.file.*;
 public class LogManager {
 
     //    private File logFile;
-    private Path logDir;
+    private Path logDirPath;
     private Path logFilePath;
     private ArrayList<TagInfo> tagInfos;
     private ArrayList<String> tagInfosStrings;
     private ArrayList<Observer> observers;
 
     public LogManager(String pathname) throws IOException {
-        String userDirString = System.getProperty("user.dir");
-        String imageFileName = pathname.substring(pathname.lastIndexOf(System.getProperty(File.separator)));
-        String logDirString = userDirString + System.getProperty("file.separator") + "logs";
-        logDir = Paths.get(logDirString);
-        if (!Files.exists(logDir)) {
-            Files.createDirectory(logDir);
+//        String userDirString = System.getProperty("user.dir");
+////        String imageFileName = pathname.substring(pathname.lastIndexOf(System.getProperty(File.separator)));
+//        String logDirString = userDirString + System.getProperty("file.separator") + "Logs";
+//        logDirPath = Paths.get(logDirString);
+        constructLogDirPath();
+        if (!Files.exists(logDirPath)) {
+            Files.createDirectory(logDirPath);
         }
 //        File logFile = new File(pathname);
 
-        logFilePath = Paths.get(logDirString + System.getProperty("file.separator") + pathname);
+        logFilePath = Paths.get(logFilePath.toString(), "Pathname: " + pathname);
         for (TagInfo element : tagInfos) {
             tagInfosStrings.add(element.toString());
         }
+
+
+    }
+
+    private void constructLogDirPath() {
+        String userDirString = System.getProperty("user.dir");
+        String logDirString = userDirString + System.getProperty("file.separator") + "Logs";
+        logDirPath = Paths.get(logDirString);
     }
 
     private boolean logFileExists() {
