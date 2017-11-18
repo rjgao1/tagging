@@ -24,7 +24,7 @@ import java.util.List;
 public class MainWindowController implements Observer{
 
 
-    private Stage stage;
+    private Stage stage = new Stage();
     private FileManager fileManager;
     private Image image;
 
@@ -141,8 +141,17 @@ public class MainWindowController implements Observer{
         TagHistoryController tagHistoryController = new TagHistoryController(image.getLogManager(), fileString);
     }
 
-    public void loadFileList() {
+    private void loadFileList() {
         ArrayList<String> list = fileManager.getImageFileNames();
+        for (int i = 0; i < list.size(); i++) {
+            String s = list.get(i);
+            s = s.substring(s.lastIndexOf(System.getProperty("file.separator") + 1));
+            if (!Config.getViewTags()) {
+                s = s.substring(0, s.indexOf(" @"));
+            }
+            list.set(i, s);
+        }
+
         for (String s: list) {
             s = s.substring(s.lastIndexOf(System.getProperty("file.separator") + 1));
             if (!Config.getViewTags()) {
@@ -154,7 +163,7 @@ public class MainWindowController implements Observer{
         fileList.setItems(files);
     }
 
-    public void loadtagList() {
+    private void loadTagList() {
         Tag[] list = image.getLogManager().getTagInfos().get(image.getLogManager().getTagInfos().size() - 1).getTagList();
         tags = FXCollections.observableArrayList();
         for (Tag tag: list) {
@@ -166,6 +175,6 @@ public class MainWindowController implements Observer{
     @Override
     public void update() {
         loadFileList();
-        loadtagList();
+        loadTagList();
     }
 }
