@@ -23,6 +23,7 @@ public class Main extends Application {
             primaryStage.show();
         } else {
             primaryStage = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
+            primaryStage.show();
         }
     }
 
