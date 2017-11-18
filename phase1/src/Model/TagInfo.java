@@ -26,6 +26,24 @@ public class TagInfo {
         return tagList.clone();
     }
 
+    public String getTagListString() {
+        StringBuilder result = new StringBuilder("");
+        if (tagList.length == 0) {
+            return result.toString();
+        } else {
+            int i = 0;
+            while (i < tagList.length - 1) {
+                result.append("@");
+                StringBuilder element = new StringBuilder(tagList[i].getContent());
+                result.append(element);
+                i = i + 1;
+            }
+            result.append("@");
+            result.append(tagList[tagList.length - 1].getContent());
+        }
+        return result.toString();
+    }
+
     public String toString() {
         StringBuilder result = new StringBuilder("");
         result.append("Time: ");
