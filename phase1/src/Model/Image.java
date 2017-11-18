@@ -57,10 +57,9 @@ public class Image implements Observer {
     @Override
     public void update() {
         String newFileName = file.getAbsolutePath();
-        String name = newFileName.substring(newFileName.lastIndexOf(System.getProperty("file.separator") + 1,
-                newFileName.length()));
-        newFileName = newFileName.substring(newFileName.lastIndexOf(System.getProperty("file.separator")) + 1);
-        newFileName = newFileName + name.split(" @")[0];
+        int index;
+        index = newFileName.indexOf(" @", newFileName.lastIndexOf(System.getProperty("file.separator")));
+        newFileName = newFileName.substring(0, index);
         for (Tag tag: logManager.getTagInfos().get(logManager.getTagInfos().size() - 1).getTagList()) {
             newFileName = newFileName + " @" + tag.getContent();
         }
