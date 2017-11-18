@@ -43,6 +43,8 @@ public class ConfigPageController {
             } else {
                 viewWithoutTags.setSelected(true);
             }
+        } else {
+            viewWithTags.setSelected(true);
         }
     }
 
@@ -54,8 +56,10 @@ public class ConfigPageController {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Choose default directory");
         File selectedDirectory = directoryChooser.showDialog(stage);
-        Config.setDefaultPath(selectedDirectory.getAbsolutePath());
-        directory.setText(selectedDirectory.getAbsolutePath());
+        if (selectedDirectory != null) {
+            Config.setDefaultPath(selectedDirectory.getAbsolutePath());
+            directory.setText(selectedDirectory.getAbsolutePath());
+        }
     }
 
     public void applyButtonClicked() throws IOException{

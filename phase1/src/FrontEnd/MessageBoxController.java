@@ -17,11 +17,6 @@ public class MessageBoxController {
     @FXML
     private Stage stage;
 
-    @FXML
-    public void initialize() {
-        stage.initStyle(StageStyle.UNDECORATED);
-    }
-
     public void setMessage(String message) {
         messageLabel.setText(message);
     }

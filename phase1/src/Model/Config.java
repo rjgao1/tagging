@@ -11,8 +11,8 @@ import java.nio.file.Files;
 
 public class Config {
 
-    private static boolean viewTags;
-    private static String defaultPath;
+    private static boolean viewTags = true;
+    private static String defaultPath = "";
     private static final File configFile = new File(System.getProperty("user.dir"), "config.txt");
 
     public static boolean hasConfigFile() {
