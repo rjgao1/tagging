@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainWindowController implements Observer{
@@ -82,6 +83,9 @@ public class MainWindowController implements Observer{
         if (e.getClickCount() == 1) {
             if (file.isFile()) {
                 image = new Image(file.getAbsolutePath());
+                if (!image.hasObserver(this)){
+                    image.registerObserver(this);
+                }
                 //Load tagList
                 Tag[] tagArray = Image.getTagsFromName(file.getAbsolutePath());
                 tags = FXCollections.observableArrayList();
@@ -103,23 +107,32 @@ public class MainWindowController implements Observer{
             MessageBoxController m = new MessageBoxController("Warning", "Please enter tags with pattern @tag");
         } else {
             String[] newTagNameList = tagText.getText().split("( )?@");
-            Tag[] newTagList = new Tag[newTagNameList.length];
-            for (int i = 0; i < newTagNameList.length; i++) {
-                newTagList[i] = new Tag(newTagNameList[i]);
+            List<String> tagNameList = tagList.getItems();
+            List<Tag> newTagList = new ArrayList<>(0);
+            for (String s: tagNameList) {
+                newTagList.add(new Tag(s));
             }
-            TagInfo newTagInfo = new TagInfo(newTagList);
-            image.getLogManager().addTagInfo(newTagInfo);
+            for (String s: newTagNameList) {
+                newTagList.add(new Tag(s));
+            }
 
-            loadFileList();
-            //Load tagList
-            tags = FXCollections.observableArrayList(newTagNameList);
-            tagList.setItems(tags);
+            TagInfo newTagInfo = new TagInfo((Tag[])newTagList.toArray());
+            image.getLogManager().addTagInfo(newTagInfo);
         }
     }
 
     public void deleteTags() {
-        if (tagList.getSelectionModel().getSelectedItem() == null) {
+        List<String> list = tagList.getSelectionModel().getSelectedItems();
+        if (tagList.getSelectionModel().getSelectedItem() != null) {
+            List<String> tagNameList = tagList.getItems();
+            tagNameList.removeAll(list);
+            List<Tag> newTagList = new ArrayList<>(0);
+            for (String s: tagNameList) {
+                newTagList.add(new Tag(s));
+            }
 
+            TagInfo newTagInfo = new TagInfo((Tag[])newTagList.toArray());
+            image.getLogManager().addTagInfo(newTagInfo);
         }
     }
 
