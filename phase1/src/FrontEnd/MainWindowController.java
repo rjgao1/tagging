@@ -143,22 +143,18 @@ public class MainWindowController implements Observer {
 
     private void loadFileList() {
         ArrayList<String> list = fileManager.getImageFileNames();
+        list.addAll(fileManager.getDirectoryNames());
         for (int i = 0; i < list.size(); i++) {
             String s = list.get(i);
-            s = s.substring(s.lastIndexOf(System.getProperty("file.separator")));
+            s = s.substring(s.lastIndexOf(System.getProperty("file.separator")) + 1);
             if (!Config.getViewTags()) {
-                s = s.substring(0, s.indexOf(" @"));
+                if (s.contains(" @")) {
+                    s = s.substring(0, s.indexOf(" @"));
+                }
             }
             list.set(i, s);
         }
 
-        for (String s : list) {
-            s = s.substring(s.lastIndexOf(System.getProperty("file.separator")));
-            if (!Config.getViewTags()) {
-                s = s.substring(0, s.indexOf(" @"));
-            }
-        }
-        list.addAll(fileManager.getDirectoryNames());
         files = FXCollections.observableArrayList(list);
         fileList.setItems(files);
     }

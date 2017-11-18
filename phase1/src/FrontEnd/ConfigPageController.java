@@ -26,12 +26,12 @@ public class ConfigPageController {
     private Stage stage;
 
     @FXML
-    public void initialize() {
+    public void initialize() throws IOException{
         // Read the config file if there is one
         if (Config.hasConfigFile()) {
             try {
                 Config.readConfigFile();
-            } catch (IOException | ClassCastException e) {
+            } catch (IOException e) {
                 Config.deleteConfigFile();
                 Config.createConfigFile();
                 Config.setViewTags(true);

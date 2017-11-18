@@ -19,14 +19,11 @@ public class Config {
         return configFile.isFile();
     }
 
-    public static void readConfigFile() throws IOException, ClassCastException {
+    public static void readConfigFile() throws IOException{
         BufferedReader configBR = new BufferedReader(new FileReader(configFile));
 
         String line = configBR.readLine();
-        if (!(line.equals("true") || line.equals("false"))) {
-            throw new ClassCastException();
-        }
-        viewTags = Boolean.getBoolean(line);
+        viewTags = line.equals("true");
         defaultPath = configBR.readLine();
         File defaultPathFile = new File(defaultPath);
         if (!defaultPathFile.isDirectory()) {
@@ -40,12 +37,8 @@ public class Config {
         configFile.delete();
     }
 
-    public static void createConfigFile() {
-        try {
-            configFile.createNewFile();
-        } catch (IOException e) {
-
-        }
+    public static void createConfigFile() throws IOException{
+         configFile.createNewFile();
     }
 
 
