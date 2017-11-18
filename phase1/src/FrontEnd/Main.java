@@ -4,9 +4,10 @@ import Model.Config;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 
-public class Main extends Application{
+public class Main extends Application {
 
     private static int mainWindowCount = 0;
 
@@ -18,12 +19,11 @@ public class Main extends Application{
     public void start(Stage primaryStage) throws Exception {
 
         if (!Config.hasConfigFile()) {
-            ConfigPageController configPage = new ConfigPageController();
-            primaryStage = configPage.getStage();
+            primaryStage = FXMLLoader.load(getClass().getResource("ConfigPage.fxml"));
             primaryStage.show();
+        } else {
+            primaryStage = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
         }
-        MainWindowController mainWindow = new MainWindowController();
-        primaryStage = mainWindow.getStage();
     }
 
     public static int getMainWindowCount() {

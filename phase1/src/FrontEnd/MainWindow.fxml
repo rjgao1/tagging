@@ -12,9 +12,14 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Separator?>
 
-
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="FrontEnd.MainWindowController">
+<?import javafx.stage.Stage?>
+<?import javafx.scene.Scene?>
+<Stage title="Configuration" xmlns="http://javafx.com/javafx/8"
+xmlns:fx="http://javafx.com/fxml/1" fx:controller="FrontEnd.MainWindowController" fx:id="stage">
+<scene>
+<Scene>
+<root>
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 
 
     <MenuBar>
@@ -73,3 +78,7 @@
         </VBox>
     </HBox>
 </VBox>
+</root>
+</Scene>
+</scene>
+</Stage>

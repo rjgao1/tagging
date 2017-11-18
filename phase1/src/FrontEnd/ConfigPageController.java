@@ -61,16 +61,15 @@ public class ConfigPageController {
     public void applyButtonClicked() throws IOException{
         File directoryPath = new File(directory.getText());
         if (!directoryPath.isDirectory()) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageBox.fxml"));
-            Stage messageBox = loader.load();
-            messageBox.setTitle("Warning");
-            ((MessageBoxController)loader.getController()).setMessage("Please enter a valid directory");
+            popWarningMessageBox();
         } else {
             Config.setDefaultPath(directory.getText());
             Config.setViewTags(viewWithTags.isSelected());
             stage.close();
             if (Main.getMainWindowCount() == 0) {
-                MainWindowController m = new MainWindowController();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("MainWindow.fxml"));
+                Stage mainWindow = loader.load();
+                mainWindow.show();
                 Main.incrementMainWindowCount();
             }
         }
@@ -80,11 +79,16 @@ public class ConfigPageController {
         if (!Config.getDefaultPath().equals("")) {
             stage.close();
         } else {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageBox.fxml"));
-            Stage messageBox = loader.load();
-            messageBox.setTitle("Warning");
-            ((MessageBoxController)loader.getController()).setMessage("Please enter a valid directory");
+            popWarningMessageBox();
         }
+    }
+
+    public void popWarningMessageBox() throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageBox.fxml"));
+        Stage messageBox = loader.load();
+        messageBox.setTitle("Warning");
+        ((MessageBoxController)loader.getController()).setMessage("Please enter a valid directory");
+        messageBox.show();
     }
 
 }

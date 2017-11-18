@@ -2,6 +2,7 @@ package FrontEnd;
 
 import Model.*;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,10 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainWindowController implements Observer{
+public class MainWindowController implements Observer {
 
-
-    private Stage stage = new Stage();
     private FileManager fileManager;
     private Image image;
 
@@ -34,30 +33,20 @@ public class MainWindowController implements Observer{
     ListView<String> tagList;
     @FXML
     TextField tagText;
+    @FXML
+    Stage stage;
 
     private ObservableList<String> files;
     private ObservableList<String> tags;
 
     public MainWindowController() {
         fileManager = new FileManager(Config.getDefaultPath());
+    }
 
-        // Load FXML File
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ConfigPage.fxml"));
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        Parent root;
-        try {
-            root = fxmlLoader.load();
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
-        stage.setScene(new Scene(root));
-
-        loadFileList();
-
+    @FXML
+    public void initialize() {
         fileList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-
-        stage.show();
+        loadFileList();
     }
 
     public void closeWindow() {
@@ -65,8 +54,10 @@ public class MainWindowController implements Observer{
         Main.decreaseMainWindowCount();
     }
 
-    public void openMainWindow() {
-        MainWindowController mainWindowController = new MainWindowController();
+    public void openMainWindow() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("MainWindow.fxml"));
+        Stage mainWindow = loader.load();
+        mainWindow.show();
         Main.incrementMainWindowCount();
     }
 
@@ -85,7 +76,7 @@ public class MainWindowController implements Observer{
         if (e.getClickCount() == 1) {
             if (file.isFile()) {
                 image = new Image(file.getAbsolutePath());
-                if (!image.hasObserver(this)){
+                if (!image.hasObserver(this)) {
                     image.registerObserver(this);
                 }
                 //Load tagList
@@ -96,7 +87,7 @@ public class MainWindowController implements Observer{
                 }
                 tagList.setItems(tags);
             }
-        } else if(e.getClickCount() == 2) {
+        } else if (e.getClickCount() == 2) {
             if (file.isDirectory()) {
                 fileManager = new FileManager(file.getAbsolutePath());
                 loadFileList();
@@ -104,21 +95,25 @@ public class MainWindowController implements Observer{
         }
     }
 
-    public void addTags() {
+    public void addTags() throws IOException {
         if (!tagText.getText().matches("@(\\w)+( @(\\w)+)*")) {
-            MessageBoxController m = new MessageBoxController("Warning", "Please enter tags with pattern @tag");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageBox.fxml"));
+            Stage messageBox = loader.load();
+            messageBox.setTitle("Warning");
+            ((MessageBoxController) loader.getController()).setMessage("Please enter tags with pattern @tag");
+            messageBox.show();
         } else {
             String[] newTagNameList = tagText.getText().split("( )?@");
             List<String> tagNameList = tagList.getItems();
             List<Tag> newTagList = new ArrayList<>(0);
-            for (String s: tagNameList) {
+            for (String s : tagNameList) {
                 newTagList.add(new Tag(s));
             }
-            for (String s: newTagNameList) {
+            for (String s : newTagNameList) {
                 newTagList.add(new Tag(s));
             }
 
-            TagInfo newTagInfo = new TagInfo((Tag[])newTagList.toArray());
+            TagInfo newTagInfo = new TagInfo((Tag[]) newTagList.toArray());
             image.getLogManager().addTagInfo(newTagInfo);
         }
     }
@@ -129,18 +124,21 @@ public class MainWindowController implements Observer{
             List<String> tagNameList = tagList.getItems();
             tagNameList.removeAll(list);
             List<Tag> newTagList = new ArrayList<>(0);
-            for (String s: tagNameList) {
+            for (String s : tagNameList) {
                 newTagList.add(new Tag(s));
             }
 
-            TagInfo newTagInfo = new TagInfo((Tag[])newTagList.toArray());
+            TagInfo newTagInfo = new TagInfo((Tag[]) newTagList.toArray());
             image.getLogManager().addTagInfo(newTagInfo);
         }
     }
 
-    public void viewHistory() {
+    public void viewHistory() throws IOException {
         String fileString = image.getFile().getPath();
-        TagHistoryController tagHistoryController = new TagHistoryController(image.getLogManager(), fileString);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("TagHistory.fxml"));
+        Stage tagHistory = loader.load();
+        ((TagHistoryController) loader.getController()).setLogManager(image.getLogManager());
+        tagHistory.show();
     }
 
     private void loadFileList() {
@@ -154,7 +152,7 @@ public class MainWindowController implements Observer{
             list.set(i, s);
         }
 
-        for (String s: list) {
+        for (String s : list) {
             s = s.substring(s.lastIndexOf(System.getProperty("file.separator") + 1));
             if (!Config.getViewTags()) {
                 s = s.substring(0, s.indexOf(" @"));
@@ -168,7 +166,7 @@ public class MainWindowController implements Observer{
     private void loadTagList() {
         Tag[] list = image.getLogManager().getTagInfos().get(image.getLogManager().getTagInfos().size() - 1).getTagList();
         tags = FXCollections.observableArrayList();
-        for (Tag tag: list) {
+        for (Tag tag : list) {
             tags.add(tag.getContent());
         }
         tagList.setItems(tags);

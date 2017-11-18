@@ -30,7 +30,7 @@ public class MessageBoxController {
         return stage;
     }
 
-    public void okButtonClicked(){
+    public void okButtonClicked() {
         stage.close();
     }
 

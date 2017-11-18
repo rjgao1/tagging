@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 
-public class TagHistoryController{
+public class TagHistoryController {
 
     private LogManager logManager;
 
@@ -51,7 +51,6 @@ public class TagHistoryController{
         timeColumn.setCellValueFactory(new PropertyValueFactory<TagInfo, String>("time"));
         tagsColumn.setCellValueFactory(new PropertyValueFactory<TagInfo, Tag[]>("tagList"));
     }
-
 
 
     public Stage getStage() {
