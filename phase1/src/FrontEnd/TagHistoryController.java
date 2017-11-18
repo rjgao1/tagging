@@ -22,7 +22,6 @@ import java.io.IOException;
 public class TagHistoryController{
 
     private LogManager logManager;
-    private String file;
 
     @FXML
     private TableView<TagInfo> historyTable;
@@ -32,33 +31,28 @@ public class TagHistoryController{
     private TableColumn<TagInfo, Tag[]> tagsColumn;
     @FXML
     private Button closeButton;
+    @FXML
     private Stage stage;
 
     private ObservableList<TagInfo> data;
 
+    @FXML
+    public void initialize() {
+        loadData();
+    }
 
-    public TagHistoryController(LogManager logManager, String file) {
+    public void setLogManager(LogManager logManager) {
         this.logManager = logManager;
-        this.file = file;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("TagHistory.fxml"));
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        Parent root;
-        try {
-            root = fxmlLoader.load();
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
-        stage.setScene(new Scene(root));
-        stage.setTitle("History");
+        loadData();
+    }
 
-        // Load the data
+    public void loadData() {
         data = FXCollections.observableArrayList(logManager.getTagInfos());
         timeColumn.setCellValueFactory(new PropertyValueFactory<TagInfo, String>("time"));
         tagsColumn.setCellValueFactory(new PropertyValueFactory<TagInfo, Tag[]>("tagList"));
-
-        stage.show();
     }
+
+
 
     public Stage getStage() {
         return stage;

@@ -25,7 +25,8 @@ public class ConfigPageController {
     @FXML
     private Stage stage;
 
-    public ConfigPageController() {
+    @FXML
+    public void initialize() {
         // Read the config file if there is one
         if (Config.hasConfigFile()) {
             try {
@@ -57,10 +58,13 @@ public class ConfigPageController {
         directory.setText(selectedDirectory.getAbsolutePath());
     }
 
-    public void applyButtonClicked() {
+    public void applyButtonClicked() throws IOException{
         File directoryPath = new File(directory.getText());
         if (!directoryPath.isDirectory()) {
-            MessageBoxController messageBox = new MessageBoxController("Warning","Directory does not exist.");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageBox.fxml"));
+            Stage messageBox = loader.load();
+            messageBox.setTitle("Warning");
+            ((MessageBoxController)loader.getController()).setMessage("Please enter a valid directory");
         } else {
             Config.setDefaultPath(directory.getText());
             Config.setViewTags(viewWithTags.isSelected());
@@ -72,11 +76,14 @@ public class ConfigPageController {
         }
     }
 
-    public void cancelButtonClicked() {
+    public void cancelButtonClicked() throws IOException{
         if (!Config.getDefaultPath().equals("")) {
             stage.close();
         } else {
-            MessageBoxController messageBox = new MessageBoxController("Warning","Please select a default directory.");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageBox.fxml"));
+            Stage messageBox = loader.load();
+            messageBox.setTitle("Warning");
+            ((MessageBoxController)loader.getController()).setMessage("Please enter a valid directory");
         }
     }
 

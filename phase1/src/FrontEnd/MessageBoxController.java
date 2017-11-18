@@ -13,29 +13,17 @@ import java.io.IOException;
 public class MessageBoxController {
 
     @FXML
-    private String message;
-    @FXML
     private Label messageLabel;
+    @FXML
     private Stage stage;
 
-    public MessageBoxController(String title, String message) {
-        this.message = message;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MessageBox.fxml"));
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        Parent root;
-        try {
-            root = fxmlLoader.load();
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
-        stage.setScene(new Scene(root));
-        stage.setTitle(title);
-        stage.setResizable(false);
-        stage.setAlwaysOnTop(true);
+    @FXML
+    public void initialize() {
         stage.initStyle(StageStyle.UNDECORATED);
+    }
 
-        stage.show();
+    public void setMessage(String message) {
+        messageLabel.setText(message);
     }
 
     public Stage getStage() {
@@ -43,7 +31,7 @@ public class MessageBoxController {
     }
 
     public void okButtonClicked(){
-        ((Stage) messageLabel.getScene().getWindow()).close();
+        stage.close();
     }
 
 }

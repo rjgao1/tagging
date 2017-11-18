@@ -6,9 +6,15 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TableColumn?>
+<?import javafx.stage.Stage?>
+<?import javafx.scene.Scene?>
 
-<VBox prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="FrontEnd.TagHistoryController">x
+<Stage title="History" xmlns="http://javafx.com/javafx/8"
+       xmlns:fx="http://javafx.com/fxml/1" fx:controller="FrontEnd.TagHistoryController" fx:id="stage">
+<scene>
+<Scene>
+<root>
+<VBox prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 
     <TableView fx:id="historyTable">
         <columns>
@@ -22,3 +28,6 @@
         <Button onAction="#close" text="Close" fx:id="closeButton"/>
     </HBox>
 </VBox>
+</root>
+</Scene>
+</scene>

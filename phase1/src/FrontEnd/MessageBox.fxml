@@ -6,14 +6,21 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Button?>
+<?import javafx.stage.Stage?>
+<?import javafx.scene.Scene?>
 
+<Stage xmlns="http://javafx.com/javafx/8"
+xmlns:fx="http://javafx.com/fxml/1" fx:controller="FrontEnd.MessageBoxController" fx:id="stage"
+resizable="false" alwaysOnTop="true">
+<scene>
+<Scene>
+<root>
 <VBox prefHeight="175.0" prefWidth="400.0"
-      xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="FrontEnd.MessageBoxController">
+      xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 
 
     <Region prefHeight="40.0" prefWidth="400.0"/>
-    <Label fx:id="messageLabel" prefHeight="50.0" prefWidth="400.0" text="$message">
+    <Label fx:id="messageLabel" prefHeight="50.0" prefWidth="400.0">
         <font>
             <Font size="26.0"/>
         </font>
@@ -24,3 +31,7 @@
         <Button fx:id="okButton" onAction="#okButtonClicked" prefHeight="20.0" prefWidth="70.0" text="OK"/>
     </HBox>
 </VBox>
+</root>
+</Scene>
+</scene>
+</Stage>
