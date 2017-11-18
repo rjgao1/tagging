@@ -78,6 +78,10 @@ public class ConfigPageController {
             Config.setDefaultPath(directory.getText());
             Config.setViewTags(viewWithTags.isSelected());
             stage.close();
+            if (Main.getMainWindowCount() == 0) {
+                MainWindowController m = new MainWindowController();
+                Main.incrementMainWindowCount();
+            }
         }
     }
 

@@ -62,10 +62,12 @@ public class MainWindowController implements Observer{
 
     public void closeWindow() {
         stage.close();
+        Main.decreaseMainWindowCount();
     }
 
     public void openMainWindow() {
         MainWindowController mainWindowController = new MainWindowController();
+        Main.incrementMainWindowCount();
     }
 
     public void openDirectory() {
@@ -176,5 +178,9 @@ public class MainWindowController implements Observer{
     public void update() {
         loadFileList();
         loadTagList();
+    }
+
+    public Stage getStage() {
+        return stage;
     }
 }
