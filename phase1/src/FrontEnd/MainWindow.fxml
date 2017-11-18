@@ -14,7 +14,7 @@
 
 <?import javafx.stage.Stage?>
 <?import javafx.scene.Scene?>
-<Stage title="Configuration" xmlns:fx="http://javafx.com/fxml"
+<Stage xmlns:fx="http://javafx.com/fxml"
        fx:controller="FrontEnd.MainWindowController" fx:id="stage">
 <scene>
 <Scene>
