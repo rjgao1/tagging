@@ -149,7 +149,9 @@ public class MainWindowController implements Observer {
             s = s.substring(s.lastIndexOf(System.getProperty("file.separator")) + 1);
             if (!Config.getViewTags()) {
                 if (s.contains(" @")) {
+                    String postfix = s.substring(s.lastIndexOf("."));
                     s = s.substring(0, s.indexOf(" @"));
+                    s = s + postfix;
                 }
             }
             list.set(i, s);
