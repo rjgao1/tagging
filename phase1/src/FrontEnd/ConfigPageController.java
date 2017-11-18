@@ -22,21 +22,10 @@ public class ConfigPageController {
     private RadioButton viewWithTags;
     @FXML
     private RadioButton viewWithoutTags;
+    @FXML
     private Stage stage;
 
     public ConfigPageController() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ConfigPage.fxml"));
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        Parent root;
-        try {
-            root = fxmlLoader.load();
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
-        stage.setScene(new Scene(root));
-        stage.setTitle("Configuration");
-
         // Read the config file if there is one
         if (Config.hasConfigFile()) {
             try {
@@ -54,8 +43,6 @@ public class ConfigPageController {
                 viewWithoutTags.setSelected(true);
             }
         }
-
-        stage.show();
     }
 
     public Stage getStage(){

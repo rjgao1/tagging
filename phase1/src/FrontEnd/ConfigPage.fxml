@@ -11,63 +11,74 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.stage.Stage?>
+<?import javafx.scene.Scene?>
 
-<VBox prefHeight="300.0" prefWidth="500.0" spacing="20.0" xmlns="http://javafx.com/javafx/8"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="FrontEnd.ConfigPageController">
-    <padding>
-        <Insets bottom="20.0" left="10.0" right="10.0" top="20.0"/>
-    </padding>
-
-
-    <Label text="Choose default directory:">
-        <font>
-            <Font size="26.0"/>
-        </font>
-    </Label>
-    <HBox>
-        <TextField fx:id="directory" prefWidth="400.0">
-            <HBox.margin>
-                <Insets left="20.0" right="20.0"/>
-            </HBox.margin>
-        </TextField>
-        <Button onAction="#selectDirectory" text="..."/>
-    </HBox>
-
-
-    <Separator prefWidth="200.0">
-        <VBox.margin>
-            <Insets top="5.0"/>
-        </VBox.margin>
-    </Separator>
-
-
-    <Label text="Choose view mode:">
-        <font>
-            <Font size="26.0"/>
-        </font>
-    </Label>
-    <HBox alignment="TOP_CENTER">
-        <VBox.margin>
-            <Insets/>
-        </VBox.margin>
-        <RadioButton fx:id="viewWithTags" text="View with tags">
-            <toggleGroup>
-                <ToggleGroup fx:id="toggleGroup"/>
-            </toggleGroup>
-        </RadioButton>
-        <Region prefWidth="75.0"/>
-        <RadioButton fx:id="viewWithoutTags" text="View without tags" toggleGroup="$toggleGroup"/>
-    </HBox>
-
-
-    <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-        <VBox.margin>
-            <Insets/>
-        </VBox.margin>
+<Stage title="Configuration" xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="FrontEnd.ConfigPageController" fx:id="stage">
+<scene>
+<Scene>
+<root>
+    <VBox prefHeight="300.0" prefWidth="500.0" spacing="20.0" xmlns="http://javafx.com/javafx/8"
+          xmlns:fx="http://javafx.com/fxml/1">
         <padding>
-            <Insets right="20.0"/>
+            <Insets bottom="20.0" left="10.0" right="10.0" top="20.0"/>
         </padding>
-        <Button mnemonicParsing="false" text="Apply" onAction="#applyButtonClicked"/>
-        <Button mnemonicParsing="false" text="Cancel" onAction="#cancelButtonClicked" fx:id="cancelButton"/>
-    </HBox>
-</VBox>
+
+
+        <Label text="Choose default directory:">
+            <font>
+                <Font size="26.0"/>
+            </font>
+        </Label>
+        <HBox>
+            <TextField fx:id="directory" prefWidth="400.0">
+                <HBox.margin>
+                    <Insets left="20.0" right="20.0"/>
+                </HBox.margin>
+            </TextField>
+            <Button onAction="#selectDirectory" text="..."/>
+        </HBox>
+
+
+        <Separator prefWidth="200.0">
+            <VBox.margin>
+                <Insets top="5.0"/>
+            </VBox.margin>
+        </Separator>
+
+
+        <Label text="Choose view mode:">
+            <font>
+                <Font size="26.0"/>
+            </font>
+        </Label>
+        <HBox alignment="TOP_CENTER">
+            <VBox.margin>
+                <Insets/>
+            </VBox.margin>
+            <RadioButton fx:id="viewWithTags" text="View with tags">
+                <toggleGroup>
+                    <ToggleGroup fx:id="toggleGroup"/>
+                </toggleGroup>
+            </RadioButton>
+            <Region prefWidth="75.0"/>
+            <RadioButton fx:id="viewWithoutTags" text="View without tags" toggleGroup="$toggleGroup"/>
+        </HBox>
+
+
+        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+            <VBox.margin>
+                <Insets/>
+            </VBox.margin>
+            <padding>
+                <Insets right="20.0"/>
+            </padding>
+            <Button mnemonicParsing="false" text="Apply" onAction="#applyButtonClicked"/>
+            <Button mnemonicParsing="false" text="Cancel" onAction="#cancelButtonClicked" fx:id="cancelButton"/>
+        </HBox>
+    </VBox>
+</root>
+</Scene>
+</scene>
+</Stage>
