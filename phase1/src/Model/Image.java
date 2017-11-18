@@ -3,7 +3,7 @@ package Model;
 import java.io.File;
 import java.util.ArrayList;
 
-public class Image {
+public class Image implements Observer {
 
     private LogManager logManager;
     private ArrayList<Observer> observers;
@@ -11,13 +11,14 @@ public class Image {
 
     public Image(String pathname) {
         logManager = new LogManager(pathname);
+        logManager.registerObserver(this);
         observers = new ArrayList<>(0);
         file = new File(pathname);
     }
 
     public void rename(String newPathname) {
         file.renameTo(new File(newPathname));
-        for (Observer observer: observers) {
+        for (Observer observer : observers) {
             observer.update();
         }
     }
@@ -51,5 +52,18 @@ public class Image {
 
     public File getFile() {
         return this.file;
+    }
+
+    @Override
+    public void update() {
+        String newFileName = file.getAbsolutePath();
+        String name = newFileName.substring(newFileName.lastIndexOf(System.getProperty("file.separator") + 1,
+                newFileName.length()));
+        newFileName = newFileName.substring(newFileName.lastIndexOf(System.getProperty("file.separator")) + 1);
+        newFileName = newFileName + name.split(" @")[0];
+        for (Tag tag: logManager.getTagInfos().get(logManager.getTagInfos().size() - 1).getTagList()) {
+            newFileName = newFileName + " @" + tag.getContent();
+        }
+        rename(newFileName);
     }
 }
