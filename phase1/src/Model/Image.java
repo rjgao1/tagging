@@ -60,10 +60,15 @@ public class Image implements Observer {
         String newFileName = file.getAbsolutePath();
         int index;
         index = newFileName.indexOf(" @", newFileName.lastIndexOf(System.getProperty("file.separator")));
-        newFileName = newFileName.substring(0, index);
+        String postfix = newFileName.substring(newFileName.lastIndexOf("."));
+        newFileName = newFileName.substring(0, newFileName.lastIndexOf("."));
+        if (index != -1) {
+            newFileName = newFileName.substring(0, index);
+        }
         for (Tag tag: logManager.getTagInfos().get(logManager.getTagInfos().size() - 1).getTagList()) {
             newFileName = newFileName + " @" + tag.getContent();
         }
+        newFileName = newFileName + postfix;
         rename(newFileName);
     }
 }
