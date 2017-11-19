@@ -10,7 +10,7 @@ import java.nio.file.*;
 public class LogManager {
 
     //    private File logFile;
-    private Path logDirPath;
+    private final Path logDirPath;
     private Path logFilePath;
     private ArrayList<TagInfo> tagInfos;
     private ArrayList<String> tagInfosStrings;
@@ -22,8 +22,13 @@ public class LogManager {
 ////        String imageFileName = pathname.substring(pathname.lastIndexOf(System.getProperty(File.separator)));
 //        String logDirString = userDirString + System.getProperty("file.separator") + "Logs";
 //        logDirPath = Paths.get(logDirString);
-        constructLogDirPath();
-        constructLogFilePath(pathname);
+//        constructLogDirPath();
+//        private void constructLogDirPath() {
+        String userDirString = System.getProperty("user.dir");
+        String logDirString = userDirString + System.getProperty("file.separator") + "Logs";
+        logDirPath = Paths.get(logDirString);
+//        }
+        logFilePath = constructLogFilePath(pathname);
         if (!Files.exists(logDirPath)) {
             Files.createDirectory(logDirPath);
         }
@@ -40,15 +45,15 @@ public class LogManager {
 
     }
 
-    private void constructLogDirPath() {
-        String userDirString = System.getProperty("user.dir");
-        String logDirString = userDirString + System.getProperty("file.separator") + "Logs";
-        logDirPath = Paths.get(logDirString);
-    }
+//    private void constructLogDirPath() {
+//        String userDirString = System.getProperty("user.dir");
+//        String logDirString = userDirString + System.getProperty("file.separator") + "Logs";
+//        logDirPath = Paths.get(logDirString);
+//    }
 
-    private void constructLogFilePath(String imagePath) {
+    private Path constructLogFilePath(String imagePath) {
         modifiedImagePathString = imagePath.replaceAll(System.getProperty("file.separator"), ":") + ".txt";
-        logFilePath = Paths.get(logDirPath.toString(), "Pathname: " + modifiedImagePathString);
+        return Paths.get(logDirPath.toString(), "Pathname: " + modifiedImagePathString);
     }
 
     private boolean logFileExists() {
