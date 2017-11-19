@@ -43,24 +43,20 @@ public class TagInfo {
         return result.toString();
     }
 
-    //Returns a string of the form "Time: current system time
-    //                              Tags: tag1, tag2, tag3, ..."
+    //Returns a string of the form "yyyy/MM/dd HH:mm:ss|@tag1@tag2"
     public String toString() {
         StringBuilder result = new StringBuilder("");
-        result.append("Time: ");
         result.append(this.getTime());
-        result.append(System.getProperty("line.separator"));
-        result.append("Tags: ");
-        if (tagList.length == 0) {
-            result.append("");
-        } else {
+        result.append("|");
+        if (tagList.length != 0) {
             int i = 0;
             while (i < tagList.length - 1) {
+                result.append("@");
                 StringBuilder element = new StringBuilder(tagList[i].getContent());
                 result.append(element);
-                result.append(", ");
                 i = i + 1;
             }
+            result.append("@");
             result.append(tagList[tagList.length - 1].getContent());
         }
         return result.toString();
