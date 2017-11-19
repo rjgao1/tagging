@@ -75,6 +75,19 @@
                     <Insets bottom="10.0" top="10.0"/>
                 </VBox.margin>
             </Button>
+
+            <Separator>
+                <VBox.margin>
+                    <Insets bottom="10.0" top="10.0"/>
+                </VBox.margin>
+            </Separator>
+
+            <Button mnemonicParsing="false" text="Move File" onAction="#moveFile">
+                <VBox.margin>
+                    <Insets bottom="10.0" top="10.0"/>
+                </VBox.margin>
+            </Button>
+
         </VBox>
     </HBox>
 </VBox>

@@ -2,13 +2,10 @@ package FrontEnd;
 
 import Model.*;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
@@ -18,6 +15,8 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,10 +78,8 @@ public class MainWindowController implements Observer {
             fileName = fileName + fileList.getSelectionModel().getSelectedItem();
         }
         File file = new File(fileName);
-        System.out.println(file);
         if (file.isFile()) {
             image = new Image(file.getAbsolutePath());
-            System.out.println(image);
             if (!image.hasObserver(this)) {
                 image.registerObserver(this);
             }
@@ -130,7 +127,7 @@ public class MainWindowController implements Observer {
         }
     }
 
-    public void deleteTags() {
+    public void deleteTags() throws IOException{
         List<String> list = tagList.getSelectionModel().getSelectedItems();
         if (tagList.getSelectionModel().getSelectedItem() != null) {
             List<String> tagNameList = tagList.getItems();
@@ -194,5 +191,33 @@ public class MainWindowController implements Observer {
 
     public Stage getStage() {
         return stage;
+    }
+
+    public void moveFile() throws IOException{
+        if (image != null && image.getFile().isFile()) {
+            DirectoryChooser directoryChooser = new DirectoryChooser();
+            directoryChooser.setTitle("Choose the new directory");
+            File selectedDirectory = directoryChooser.showDialog(stage);
+
+            if (selectedDirectory != null) {
+                try {
+                    String s = selectedDirectory.getAbsolutePath();
+                    s = s + image.getFile().getAbsolutePath().substring(
+                            image.getFile().getAbsolutePath().lastIndexOf(System.getProperty(File.separator)) + 1);
+                    Files.move(image.getFile().toPath(), Paths.get(s));
+                    fileManager = new FileManager(selectedDirectory.getAbsolutePath());
+                    loadFileList();
+                } catch (IOException e) {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageBox.fxml"));
+                    Stage messageBox = loader.load();
+                    messageBox.setTitle("Warning");
+                    ((MessageBoxController)loader.getController()).setMessage(
+                            "The file with same name exists in the Directory selected"
+                                    + System.getProperty("line.separator") + "Please select a new directory");
+                    messageBox.show();
+                }
+            }
+
+        }
     }
 }
