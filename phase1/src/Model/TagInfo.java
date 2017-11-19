@@ -72,6 +72,7 @@ public class TagInfo {
         String[] tagList = tagString.split("@");
     }
 
+    // Works only for strings of the form "@tag1 @tag2 @tag3 ... "
     public TagInfo stringToTagInfo(String tagString) {
         String[] tags = tagString.split("@");
         Tag[] tempTagList = new Tag[tags.length - 1];
