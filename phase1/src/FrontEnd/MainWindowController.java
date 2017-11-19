@@ -49,6 +49,7 @@ public class MainWindowController implements Observer {
     }
 
     public void closeWindow() {
+        image.deleteObserver(this);
         stage.close();
         Main.decreaseMainWindowCount();
     }
@@ -206,7 +207,8 @@ public class MainWindowController implements Observer {
                             image.getFile().getAbsolutePath().lastIndexOf(System.getProperty(File.separator)) + 1);
                     Files.move(image.getFile().toPath(), Paths.get(s));
                     fileManager = new FileManager(selectedDirectory.getAbsolutePath());
-                    loadFileList();
+                    image.rename(s);
+                    image.getLogManager().renameLogFile(s);
                 } catch (IOException e) {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageBox.fxml"));
                     Stage messageBox = loader.load();
