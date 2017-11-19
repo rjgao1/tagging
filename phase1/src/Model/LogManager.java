@@ -37,11 +37,11 @@ public class LogManager {
 //        File logFile = new File(pathname);
 
 //        logFilePath = Paths.get(logFilePath.toString(), "Pathname: " + pathname);
+        tagInfos = new ArrayList<>(0);
         if (!Files.exists(logFilePath)) {
             createLogFile();
-        }
-        for (TagInfo element : tagInfos) {
-            tagInfosStrings.add(element.toString());
+        } else {
+            readLogFile();
         }
 
 
