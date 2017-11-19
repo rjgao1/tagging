@@ -118,7 +118,7 @@ public class LogManager {
     }
 
     public void addTagInfo(TagInfo tagInfo) throws IOException {
-        String tagListString = tagInfo.getTagListString();
+        String tagListString = " " + tagInfo.getTagListString();
         tagInfos.add(tagInfo);
         writeLogFile();
         renameLogFile(tagListStringToPathString(tagListString), false);
