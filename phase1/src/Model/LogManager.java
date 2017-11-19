@@ -15,6 +15,7 @@ public class LogManager {
     private ArrayList<TagInfo> tagInfos;
     private ArrayList<String> tagInfosStrings;
     private ArrayList<Observer> observers;
+    private String modifiedImagePathString;
 
     public LogManager(String pathname) throws IOException {
 //        String userDirString = System.getProperty("user.dir");
@@ -43,9 +44,9 @@ public class LogManager {
     }
 
     private void constructLogFilePath(String imagePath) {
-        String modifiedImagePath;
-        modifiedImagePath = imagePath.replaceAll(System.getProperty("file.separator"), ":");
-        logFilePath = Paths.get(logFilePath.toString(), "Pathname: " + modifiedImagePath);
+
+        modifiedImagePathString = imagePath.replaceAll(System.getProperty("file.separator"), ":") + ".txt";
+        logFilePath = Paths.get(logDirPath.toString(), "Pathname: " + modifiedImagePathString);
     }
 
     private boolean logFileExists() {
@@ -65,14 +66,31 @@ public class LogManager {
         }
     }
 
-    public void renameLogFile(String newName) throws IOException {
-        Files.move(logFilePath, logFilePath.resolveSibling(newName));
-
-
+    public void renameLogFile(String newTagListString) throws IOException {
+        /**
+         * String substring is of of all the tags of the image whose log is to be renamed,
+         * i.e. everything between the image label and the suffix.
+         */
+        int index = modifiedImagePathString.indexOf(" @", modifiedImagePathString.lastIndexOf(":"));
+        String substring;
+        if (index != -1) {
+            substring = modifiedImagePathString.substring(index, modifiedImagePathString.lastIndexOf("."));
+            modifiedImagePathString = modifiedImagePathString.replaceAll(substring, newTagListString);
+        } else {
+            substring = modifiedImagePathString.substring(modifiedImagePathString.lastIndexOf(":"),
+                    modifiedImagePathString.lastIndexOf("."));
+            modifiedImagePathString = modifiedImagePathString.replaceAll(substring, newTagListString);
+        }
+        Files.move(logFilePath, logFilePath.resolveSibling(modifiedImagePathString));
     }
 
-    public void addTagInfo(TagInfo tagInfo) {
+    public void addTagInfo(TagInfo tagInfo) throws IOException {
+        String tagListString = tagInfo.getTagListString();
         tagInfos.add(tagInfo);
+        renameLogFile(tagListString);
+        for (Observer observer: observers) {
+            observer.update();
+        }
     }
 
     public void registerObserver(Observer observer) {
