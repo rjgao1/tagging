@@ -103,6 +103,14 @@ public class MainWindowController implements Observer {
     }
 
     public void addTags() throws IOException {
+        if (image == null) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageBox.fxml"));
+            Stage messageBox = loader.load();
+            messageBox.setTitle("Warning");
+            ((MessageBoxController) loader.getController()).setMessage("Please choose a image file");
+            messageBox.show();
+            return;
+        }
         if (!tagText.getText().matches("@(\\w)+( @(\\w)+)*")) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageBox.fxml"));
             Stage messageBox = loader.load();
@@ -111,10 +119,13 @@ public class MainWindowController implements Observer {
             messageBox.show();
         } else {
             String[] newTagNameList = tagText.getText().split("( )?@");
+            for (String s: newTagNameList) {
+            }
             List<String> tagNameList = tagList.getItems();
             List<Tag> newTagList = new ArrayList<>(0);
             for (String s : tagNameList) {
                 newTagList.add(new Tag(s));
+                System.out.println(s);
             }
             for (int i = 1; i < newTagNameList.length; i++) {
                 newTagList.add(new Tag(newTagNameList[i]));
@@ -124,7 +135,6 @@ public class MainWindowController implements Observer {
             for (int i = 0; i < tagArray.length; i++) {
                 tagArray[i] = newTagList.get(i);
             }
-
             TagInfo newTagInfo = new TagInfo(tagArray);
             image.getLogManager().addTagInfo(newTagInfo);
         }

@@ -42,7 +42,8 @@ public class Image implements Observer {
 
     public static Tag[] getTagsFromName(String filename) {
         Tag[] tags;
-        filename = filename.substring(filename.lastIndexOf(System.getProperty("file.separator")));
+        filename = filename.substring(filename.lastIndexOf(System.getProperty("file.separator")) + 1);
+        filename = filename.substring(0, filename.lastIndexOf("."));
         String[] array = filename.split(" @");
         tags = new Tag[array.length - 1];
         for (int i = 1; i < array.length; i++) {
