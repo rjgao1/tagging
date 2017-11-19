@@ -2,6 +2,8 @@ package Model;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class Image implements Observer {
@@ -17,8 +19,9 @@ public class Image implements Observer {
         file = new File(pathname);
     }
 
-    public void rename(String newPathname) {
-        file.renameTo(new File(newPathname));
+    public void rename(String newPathname) throws IOException{
+        Files.move(file.toPath(), Paths.get(newPathname));
+        file = new File(newPathname);
         for (Observer observer : observers) {
             observer.update();
         }
@@ -57,10 +60,10 @@ public class Image implements Observer {
     }
 
     @Override
-    public void update() {
+    public void update() throws IOException{
         String newFileName = file.getAbsolutePath();
         int index;
-        index = newFileName.indexOf(" @", newFileName.lastIndexOf(System.getProperty("file.separator")));
+        index = newFileName.indexOf(" @", newFileName.lastIndexOf(System.getProperty("file.separator")) - 1);
         String postfix = newFileName.substring(newFileName.lastIndexOf("."));
         newFileName = newFileName.substring(0, newFileName.lastIndexOf("."));
         if (index != -1) {
@@ -70,6 +73,7 @@ public class Image implements Observer {
             newFileName = newFileName + " @" + tag.getContent();
         }
         newFileName = newFileName + postfix;
+        System.out.println(newFileName);
         rename(newFileName);
     }
 }

@@ -119,13 +119,10 @@ public class MainWindowController implements Observer {
             messageBox.show();
         } else {
             String[] newTagNameList = tagText.getText().split("( )?@");
-            for (String s: newTagNameList) {
-            }
             List<String> tagNameList = tagList.getItems();
             List<Tag> newTagList = new ArrayList<>(0);
             for (String s : tagNameList) {
                 newTagList.add(new Tag(s));
-                System.out.println(s);
             }
             for (int i = 1; i < newTagNameList.length; i++) {
                 newTagList.add(new Tag(newTagNameList[i]));
