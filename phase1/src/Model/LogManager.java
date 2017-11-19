@@ -15,7 +15,7 @@ public class LogManager {
     private final Path logDirPath;
     private Path logFilePath;
     private ArrayList<TagInfo> tagInfos;
-    private ArrayList<String> tagInfosStrings;
+//    private ArrayList<String> tagInfosStrings;
     private ArrayList<Observer> observers;
     private String modifiedImagePathString;
 
@@ -64,13 +64,18 @@ public class LogManager {
 
     public void createLogFile() throws IOException {
         if (!logFileExists()) {
-            Files.write(logFilePath, tagInfosStrings, Charset.forName("UTF-8"));
+            Files.createFile(logFilePath);
+//            Files.write(logFilePath, tagInfosStrings, Charset.forName("UTF-8"));
         }
     }
 
     public void writeLogFile() throws IOException {
         BufferedWriter bufferedWriter = Files.newBufferedWriter(logFilePath, Charset.forName("UTF-8"));
-        bufferedWriter.write(tagInfosStrings.get(tagInfosStrings.size() - 1));
+        for (TagInfo tagInfo : tagInfos) {
+            bufferedWriter.write(tagInfo.toString());
+            bufferedWriter.newLine();
+        }
+//        bufferedWriter.write(tagInfosStrings.get(tagInfosStrings.size() - 1));
     }
 
     public void readLogFile() throws  IOException {
