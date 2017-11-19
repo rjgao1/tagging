@@ -24,6 +24,7 @@ public class TagInfo {
         return tagList.clone();
     }
 
+    //Returns the elements of tagList in the form of a string "@tag1 @tag2 ..."
     public String getTagListString() {
         StringBuilder result = new StringBuilder("");
         if (tagList.length == 0) {
@@ -43,6 +44,8 @@ public class TagInfo {
         return result.toString();
     }
 
+    //Returns a string of the form "Time: current system time
+    //                              Tags: tag1, tag2, tag3, ..."
     public String toString() {
         StringBuilder result = new StringBuilder("");
         result.append("Time: ");
@@ -72,6 +75,7 @@ public class TagInfo {
         String[] tagList = tagString.split("@");
     }
 
+    // Works only for strings of the form "@tag1 @tag2 @tag3 ... "
     public TagInfo stringToTagInfo(String tagString) {
         String[] tags = tagString.split("@");
         Tag[] tempTagList = new Tag[tags.length - 1];
