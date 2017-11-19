@@ -67,4 +67,17 @@ public class TagInfo {
     public void setTime(String newTime) {
         this.time = newTime;
     }
+
+    public TagInfo(String tagString) {
+        String[] tagList = tagString.split("@");
+    }
+
+    public TagInfo stringToTagInfo(String tagString) {
+        String[] tags = tagString.split("@");
+        Tag[] tempTagList = new Tag[tags.length - 1];
+        for (int i = 0; i < tempTagList.length; i++) {
+            tempTagList[i] = new Tag(tags[i + 1]);
+        }
+        return new TagInfo(tempTagList);
+    }
 }
