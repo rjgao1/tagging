@@ -118,8 +118,8 @@ public class LogManager {
     }
 
     public void addTagInfo(TagInfo tagInfo) throws IOException {
-        String tagListString = " " + tagInfo.getTagListString();
         tagInfos.add(tagInfo);
+        String tagListString = " " + tagInfo.getTagListString();
         writeLogFile();
         renameLogFile(tagListStringToPathString(tagListString), false);
         for (Observer observer: observers) {
