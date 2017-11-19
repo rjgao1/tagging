@@ -43,7 +43,7 @@ public class LogManager {
         } else {
             readLogFile();
         }
-
+        observers = new ArrayList<>(0);
 
     }
 
