@@ -1,5 +1,6 @@
 Sitao Wang:
 Implement FileManager and Image.
+Implement all the files in FrontEnd.
 
 #########
 Jingyuan Gao:
