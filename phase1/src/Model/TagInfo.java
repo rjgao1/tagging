@@ -8,14 +8,12 @@ public class TagInfo {
 
     Tag[] tagList;
     String time;
-    String tagListString;
 
     public TagInfo(Tag[] tagList) {
         this.tagList = tagList;
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date dateObj = new Date();
         time = dateFormat.format(dateObj);
-        this.tagListString = tagListString;
     }
 
     public String getTime() {
