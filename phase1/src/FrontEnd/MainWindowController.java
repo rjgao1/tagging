@@ -49,7 +49,9 @@ public class MainWindowController implements Observer {
     }
 
     public void closeWindow() {
-        image.deleteObserver(this);
+        if (image != null) {
+            image.deleteObserver(this);
+        }
         stage.close();
         Main.decreaseMainWindowCount();
     }
@@ -221,5 +223,12 @@ public class MainWindowController implements Observer {
             }
 
         }
+    }
+
+    public void openConfigPage() throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ConfigPage.fxml"));
+        Stage configPage = loader.load();
+        configPage.show();
+        configPage.setOnCloseRequest(e -> loadFileList());
     }
 }

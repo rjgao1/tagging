@@ -25,6 +25,7 @@ public class Main extends Application {
             Config.readConfigFile();
             primaryStage = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
             primaryStage.show();
+            mainWindowCount++;
         }
     }
 

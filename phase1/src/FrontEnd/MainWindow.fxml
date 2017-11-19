@@ -27,6 +27,7 @@
             <MenuItem mnemonicParsing="false" text="New Window" onAction="#openMainWindow"/>
             <MenuItem mnemonicParsing="false" text="Close" onAction="#closeWindow"/>
             <MenuItem mnemonicParsing="false" text="Open Directory..." onAction="#openDirectory"/>
+            <MenuItem mnemonicParsing="false" text="Open Configuration" onAction="#openConfigPage"/>
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
             <MenuItem mnemonicParsing="false" text="About"/>
