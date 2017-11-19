@@ -63,4 +63,8 @@ public class TagInfo {
         }
         return result.toString();
     }
+
+    public void setTime(String newTime) {
+        this.time = newTime;
+    }
 }
