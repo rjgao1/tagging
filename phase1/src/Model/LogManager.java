@@ -21,13 +21,14 @@ public class LogManager {
 ////        String imageFileName = pathname.substring(pathname.lastIndexOf(System.getProperty(File.separator)));
 //        String logDirString = userDirString + System.getProperty("file.separator") + "Logs";
 //        logDirPath = Paths.get(logDirString);
+        constructLogFilePath(pathname);
         constructLogDirPath();
         if (!Files.exists(logDirPath)) {
             Files.createDirectory(logDirPath);
         }
 //        File logFile = new File(pathname);
 
-        logFilePath = Paths.get(logFilePath.toString(), "Pathname: " + pathname);
+//        logFilePath = Paths.get(logFilePath.toString(), "Pathname: " + pathname);
         for (TagInfo element : tagInfos) {
             tagInfosStrings.add(element.toString());
         }
@@ -39,6 +40,12 @@ public class LogManager {
         String userDirString = System.getProperty("user.dir");
         String logDirString = userDirString + System.getProperty("file.separator") + "Logs";
         logDirPath = Paths.get(logDirString);
+    }
+
+    private void constructLogFilePath(String imagePath) {
+        String modifiedImagePath;
+        modifiedImagePath = imagePath.replaceAll(System.getProperty("file.separator"), ":");
+        logFilePath = Paths.get(logFilePath.toString(), "Pathname: " + modifiedImagePath);
     }
 
     private boolean logFileExists() {
