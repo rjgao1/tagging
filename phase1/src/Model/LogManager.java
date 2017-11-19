@@ -22,14 +22,17 @@ public class LogManager {
 ////        String imageFileName = pathname.substring(pathname.lastIndexOf(System.getProperty(File.separator)));
 //        String logDirString = userDirString + System.getProperty("file.separator") + "Logs";
 //        logDirPath = Paths.get(logDirString);
-        constructLogFilePath(pathname);
         constructLogDirPath();
+        constructLogFilePath(pathname);
         if (!Files.exists(logDirPath)) {
             Files.createDirectory(logDirPath);
         }
 //        File logFile = new File(pathname);
 
 //        logFilePath = Paths.get(logFilePath.toString(), "Pathname: " + pathname);
+        if (!Files.exists(logFilePath)) {
+            createLogFile();
+        }
         for (TagInfo element : tagInfos) {
             tagInfosStrings.add(element.toString());
         }
@@ -44,7 +47,6 @@ public class LogManager {
     }
 
     private void constructLogFilePath(String imagePath) {
-
         modifiedImagePathString = imagePath.replaceAll(System.getProperty("file.separator"), ":") + ".txt";
         logFilePath = Paths.get(logDirPath.toString(), "Pathname: " + modifiedImagePathString);
     }
@@ -60,10 +62,8 @@ public class LogManager {
     }
 
     public void writeLogFile() throws IOException {
-        if (!logFileExists()) {
-            BufferedWriter bufferedWriter = Files.newBufferedWriter(logFilePath, Charset.forName("UTF-8"));
-            bufferedWriter.write(tagInfosStrings.get(tagInfosStrings.size() - 1));
-        }
+        BufferedWriter bufferedWriter = Files.newBufferedWriter(logFilePath, Charset.forName("UTF-8"));
+        bufferedWriter.write(tagInfosStrings.get(tagInfosStrings.size() - 1));
     }
 
     public void renameLogFile(String newTagListString) throws IOException {
@@ -87,6 +87,7 @@ public class LogManager {
     public void addTagInfo(TagInfo tagInfo) throws IOException {
         String tagListString = tagInfo.getTagListString();
         tagInfos.add(tagInfo);
+        writeLogFile();
         renameLogFile(tagListString);
         for (Observer observer: observers) {
             observer.update();
