@@ -8,12 +8,21 @@ public class TagInfo {
 
     Tag[] tagList;
     String time;
+    String tagListString;
 
     public TagInfo(Tag[] tagList) {
         this.tagList = tagList;
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date dateObj = new Date();
         time = dateFormat.format(dateObj);
+        StringBuilder s = new StringBuilder();
+        for (Tag tag: tagList) {
+            s.append("@");
+            s.append(tag.getContent());
+            s.append(" ");
+        }
+        tagListString = s.toString();
+        tagListString.substring(tagListString.length() - 1);
     }
 
     public String getTime() {
@@ -26,21 +35,7 @@ public class TagInfo {
 
     //Returns the elements of tagList in the form of a string "@tag1@tag2 ..."
     public String getTagListString() {
-        StringBuilder result = new StringBuilder("");
-        if (tagList.length == 0) {
-            return result.toString();
-        } else {
-            int i = 0;
-            while (i < tagList.length - 1) {
-                result.append("@");
-                StringBuilder element = new StringBuilder(tagList[i].getContent());
-                result.append(element);
-                i = i + 1;
-            }
-            result.append("@");
-            result.append(tagList[tagList.length - 1].getContent());
-        }
-        return result.toString();
+        return tagListString;
     }
 
     //Returns a string of the form "yyyy/MM/dd HH:mm:ss|@tag1@tag2"
