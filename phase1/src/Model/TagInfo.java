@@ -44,6 +44,8 @@ public class TagInfo {
         return result.toString();
     }
 
+    //Returns a string of the form "Time: current system time
+    //                              Tags: tag1, tag2, tag3, ..."
     public String toString() {
         StringBuilder result = new StringBuilder("");
         result.append("Time: ");
