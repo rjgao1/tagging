@@ -71,28 +71,30 @@ public class MainWindowController implements Observer {
     }
 
     public void chooseFile(MouseEvent e) throws IOException{
-        String fileName = fileManager.getDirectoryAbsolutePath() + System.getProperty("file.separator");
+        String fileName;
         if (fileList.getSelectionModel().getSelectedIndex() < fileManager.getImageFileNames().size()) {
-            fileName = fileName + fileManager.getImageFileNames().get(fileList.getSelectionModel().getSelectedIndex());
+            fileName = fileManager.getImageFileNames().get(fileList.getSelectionModel().getSelectedIndex());
         } else {
+            fileName = fileManager.getDirectoryAbsolutePath() + System.getProperty("file.separator");
             fileName = fileName + fileList.getSelectionModel().getSelectedItem();
         }
         File file = new File(fileName);
-        if (e.getClickCount() == 1) {
-            if (file.isFile()) {
-                image = new Image(file.getAbsolutePath());
-                if (!image.hasObserver(this)) {
-                    image.registerObserver(this);
-                }
-                //Load tagList
-                Tag[] tagArray = Image.getTagsFromName(file.getAbsolutePath());
-                tags = FXCollections.observableArrayList();
-                for (Tag tag : tagArray) {
-                    tags.add(tag.getContent());
-                }
-                tagList.setItems(tags);
+        System.out.println(file);
+        if (file.isFile()) {
+            image = new Image(file.getAbsolutePath());
+            System.out.println(image);
+            if (!image.hasObserver(this)) {
+                image.registerObserver(this);
             }
-        } else if (e.getClickCount() == 2) {
+            //Load tagList
+            Tag[] tagArray = Image.getTagsFromName(file.getAbsolutePath());
+            tags = FXCollections.observableArrayList();
+            for (Tag tag : tagArray) {
+                tags.add(tag.getContent());
+            }
+            tagList.setItems(tags);
+        }
+        if (e.getClickCount() == 2) {
             if (file.isDirectory()) {
                 fileManager = new FileManager(file.getAbsolutePath());
                 loadFileList();
