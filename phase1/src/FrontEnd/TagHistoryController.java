@@ -58,7 +58,7 @@ public class TagHistoryController {
     }
 
 
-    public void goToHistory() {
+    public void goToHistory() throws IOException{
         TagInfo historyTagInfo = historyTable.getSelectionModel().getSelectedItem();
         TagInfo newTagInfo = new TagInfo(historyTagInfo.getTagList());
         logManager.addTagInfo(newTagInfo);

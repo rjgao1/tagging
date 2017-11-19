@@ -206,6 +206,8 @@ public class MainWindowController implements Observer {
                             image.getFile().getAbsolutePath().lastIndexOf(System.getProperty(File.separator)) + 1);
                     Files.move(image.getFile().toPath(), Paths.get(s));
                     fileManager = new FileManager(selectedDirectory.getAbsolutePath());
+                    image.rename(s);
+                    image.getLogManager().renameLogFile(s);
                     loadFileList();
                 } catch (IOException e) {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageBox.fxml"));
