@@ -75,13 +75,18 @@ public class TagInfo {
         String[] tagList = tagString.split("@");
     }
 
-    // Works only for strings of the form "@tag1 @tag2 @tag3 ... "
+    // Works only for strings of the form "Time: current system time
+    //                                     Tags: tag1, tag2, tag3, ..."
     public TagInfo stringToTagInfo(String tagString) {
-        String[] tags = tagString.split("@");
-        Tag[] tempTagList = new Tag[tags.length - 1];
+        String currentTime = tagString.substring(6, 25);
+        String initialTagsString = tagString.substring(33);
+        String[] tags = initialTagsString.split(", ");
+        Tag[] tempTagList = new Tag[tags.length];
         for (int i = 0; i < tempTagList.length; i++) {
-            tempTagList[i] = new Tag(tags[i + 1]);
+            tempTagList[i] = new Tag(tags[i]);
         }
-        return new TagInfo(tempTagList);
+        TagInfo result = new TagInfo(tempTagList);
+        result.setTime(currentTime);
+        return result;
     }
 }
