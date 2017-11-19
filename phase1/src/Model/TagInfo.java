@@ -24,7 +24,7 @@ public class TagInfo {
         return tagList.clone();
     }
 
-    //Returns the elements of tagList in the form of a string "@tag1 @tag2 ..."
+    //Returns the elements of tagList in the form of a string "@tag1@tag2 ..."
     public String getTagListString() {
         StringBuilder result = new StringBuilder("");
         if (tagList.length == 0) {
@@ -35,7 +35,6 @@ public class TagInfo {
                 result.append("@");
                 StringBuilder element = new StringBuilder(tagList[i].getContent());
                 result.append(element);
-                result.append(" ");
                 i = i + 1;
             }
             result.append("@");
