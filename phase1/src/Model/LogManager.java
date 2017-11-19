@@ -82,11 +82,23 @@ public class LogManager {
         }
     }
 
-    public void renameLogFile(String newTagListString) throws IOException {
+    public void renameLogFile(String newPath, boolean isImage) throws IOException {
         /**
          * String substring is of of all the tags of the image whose log is to be renamed,
          * i.e. everything between the image label and the suffix.
          */
+        if (isImage) {
+            Path newLogFilePath = constructLogFilePath(newPath);
+            Files.move(logFilePath, newLogFilePath);
+            logFilePath = newLogFilePath;
+        }
+        else {
+            Files.move(logFilePath, logFilePath.resolveSibling(modifiedImagePathString));
+            logFilePath = Paths.get(newPath);
+        }
+    }
+
+    private String tagListStringToPathString (String newTagListString) {
         int index = modifiedImagePathString.indexOf(" @", modifiedImagePathString.lastIndexOf(":"));
         String substring;
         if (index != -1) {
@@ -97,14 +109,14 @@ public class LogManager {
                     modifiedImagePathString.lastIndexOf("."));
             modifiedImagePathString = modifiedImagePathString.replaceAll(substring, newTagListString);
         }
-        Files.move(logFilePath, logFilePath.resolveSibling(modifiedImagePathString));
+        return logFilePath.resolveSibling(modifiedImagePathString).toString();
     }
 
     public void addTagInfo(TagInfo tagInfo) throws IOException {
         String tagListString = tagInfo.getTagListString();
         tagInfos.add(tagInfo);
         writeLogFile();
-        renameLogFile(tagListString);
+        renameLogFile(tagListStringToPathString(tagListString), false);
         for (Observer observer: observers) {
             observer.update();
         }
