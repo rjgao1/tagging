@@ -43,16 +43,9 @@ public class TagInfo {
         StringBuilder result = new StringBuilder("");
         result.append(this.getTime());
         result.append("|");
-        if (tagList.length != 0) {
-            int i = 0;
-            while (i < tagList.length - 1) {
-                result.append("@");
-                StringBuilder element = new StringBuilder(tagList[i].getContent());
-                result.append(element);
-                i = i + 1;
-            }
+        for (Tag tag: tagList) {
             result.append("@");
-            result.append(tagList[tagList.length - 1].getContent());
+            result.append(tag.getContent());
         }
         return result.toString();
     }
