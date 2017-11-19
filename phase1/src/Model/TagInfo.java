@@ -33,7 +33,7 @@ public class TagInfo {
         return tagList.clone();
     }
 
-    //Returns the elements of tagList in the form of a string "@tag1@tag2 ..."
+    //Returns the elements of tagList in the form of a string "@tag1 @tag2 ..."
     public String getTagListString() {
         return tagListString;
     }
