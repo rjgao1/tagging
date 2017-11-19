@@ -34,6 +34,7 @@ public class TagInfo {
                 result.append("@");
                 StringBuilder element = new StringBuilder(tagList[i].getContent());
                 result.append(element);
+                result.append(" ");
                 i = i + 1;
             }
             result.append("@");
