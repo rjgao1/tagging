@@ -118,7 +118,12 @@ public class MainWindowController implements Observer {
                 newTagList.add(new Tag(s));
             }
 
-            TagInfo newTagInfo = new TagInfo((Tag[]) newTagList.toArray());
+            Tag[] tagArray = new Tag[newTagList.size()];
+            for (int i = 0; i < tagArray.length; i++) {
+                tagArray[i] = newTagList.get(i);
+            }
+
+            TagInfo newTagInfo = new TagInfo(tagArray);
             image.getLogManager().addTagInfo(newTagInfo);
         }
     }
