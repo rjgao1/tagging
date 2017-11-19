@@ -116,8 +116,8 @@ public class MainWindowController implements Observer {
             for (String s : tagNameList) {
                 newTagList.add(new Tag(s));
             }
-            for (String s : newTagNameList) {
-                newTagList.add(new Tag(s));
+            for (int i = 1; i < newTagNameList.length; i++) {
+                newTagList.add(new Tag(newTagNameList[i]));
             }
 
             Tag[] tagArray = new Tag[newTagList.size()];
@@ -140,7 +140,11 @@ public class MainWindowController implements Observer {
                 newTagList.add(new Tag(s));
             }
 
-            TagInfo newTagInfo = new TagInfo((Tag[]) newTagList.toArray());
+            Tag[] newTagArray = new Tag[newTagList.size()];
+            for (int i = 0; i < newTagArray.length; i++) {
+                newTagArray[i] = newTagList.get(i);
+            }
+            TagInfo newTagInfo = new TagInfo(newTagArray);
             image.getLogManager().addTagInfo(newTagInfo);
         }
     }
