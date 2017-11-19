@@ -1,6 +1,8 @@
 package Model;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -64,6 +66,15 @@ public class LogManager {
     public void writeLogFile() throws IOException {
         BufferedWriter bufferedWriter = Files.newBufferedWriter(logFilePath, Charset.forName("UTF-8"));
         bufferedWriter.write(tagInfosStrings.get(tagInfosStrings.size() - 1));
+    }
+
+    public void readLogFile() throws  IOException {
+        BufferedReader logBR = new BufferedReader(new FileReader(logFilePath.toString()));
+
+        String line = logBR.readLine();
+        while (line != null) {
+            tagInfos.add(TagInfo.stringToTagInfo(line));
+        }
     }
 
     public void renameLogFile(String newTagListString) throws IOException {

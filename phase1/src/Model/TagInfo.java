@@ -59,7 +59,7 @@ public class TagInfo {
     }
 
     // Works only for strings of the form "yyyy/MM/dd HH:mm:ss|@tag1@tag2"
-    public TagInfo stringToTagInfo(String tagString) {
+    public static TagInfo stringToTagInfo(String tagString) {
         String currentTime = tagString.substring(0, 19);
         String initialTagsString = tagString.substring(21, tagString.length());
         String[] tagNames = initialTagsString.split("@");
