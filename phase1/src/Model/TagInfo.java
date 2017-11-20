@@ -22,7 +22,9 @@ public class TagInfo {
             s.append(" ");
         }
         tagListString = s.toString();
-        tagListString.substring(tagListString.length() - 1);
+        if (tagList.length > 1) {
+            tagListString.substring(tagListString.length() - 1);
+        }
     }
 
     public String getTime() {
@@ -70,5 +72,9 @@ public class TagInfo {
         TagInfo result = new TagInfo(tags);
         result.setTime(currentTime);
         return result;
+    }
+
+    public void setTagListString(String tagListString) {
+        this.tagListString = tagListString;
     }
 }
