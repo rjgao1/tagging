@@ -73,7 +73,6 @@ public class Image implements Observer {
             newFileName = newFileName + " @" + tag.getContent();
         }
         newFileName = newFileName + postfix;
-        System.out.println(newFileName);
         rename(newFileName);
     }
 }
