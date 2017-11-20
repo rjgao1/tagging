@@ -1,0 +1,5 @@
+To run the Main method, type the following commands in the command line:
+cd phase1
+cd src
+javac */*.java
+java FrontEnd.Main
