@@ -52,7 +52,7 @@ public class LogManager {
 
     private Path constructLogFilePath(String imagePath) {
         modifiedImagePathString = imagePath.replaceAll(System.getProperty("file.separator"), ":") + ".txt";
-        return Paths.get(logDirPath.toString(), "Pathname: " + modifiedImagePathString);
+        return Paths.get(logDirPath.toString(), modifiedImagePathString);
     }
 
     private boolean logFileExists() {
