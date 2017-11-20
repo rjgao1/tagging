@@ -165,6 +165,7 @@ public class MainWindowController implements Observer {
     }
 
     private void loadFileList() {
+        fileManager = new FileManager(fileManager.getDirectoryAbsolutePath());
         ArrayList<String> list = (ArrayList<String>) fileManager.getImageFileNames().clone();
         list.addAll(fileManager.getDirectoryNames());
         for (int i = 0; i < list.size(); i++) {
