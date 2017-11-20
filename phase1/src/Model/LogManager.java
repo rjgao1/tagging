@@ -90,7 +90,7 @@ public class LogManager {
         BufferedReader logBR = new BufferedReader(new FileReader(logFilePath.toString()));
 
         String line = logBR.readLine();
-        while (line != null) {
+        while (line != null || !line.equals("") ) {
             tagInfos.add(TagInfo.stringToTagInfo(line));
         }
         logBR.close();
