@@ -56,22 +56,26 @@ public class TagInfo {
         this.time = newTime;
     }
 
-    public TagInfo(String tagString) {
-        String[] tagList = tagString.split("@");
-    }
-
     // Works only for strings of the form "yyyy/MM/dd HH:mm:ss|@tag1@tag2"
     public static TagInfo stringToTagInfo(String tagString) {
         String currentTime = tagString.substring(0, 19);
-        String initialTagsString = tagString.substring(21, tagString.length());
-        String[] tagNames = initialTagsString.split("@");
-        Tag[] tags = new Tag[tagNames.length];
-        for (int i = 0; i < tags.length; i++) {
-            tags[i] = new Tag(tagNames[i]);
+        if (tagString.length() >= 21) {
+            String initialTagsString = tagString.substring(21, tagString.length());
+            String[] tagNames = initialTagsString.split("@");
+            Tag[] tags = new Tag[tagNames.length];
+            for (int i = 0; i < tags.length; i++) {
+                tags[i] = new Tag(tagNames[i]);
+            }
+            TagInfo result = new TagInfo(tags);
+            result.setTime(currentTime);
+            return result;
         }
-        TagInfo result = new TagInfo(tags);
-        result.setTime(currentTime);
-        return result;
+        else {
+            TagInfo result = new TagInfo(new Tag[0]);
+            result.setTime(currentTime);
+            return result;
+        }
+
     }
 
     public void setTagListString(String tagListString) {
