@@ -1,0 +1,11 @@
+To run the Main method, type the following commands in the command line:
+cd phase1
+cd src
+javac */*.java
+java FrontEnd.Main
+
+Specifications:
+Don't touch logfiles.
+Don't touch config.txt.
+Don't manually move an image file with tag history to a new directory using the OS, otherwise the history will be lost.
+Don't have ":" in the file name.
