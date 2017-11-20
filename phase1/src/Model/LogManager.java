@@ -51,8 +51,8 @@ public class LogManager {
 //    }
 
     private Path constructLogFilePath(String imagePath) {
-        modifiedImagePathString = imagePath.replaceAll(System.getProperty("file.separator"), ":") + ".txt";
-        return Paths.get(logDirPath.toString(), modifiedImagePathString);
+        modifiedImagePathString = imagePath.replaceAll(System.getProperty("file.separator"), ":");
+        return Paths.get(logDirPath.toString(), modifiedImagePathString + ".txt");
     }
 
     private boolean logFileExists() {
@@ -107,8 +107,10 @@ public class LogManager {
             logFilePath = newLogFilePath;
         }
         else {
-            Files.move(logFilePath, logFilePath.resolveSibling(modifiedImagePathString));
-            logFilePath = Paths.get(newPath);
+//            Files.move(logFilePath, logFilePath.resolveSibling(modifiedImagePathString));
+            Path result = Paths.get(newPath);
+            Files.move(logFilePath, result);
+            logFilePath = result;
         }
     }
 
@@ -121,14 +123,19 @@ public class LogManager {
         } else {
             substring = modifiedImagePathString.substring(modifiedImagePathString.lastIndexOf(":"),
                     modifiedImagePathString.lastIndexOf("."));
-            modifiedImagePathString = modifiedImagePathString.replaceAll(substring, newTagListString);
+            modifiedImagePathString = modifiedImagePathString.replaceAll(substring,
+                    substring + newTagListString);
         }
-        return logFilePath.resolveSibling(modifiedImagePathString).toString();
+
+        String result = logFilePath.resolveSibling(modifiedImagePathString).toString() + ".txt";
+
+        return result;
     }
 
     public void addTagInfo(TagInfo tagInfo) throws IOException {
         tagInfos.add(tagInfo);
         String tagListString = " " + tagInfo.getTagListString();
+        tagListString = tagListString.substring(0, tagListString.length() - 1);
         writeLogFile();
         renameLogFile(tagListStringToPathString(tagListString), false);
         for (Observer observer: observers) {
