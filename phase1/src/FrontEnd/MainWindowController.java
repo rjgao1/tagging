@@ -216,9 +216,9 @@ public class MainWindowController implements Observer {
             if (selectedDirectory != null) {
                 try {
                     String s = selectedDirectory.getAbsolutePath();
-                    s = s + image.getFile().getAbsolutePath().substring(
-                            image.getFile().getAbsolutePath().lastIndexOf(System.getProperty("file.separator")) + 1);
-                    Files.move(image.getFile().toPath(), Paths.get(s));
+                    s = s + System.getProperty("file.separator") + image.getFile().getAbsolutePath().substring(
+                            image.getFile().getAbsolutePath().lastIndexOf(System.getProperty("file.separator")) );
+//                    Files.move(image.getFile().toPath(), Paths.get(s));
                     fileManager = new FileManager(selectedDirectory.getAbsolutePath());
                     image.rename(s);
                     image.getLogManager().renameLogFile(s, true);

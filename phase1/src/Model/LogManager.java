@@ -51,7 +51,8 @@ public class LogManager {
 //    }
 
     private Path constructLogFilePath(String imagePath) {
-        modifiedImagePathString = imagePath.replaceAll(System.getProperty("file.separator"), ":");
+        String withoutFirstSeparator = imagePath.substring(1);
+        modifiedImagePathString = withoutFirstSeparator.replaceAll(System.getProperty("file.separator"), ":");
         return Paths.get(logDirPath.toString(), modifiedImagePathString + ".txt");
     }
 
