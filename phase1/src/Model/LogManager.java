@@ -1,9 +1,6 @@
 package Model;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.nio.file.*;
@@ -70,12 +67,23 @@ public class LogManager {
     }
 
     public void writeLogFile() throws IOException {
-        BufferedWriter bufferedWriter = Files.newBufferedWriter(logFilePath, Charset.forName("UTF-8"));
+//        BufferedWriter bufferedWriter = Files.newBufferedWriter(logFilePath, Charset.forName("UTF-8"));
+//        for (TagInfo tagInfo : tagInfos) {
+//            bufferedWriter.write(tagInfo.toString());
+//            bufferedWriter.newLine();
+//        }
+////        bufferedWriter.write(tagInfosStrings.get(tagInfosStrings.size() - 1));
+        File logFile = logFilePath.toFile();
+        FileOutputStream logFileFOS = new FileOutputStream(logFile);
+        BufferedWriter logFileBW = new BufferedWriter(new OutputStreamWriter(logFileFOS));
+
         for (TagInfo tagInfo : tagInfos) {
-            bufferedWriter.write(tagInfo.toString());
-            bufferedWriter.newLine();
+            logFileBW.write(tagInfo.toString());
+            logFileBW.newLine();
         }
-//        bufferedWriter.write(tagInfosStrings.get(tagInfosStrings.size() - 1));
+        logFileBW.close();
+        logFileFOS.close();
+
     }
 
     public void readLogFile() throws  IOException {
@@ -85,6 +93,7 @@ public class LogManager {
         while (line != null) {
             tagInfos.add(TagInfo.stringToTagInfo(line));
         }
+        logBR.close();
     }
 
     public void renameLogFile(String newPath, boolean isImage) throws IOException {
