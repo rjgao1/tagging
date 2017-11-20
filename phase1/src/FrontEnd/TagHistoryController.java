@@ -28,7 +28,7 @@ public class TagHistoryController {
     @FXML
     private TableColumn<TagInfo, String> timeColumn;
     @FXML
-    private TableColumn<TagInfo, Tag[]> tagsColumn;
+    private TableColumn<TagInfo, String> tagsColumn;
     @FXML
     private Button closeButton;
     @FXML
@@ -36,20 +36,24 @@ public class TagHistoryController {
 
     private ObservableList<TagInfo> data;
 
-    @FXML
-    public void initialize() {
-        loadData();
-    }
-
-    public void setLogManager(LogManager logManager) {
+    public void setLogManager(LogManager logManager) throws IOException{
         this.logManager = logManager;
-        loadData();
+        if (logManager.getTagInfos().size() != 0) {
+            loadData();
+        } else {
+            stage.close();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageBox.fxml"));
+            Stage messageBox = loader.load();
+            messageBox.setTitle("Warning");
+            ((MessageBoxController)loader.getController()).setMessage("Image file do not has tag history");
+            messageBox.show();
+        }
     }
 
     public void loadData() {
         data = FXCollections.observableArrayList(logManager.getTagInfos());
-        timeColumn.setCellValueFactory(new PropertyValueFactory<TagInfo, String>("time"));
-        tagsColumn.setCellValueFactory(new PropertyValueFactory<TagInfo, Tag[]>("tagListString"));
+        timeColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
+        tagsColumn.setCellValueFactory(new PropertyValueFactory<>("tagListString"));
     }
 
 
