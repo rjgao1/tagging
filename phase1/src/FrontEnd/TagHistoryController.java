@@ -2,19 +2,19 @@ package FrontEnd;
 
 import Model.LogManager;
 import Model.TagInfo;
-import Model.Tag;
 
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.TableColumn.*;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.IOException;
 
@@ -52,8 +52,18 @@ public class TagHistoryController {
 
     public void loadData() {
         data = FXCollections.observableArrayList(logManager.getTagInfos());
-        timeColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
-        tagsColumn.setCellValueFactory(new PropertyValueFactory<>("tagListString"));
+        historyTable.setItems(data);
+        timeColumn.setCellValueFactory(new Callback<CellDataFeatures<TagInfo, String>, ObservableValue<String>>() {
+            public ObservableValue<String> call(CellDataFeatures<TagInfo, String> p) {
+                return new ReadOnlyObjectWrapper(p.getValue().getTime());
+            }
+        });
+
+        tagsColumn.setCellValueFactory(new Callback<CellDataFeatures<TagInfo, String>, ObservableValue<String>>() {
+            public ObservableValue<String> call(CellDataFeatures<TagInfo, String> p) {
+                return new ReadOnlyObjectWrapper(p.getValue().getTagListString());
+            }
+        });
     }
 
 
