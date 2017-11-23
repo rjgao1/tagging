@@ -1,0 +1,12 @@
+Sitao:
+Change the FileManager to get all the image files under the directory
+Change the MainWindow.fxml and the MainWindowController
+Add Javadoc
+*********
+Rooney:
+Add the Observable calss
+Add Javadoc
+*********
+Afroditi:
+Add tagSet in the Tag class and the corresponding methods
+Add Javadoc
