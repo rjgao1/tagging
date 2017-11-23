@@ -6,41 +6,32 @@ import java.util.ArrayList;
 public class FileManager {
 
     private File directory;
-    private ArrayList<String> imageFileNames;
-    private ArrayList<String> directoryNames;
-    private static final String[] IMAGE_EXTENSION= {".png", ".jpg",".img"};
+    private ArrayList<File> images;
+    private static final String[] IMAGE_EXTENSION= {".png", ".jpg",".img", "jpeg"};
 
     public FileManager(String directoryRoute) {
         this.directory = new File(directoryRoute);
-        imageFileNames = new ArrayList<>(0);
-        directoryNames = new ArrayList<>(0);
-        renewDirectory();
-    }
-
-    public ArrayList<String> getImageFileNames() {
-        return imageFileNames;
-    }
-
-    public ArrayList<String> getDirectoryNames() {
-        return directoryNames;
+        images = getAllImages(directory);
     }
 
     public String getDirectoryAbsolutePath() {
         return directory.getAbsolutePath();
     }
 
-    public void renewDirectory(){
-        File[] fileList = directory.listFiles();
-        if (fileList != null) {
-            for (File file : fileList) {
-                if (file.isDirectory()) {
-                    directoryNames.add(file.getPath());
-                } else if (isImage(file)) {
-                    imageFileNames.add(file.getPath());
-                }
+    public ArrayList<File> getImages() {
+        return images;
+    }
 
+    public ArrayList<File> getAllImages(File dir) {
+        ArrayList<File> ret = new ArrayList<>(0);
+        for (File file: dir.listFiles()) {
+            if (isImage(file)) {
+                ret.add(file);
+            } else if (file.isDirectory()) {
+                ret.addAll(getAllImages(file));
             }
         }
+        return ret;
     }
 
     private boolean isImage(File file) {
