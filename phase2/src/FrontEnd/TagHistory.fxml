@@ -18,8 +18,8 @@
 
     <TableView fx:id="historyTable">
         <columns>
-            <TableColumn maxWidth="130.0" minWidth="130.0" prefWidth="130.0" text="Time" fx:id="time"/>
-            <TableColumn maxWidth="270.0" minWidth="270.0" prefWidth="270.0" text="Tags" fx:id="tags"/>
+            <TableColumn maxWidth="130.0" minWidth="130.0" prefWidth="130.0" text="Time" fx:id="timeColumn"/>
+            <TableColumn maxWidth="270.0" minWidth="270.0" prefWidth="270.0" text="Tags" fx:id="tagsColumn"/>
         </columns>
     </TableView>
 
