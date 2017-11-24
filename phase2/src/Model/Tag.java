@@ -30,6 +30,9 @@ public class Tag {
     }
 
     public void addTagToSet(Tag newTag){
+        if (!Tag.tagSet.contains(newTag)) {
+            Tag.tagSet.add(newTag);
+        }
     }
 
     public void addTagToSet(Tag[] newTagList){
