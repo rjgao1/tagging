@@ -36,6 +36,11 @@ public class Tag {
     }
 
     public void addTagToSet(Tag[] newTagList){
+        for (element : newTagList) {
+            if (!Tag.tagSet.contains(element)) {
+                Tag.tagSet.add(element)
+            }
+        }
     }
 
     public void writeTagFile() throws IOException {
