@@ -36,9 +36,9 @@ public class Tag {
     }
 
     public void addTagToSet(Tag[] newTagList){
-        for (element : newTagList) {
+        for (Tag element : newTagList) {
             if (!Tag.tagSet.contains(element)) {
-                Tag.tagSet.add(element)
+                Tag.tagSet.add(element);
             }
         }
     }
