@@ -45,4 +45,8 @@ public class Tag {
 
     public void writeTagFile() throws IOException {
     }
+
+    public void reatTagFile() throws IOException {
+        
+    }
 }
