@@ -1,6 +1,7 @@
 package Model;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class FileManager {
@@ -22,13 +23,15 @@ public class FileManager {
         return images;
     }
 
-    public ArrayList<File> getAllImages(File dir) {
+    public ArrayList<File> getAllImages(File dir){
         ArrayList<File> ret = new ArrayList<>(0);
-        for (File file: dir.listFiles()) {
-            if (isImage(file)) {
-                ret.add(file);
-            } else if (file.isDirectory()) {
-                ret.addAll(getAllImages(file));
+        if (dir.listFiles() != null) {
+            for (File file : dir.listFiles()) {
+                if (isImage(file)) {
+                    ret.add(file);
+                } else if (file.isDirectory()) {
+                    ret.addAll(getAllImages(file));
+                }
             }
         }
         return ret;
