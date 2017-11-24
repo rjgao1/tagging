@@ -53,6 +53,7 @@ public class Tag {
     public void readTagFile() throws IOException {
     }
 
-    public static void createTagFile() throws IOException{
+    public static void createTagFile() throws IOException {
+        tagFile.createNewFile();
     }
 }
