@@ -9,6 +9,8 @@ public class Tag {
 
     private final String content;
     private static Set<Tag> tagSet;
+    private static String defaultPath = "";
+    private static final File tagFile = new File(System.getProperty("user.dir"), "config.txt");
 
     public Tag(String content) {
         this.content = content;
