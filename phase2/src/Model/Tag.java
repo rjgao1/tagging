@@ -2,6 +2,8 @@ package Model;
 
 import java.io.IOException;
 import java.util.*;
+import java.io.*;
+import java.nio.file.*;
 
 public class Tag {
 
@@ -30,11 +32,25 @@ public class Tag {
     }
 
     public void addTagToSet(Tag newTag){
+        if (!Tag.tagSet.contains(newTag)) {
+            Tag.tagSet.add(newTag);
+        }
     }
 
     public void addTagToSet(Tag[] newTagList){
+        for (Tag element : newTagList) {
+            if (!Tag.tagSet.contains(element)) {
+                Tag.tagSet.add(element);
+            }
+        }
     }
 
     public void writeTagFile() throws IOException {
+    }
+
+    public void readTagFile() throws IOException {
+    }
+
+    public static void createTagFile() throws IOException{
     }
 }
