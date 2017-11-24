@@ -63,45 +63,13 @@ public class MainWindowController implements Observer {
         Main.incrementMainWindowCount();
     }
 
-    public void openDirectory() {
-        DirectoryChooser directoryChooser = new DirectoryChooser();
-        directoryChooser.setTitle("Choose the new directory");
-        File selectedDirectory = directoryChooser.showDialog(stage);
-        fileManager = new FileManager(selectedDirectory.getAbsolutePath());
-
-        loadFileList();
+    public void chooseFile() throws IOException{
+        image = new Image(Config.getDefaultPath() + System.getProperty(File.separator) +
+                fileList.getSelectionModel().getSelectedItem());
+        loadTagList();
     }
 
-    public void chooseFile(MouseEvent e) throws IOException{
-        String fileName;
-        if (fileList.getSelectionModel().getSelectedIndex() < fileManager.getImageFileNames().size()) {
-            fileName = fileManager.getImageFileNames().get(fileList.getSelectionModel().getSelectedIndex());
-        } else {
-            fileName = fileManager.getDirectoryAbsolutePath() + System.getProperty("file.separator");
-            fileName = fileName + fileList.getSelectionModel().getSelectedItem();
-        }
-        File file = new File(fileName);
-        if (file.isFile()) {
-            image = new Image(file.getAbsolutePath());
-            if (!image.hasObserver(this)) {
-                image.registerObserver(this);
-            }
-            //Load tagList
-            Tag[] tagArray = Image.getTagsFromName(file.getAbsolutePath());
-            tags = FXCollections.observableArrayList();
-            for (Tag tag : tagArray) {
-                tags.add(tag.getContent());
-            }
-            tagList.setItems(tags);
-        }
-        if (e.getClickCount() == 2) {
-            if (file.isDirectory()) {
-                fileManager = new FileManager(file.getAbsolutePath());
-                loadFileList();
-            }
-        }
-    }
-
+    //@todo
     public void addTags() throws IOException {
         if (image == null) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageBox.fxml"));
@@ -137,6 +105,7 @@ public class MainWindowController implements Observer {
         }
     }
 
+    //@todo
     public void deleteTags() throws IOException{
         List<String> list = tagList.getSelectionModel().getSelectedItems();
         if (tagList.getSelectionModel().getSelectedItem() != null) {
@@ -165,24 +134,13 @@ public class MainWindowController implements Observer {
     }
 
     private void loadFileList() {
-        fileManager = new FileManager(fileManager.getDirectoryAbsolutePath());
-        ArrayList<String> list = (ArrayList<String>) fileManager.getImageFileNames().clone();
-        list.addAll(fileManager.getDirectoryNames());
-        for (int i = 0; i < list.size(); i++) {
-            String s = list.get(i);
-            s = s.substring(s.lastIndexOf(System.getProperty("file.separator")) + 1);
-            if (!Config.getViewTags()) {
-                if (s.contains(" @")) {
-                    String postfix = s.substring(s.lastIndexOf("."));
-                    s = s.substring(0, s.indexOf(" @"));
-                    s = s + postfix;
-                }
-            }
-            list.set(i, s);
+        files = FXCollections.observableArrayList();
+        for (File file : fileManager.getImages()) {
+            String path = file.getAbsolutePath();
+            path = path.replace(Config.getDefaultPath(), "");
+            path = path.substring(1);
+            files.add(path);
         }
-
-        files = FXCollections.observableArrayList(list);
-        fileList.setItems(files);
     }
 
     private void loadTagList() {
