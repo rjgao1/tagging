@@ -41,32 +41,6 @@
         </HBox>
 
 
-        <Separator prefWidth="200.0">
-            <VBox.margin>
-                <Insets top="5.0"/>
-            </VBox.margin>
-        </Separator>
-
-
-        <Label text="Choose view mode:">
-            <font>
-                <Font size="26.0"/>
-            </font>
-        </Label>
-        <HBox alignment="TOP_CENTER">
-            <VBox.margin>
-                <Insets/>
-            </VBox.margin>
-            <RadioButton fx:id="viewWithTags" text="View with tags">
-                <toggleGroup>
-                    <ToggleGroup fx:id="toggleGroup"/>
-                </toggleGroup>
-            </RadioButton>
-            <Region prefWidth="75.0"/>
-            <RadioButton fx:id="viewWithoutTags" text="View without tags" toggleGroup="$toggleGroup"/>
-        </HBox>
-
-
         <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
             <VBox.margin>
                 <Insets/>

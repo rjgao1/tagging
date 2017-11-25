@@ -34,17 +34,9 @@ public class ConfigPageController {
             } catch (IOException e) {
                 Config.deleteConfigFile();
                 Config.createConfigFile();
-                Config.setViewTags(true);
                 Config.setDefaultPath("");
             }
             directory.setText(Config.getDefaultPath());
-            if (Config.getViewTags()) {
-                viewWithTags.setSelected(true);
-            } else {
-                viewWithoutTags.setSelected(true);
-            }
-        } else {
-            viewWithTags.setSelected(true);
         }
     }
 
@@ -54,7 +46,7 @@ public class ConfigPageController {
 
     public void selectDirectory() {
         DirectoryChooser directoryChooser = new DirectoryChooser();
-        directoryChooser.setTitle("Choose default directory");
+        directoryChooser.setTitle("Choose root directory");
         File selectedDirectory = directoryChooser.showDialog(stage);
         if (selectedDirectory != null) {
             Config.setDefaultPath(selectedDirectory.getAbsolutePath());
@@ -68,7 +60,6 @@ public class ConfigPageController {
             popWarningMessageBox();
         } else {
             Config.setDefaultPath(directory.getText());
-            Config.setViewTags(viewWithTags.isSelected());
             if (!Config.hasConfigFile()) {
                 Config.createConfigFile();
             }
