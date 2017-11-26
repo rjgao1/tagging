@@ -54,7 +54,11 @@ public class TagInfo {
         return tagList.clone();
     }
 
-    //Returns the elements of tagList in the form of a string "@tag1 @tag2 ..."
+    /**
+     * Returns this TagInfo's tagList as a string of the form "@tag1 @tag2 ...".
+     *
+     * @return a String containing the elements of tagList.
+     */
     public String getTagListString() {
         return tagListString;
     }
