@@ -25,6 +25,10 @@ public class Tag {
         return obj instanceof Tag && this.content.equals(((Tag) obj).content);
     }
 
+    private boolean compareTagSets(Set<Tag> set1, Set<Tag> set2) {
+        return set1 != null && set2 != null && set1.size() == set2.size() && set1.containsAll(set2);
+    }
+
     public static Set getTagSet(){
         return tagSet;
     }
