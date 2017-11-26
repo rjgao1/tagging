@@ -24,7 +24,7 @@ public class Tag {
     }
 
     /**
-     * Gets this Tag's content.
+     * Returns this Tag's content.
      *
      * @return a string representing this Tag's content.
      */
@@ -43,6 +43,11 @@ public class Tag {
         return obj instanceof Tag && this.content.equals(((Tag) obj).content);
     }
 
+    /**
+     * Returns this Tag's tagSet.
+     *
+     * @return a set of Tags representing this Tag's tagSet.
+     */
     public static Set<Tag> getTagSet(){
         return tagSet;
     }
