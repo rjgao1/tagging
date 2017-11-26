@@ -88,7 +88,14 @@ public class TagInfo {
         this.time = newTime;
     }
 
-    // Works only for strings of the form "yyyy/MM/dd HH:mm:ss|@tag1@tag2"
+    /**
+     * Returns a new TagInfo object, given a string of the form "yyyy/MM/dd HH:mm:ss|@tag1@tag2", with the time
+     * specified in this string. This method only produces the correct result when the input string tagString is
+     * of this particular form.
+     *
+     * @param tagString a String representing a TagInfo.
+     * @return          a TagInfo object with the information of the input string.
+     */
     public static TagInfo stringToTagInfo(String tagString) {
         String currentTime = tagString.substring(0, 19);
         if (tagString.length() >= 21) {
