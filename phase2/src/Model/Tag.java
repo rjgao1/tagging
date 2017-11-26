@@ -62,7 +62,7 @@ public class Tag {
     }
 
     /**
-     * Adds Tag newTag to this Tag's tagSet.
+     * Adds Tag newTag to this Tag's tagSet, if it is not already contained in it.
      *
      * @param newTag a Tag to be added to this Tag's tagSet.
      */
@@ -72,6 +72,11 @@ public class Tag {
         }
     }
 
+    /**
+     * Adds the elements of newTagList to this Tag's tagSet, if they are not already contained in it.
+     *
+     * @param newTagList an ArrayList of Tags, whose elements are to be added to this Tag's tagSet.
+     */
     public static void addTagToSet(Tag[] newTagList){
         for (Tag element : newTagList) {
             if (!Tag.tagSet.contains(element)) {
