@@ -52,11 +52,11 @@ public class Tag {
     }
 
     public static void writeTagFile() throws IOException {
-        FileOutputStream TagFOS = new FileOutputStream(tagFile);
-        BufferedWriter TagBW = new BufferedWriter(new OutputStreamWriter(TagFOS));
-        TagBW.write(defaultPath);
-        TagBW.close();
-        TagFOS.close();
+        FileOutputStream tagFOS = new FileOutputStream(tagFile);
+        BufferedWriter tagBW = new BufferedWriter(new OutputStreamWriter(tagFOS));
+        tagBW.write(defaultPath);
+        tagBW.close();
+        tagFOS.close();
     }
 
     public static void readTagFile() throws IOException {
