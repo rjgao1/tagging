@@ -22,7 +22,7 @@ public class Tag {
 
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof Tag && this.content.equals(((Tag) obj).content);
+        return obj instanceof Tag && this.content.equals(((Tag) obj).content) && compareTagSets(tagSet, ((Tag) obj).tagSet);
     }
 
     private boolean compareTagSets(Set<Tag> set1, Set<Tag> set2) {
