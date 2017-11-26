@@ -63,7 +63,11 @@ public class TagInfo {
         return tagListString;
     }
 
-    //Returns a string of the form "yyyy/MM/dd HH:mm:ss|@tag1@tag2"
+    /**
+     * Returns a string representation of this TagInfo, of the form "yyyy/MM/dd HH:mm:ss|@tag1@tag2...".
+     *
+     * @return a String of the form "yyyy/MM/dd HH:mm:ss|@tag1@tag2"
+     */
     public String toString() {
         StringBuilder result = new StringBuilder("");
         result.append(this.getTime());
