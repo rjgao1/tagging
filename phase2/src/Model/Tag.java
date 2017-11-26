@@ -22,24 +22,28 @@ public class Tag {
 
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof Tag && this.content.equals(((Tag) obj).content);
+        return obj instanceof Tag && this.content.equals(((Tag) obj).content) && compareTagSets(tagSet, ((Tag) obj).tagSet);
     }
 
-    public Set getTagSet(){
+    private boolean compareTagSets(Set<Tag> set1, Set<Tag> set2) {
+        return set1 != null && set2 != null && set1.size() == set2.size() && set1.containsAll(set2);
+    }
+
+    public static Set getTagSet(){
         return tagSet;
     }
 
-    public void setTagSet(Set<Tag> newTagSet){
+    public static void setTagSet(Set<Tag> newTagSet){
         Tag.tagSet = newTagSet;
     }
 
-    public void addTagToSet(Tag newTag){
+    public static void addTagToSet(Tag newTag){
         if (!Tag.tagSet.contains(newTag)) {
             Tag.tagSet.add(newTag);
         }
     }
 
-    public void addTagToSet(Tag[] newTagList){
+    public static void addTagToSet(Tag[] newTagList){
         for (Tag element : newTagList) {
             if (!Tag.tagSet.contains(element)) {
                 Tag.tagSet.add(element);
@@ -47,10 +51,22 @@ public class Tag {
         }
     }
 
-    public void writeTagFile() throws IOException {
+    public static void writeTagFile() throws IOException {
+        FileOutputStream tagFOS = new FileOutputStream(tagFile);
+        BufferedWriter tagBW = new BufferedWriter(new OutputStreamWriter(tagFOS));
+        tagBW.write(defaultPath);
+        tagBW.close();
+        tagFOS.close();
     }
 
-    public void readTagFile() throws IOException {
+    public static void readTagFile() throws IOException {
+        BufferedReader tagBR = new BufferedReader(new FileReader(tagFile));
+        defaultPath = tagBR.readLine();
+        File defaultPathFile = new File(defaultPath);
+        if (!defaultPathFile.isDirectory()) {
+            throw new ClassCastException();
+        }
+        tagBR.close();
     }
 
     public static void createTagFile() throws IOException {
