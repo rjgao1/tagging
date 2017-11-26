@@ -4,12 +4,21 @@ import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+/**
+ * Represents a TagInfo object, i.e. an object which keeps track of a list of Tags and a timestamp which denotes the
+ * date and time it was created.
+ */
 public class TagInfo {
 
     Tag[] tagList;
     String time;
     String tagListString;
 
+    /**
+     * Creates a TagInfo object with a tagList, time and tagListString.
+     *
+     * @param tagList this TagInfo's tagList, i.e. a list of Tags.
+     */
     public TagInfo(Tag[] tagList) {
         this.tagList = tagList;
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -27,6 +36,11 @@ public class TagInfo {
         }
     }
 
+    /**
+     * Returns this TagInfo's time.
+     *
+     * @return a string representing the time this TagInfo was created.
+     */
     public String getTime() {
         return this.time;
     }
