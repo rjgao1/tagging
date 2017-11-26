@@ -25,21 +25,21 @@ public class Tag {
         return obj instanceof Tag && this.content.equals(((Tag) obj).content);
     }
 
-    public Set getTagSet(){
+    public static Set getTagSet(){
         return tagSet;
     }
 
-    public void setTagSet(Set<Tag> newTagSet){
+    public static void setTagSet(Set<Tag> newTagSet){
         Tag.tagSet = newTagSet;
     }
 
-    public void addTagToSet(Tag newTag){
+    public static void addTagToSet(Tag newTag){
         if (!Tag.tagSet.contains(newTag)) {
             Tag.tagSet.add(newTag);
         }
     }
 
-    public void addTagToSet(Tag[] newTagList){
+    public static void addTagToSet(Tag[] newTagList){
         for (Tag element : newTagList) {
             if (!Tag.tagSet.contains(element)) {
                 Tag.tagSet.add(element);
@@ -47,10 +47,10 @@ public class Tag {
         }
     }
 
-    public void writeTagFile() throws IOException {
+    public static void writeTagFile() throws IOException {
     }
 
-    public void readTagFile() throws IOException {
+    public static void readTagFile() throws IOException {
     }
 
     public static void createTagFile() throws IOException {
