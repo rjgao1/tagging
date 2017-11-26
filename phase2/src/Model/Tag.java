@@ -52,6 +52,11 @@ public class Tag {
         return tagSet;
     }
 
+    /**
+     * Sets this Tag's tagSet to newTagSet.
+     *
+     * @param newTagSet a new set of Tags.
+     */
     public static void setTagSet(Set<Tag> newTagSet){
         Tag.tagSet = newTagSet;
     }
