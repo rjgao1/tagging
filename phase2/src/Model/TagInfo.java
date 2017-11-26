@@ -79,6 +79,11 @@ public class TagInfo {
         return result.toString();
     }
 
+    /**
+     * Sets this TagInfo's time to newTime.
+     *
+     * @param newTime a new String representing time
+     */
     public void setTime(String newTime) {
         this.time = newTime;
     }
