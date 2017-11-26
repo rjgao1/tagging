@@ -115,45 +115,13 @@ public class MainWindowController implements Observer {
             messageBox.show();
         } else {
             List<String> tagsAdded = tagSet.getSelectionModel().getSelectedItems();
+            List<Tag> newTags = new ArrayList<>(0);
             for (String tagString: tagsAdded) {
-                //@todo
+                if (!tags.contains(tagString)) {
+                    newTags.add(new Tag(tagString));
+                }
             }
-        }
-    }
-
-    //@todo
-    public void addTags() throws IOException {
-        if (image == null) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageBox.fxml"));
-            Stage messageBox = loader.load();
-            messageBox.setTitle("Warning");
-            ((MessageBoxController) loader.getController()).setMessage("Please choose a image file");
-            messageBox.show();
-            return;
-        }
-        if (!tagText.getText().matches("@(\\w)+( @(\\w)+)*")) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageBox.fxml"));
-            Stage messageBox = loader.load();
-            messageBox.setTitle("Warning");
-            ((MessageBoxController) loader.getController()).setMessage("Please enter tags with pattern @tag");
-            messageBox.show();
-        } else {
-            String[] newTagNameList = tagText.getText().split("( )?@");
-            List<String> tagNameList = tagList.getItems();
-            List<Tag> newTagList = new ArrayList<>(0);
-            for (String s : tagNameList) {
-                newTagList.add(new Tag(s));
-            }
-            for (int i = 1; i < newTagNameList.length; i++) {
-                newTagList.add(new Tag(newTagNameList[i]));
-            }
-
-            Tag[] tagArray = new Tag[newTagList.size()];
-            for (int i = 0; i < tagArray.length; i++) {
-                tagArray[i] = newTagList.get(i);
-            }
-            TagInfo newTagInfo = new TagInfo(tagArray);
-            image.getLogManager().addTagInfo(newTagInfo);
+            image.getLogManager().addTagInfo(new TagInfo(newTags.toArray(new Tag[newTags.size()])));
         }
     }
 
