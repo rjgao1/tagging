@@ -21,11 +21,7 @@ public class Tag {
 
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof Tag && this.content.equals(((Tag) obj).content) && compareTagSets(tagSet, ((Tag) obj).tagSet);
-    }
-
-    private boolean compareTagSets(Set<Tag> set1, Set<Tag> set2) {
-        return set1 != null && set2 != null && set1.size() == set2.size() && set1.containsAll(set2);
+        return obj instanceof Tag && this.content.equals(((Tag) obj).content);
     }
 
     public static Set<Tag> getTagSet(){
