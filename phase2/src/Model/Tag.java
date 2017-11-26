@@ -61,6 +61,11 @@ public class Tag {
         Tag.tagSet = newTagSet;
     }
 
+    /**
+     * Adds Tag newTag to this Tag's tagSet.
+     *
+     * @param newTag a Tag to be added to this Tag's tagSet.
+     */
     public static void addTagToSet(Tag newTag){
         if (!Tag.tagSet.contains(newTag)) {
             Tag.tagSet.add(newTag);
