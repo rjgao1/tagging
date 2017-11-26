@@ -45,6 +45,11 @@ public class TagInfo {
         return this.time;
     }
 
+    /**
+     * Returns this TagInfo's tagList.
+     *
+     * @return an Array of this TagInfo's Tags.
+     */
     public Tag[] getTagList() {
         return tagList.clone();
     }
