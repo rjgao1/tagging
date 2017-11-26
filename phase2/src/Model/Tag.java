@@ -17,7 +17,7 @@ public class Tag {
     /**
      * Creates a Tag object with content.
      *
-     * @param content This Tag's content.
+     * @param content this Tag's content.
      */
     public Tag(String content) {
         this.content = content;
@@ -26,12 +26,18 @@ public class Tag {
     /**
      * Gets this Tag's content.
      *
-     * @return A string representing this Tag's content.
+     * @return a string representing this Tag's content.
      */
     public String getContent() {
         return content;
     }
 
+    /**
+     * Compares the specified Object obj with this Tag to check if they are equal.
+     *
+     * @param obj the object to be compared.
+     * @return    true if this object is a Tag with the same content as obj's.
+     */
     @Override
     public boolean equals(Object obj) {
         return obj instanceof Tag && this.content.equals(((Tag) obj).content);
