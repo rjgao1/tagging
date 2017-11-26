@@ -22,6 +22,7 @@ import java.io.IOException;
 public class TagHistoryController {
 
     private LogManager logManager;
+    private String fileName;
 
     @FXML
     private TableView<TagInfo> historyTable;
@@ -50,6 +51,10 @@ public class TagHistoryController {
         }
     }
 
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
     public void loadData() {
         data = FXCollections.observableArrayList(logManager.getTagInfos());
         historyTable.setItems(data);
@@ -61,7 +66,11 @@ public class TagHistoryController {
 
         tagsColumn.setCellValueFactory(new Callback<CellDataFeatures<TagInfo, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(CellDataFeatures<TagInfo, String> p) {
-                return new ReadOnlyObjectWrapper(p.getValue().getTagListString());
+                String ret = fileName;
+                String suffix = ret.substring(ret.lastIndexOf("."));
+                ret = ret.substring(ret.indexOf("@"));
+                ret = ret + " " + p.getValue().getTagListString() + suffix;
+                return new ReadOnlyObjectWrapper(ret);
             }
         });
     }
