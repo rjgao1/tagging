@@ -1,7 +1,5 @@
 package FrontEnd;
 
-import Model.*;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,10 +8,13 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
 
+import Model.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,7 +27,7 @@ import java.util.List;
 public class MainWindowController implements Observer {
 
     private FileManager fileManager;
-    private Image image;
+    private Model.Image image;
 
     @FXML
     ListView<String> fileList;
@@ -40,6 +41,8 @@ public class MainWindowController implements Observer {
     ListView<String> tagSet;
     @FXML
     ImageView imageView;
+    @FXML
+    Text pathText;
 
     private ObservableList<String> files;
     private ObservableList<String> tags;
@@ -75,9 +78,9 @@ public class MainWindowController implements Observer {
         if (image != null) {
             image.deleteObserver(this);
         }
-        image = new Image(Config.getDefaultPath() + System.getProperty(File.separator) +
+        image = new Model.Image(Config.getDefaultPath() + System.getProperty(File.separator) +
                 fileList.getSelectionModel().getSelectedItem());
-        Tag[] tagsFromName = Image.getTagsFromName(image.getFile().getAbsolutePath());
+        Tag[] tagsFromName = Model.Image.getTagsFromName(image.getFile().getAbsolutePath());
         if (image.getLogManager().getTagInfos().size() == 0) {
             image.getLogManager().addTagInfo(new TagInfo(tagsFromName));
         }
@@ -85,6 +88,8 @@ public class MainWindowController implements Observer {
             Tag.addTagToSet(tag);
         }
         loadTagList();
+        pathText.setText(image.getFile().getAbsolutePath());
+        imageView.setImage(new javafx.scene.image.Image(image.getFile().getAbsolutePath()));
     }
 
     public void addTagToSet() throws IOException{

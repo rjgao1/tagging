@@ -50,7 +50,7 @@
         <ListView fx:id="fileList" onMouseClicked="#chooseFile"/>
         <VBox alignment="TOP_CENTER" prefWidth="290.0" spacing="10.0">
             <ImageView fitHeight="200.0" fitWidth="279.0" pickOnBounds="true" preserveRatio="true" fx:id="imageView"/>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text"/>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" fx:id="pathText"/>
             <HBox>
                 <VBox alignment="CENTER" spacing="10.0">
                     <HBox.margin>
