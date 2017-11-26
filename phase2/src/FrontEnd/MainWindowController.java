@@ -12,6 +12,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import javafx.scene.image.ImageView;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -34,9 +36,14 @@ public class MainWindowController implements Observer {
     TextField tagText;
     @FXML
     Stage stage;
+    @FXML
+    ListView<String> tagSet;
+    @FXML
+    ImageView imageView;
 
     private ObservableList<String> files;
     private ObservableList<String> tags;
+    private ObservableList<String> tagSetList;
 
     public MainWindowController() {
         fileManager = new FileManager(Config.getDefaultPath());
@@ -45,6 +52,7 @@ public class MainWindowController implements Observer {
     @FXML
     public void initialize() {
         fileList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        loadTagSet();
         loadFileList();
     }
 
@@ -64,9 +72,39 @@ public class MainWindowController implements Observer {
     }
 
     public void chooseFile() throws IOException{
+        if (image != null) {
+            image.deleteObserver(this);
+        }
         image = new Image(Config.getDefaultPath() + System.getProperty(File.separator) +
                 fileList.getSelectionModel().getSelectedItem());
+        Tag[] tagsFromName = Image.getTagsFromName(image.getFile().getAbsolutePath());
+        if (image.getLogManager().getTagInfos().size() == 0) {
+            image.getLogManager().addTagInfo(new TagInfo(tagsFromName));
+        }
+        for (Tag tag: tagsFromName) {
+            Tag.addTagToSet(tag);
+        }
         loadTagList();
+    }
+
+    //@todo
+    public void addTagToSet() {
+
+    }
+    
+    public void addTagToImage() throws IOException{
+        if (image == null) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageBox.fxml"));
+            Stage messageBox = loader.load();
+            messageBox.setTitle("Warning");
+            ((MessageBoxController) loader.getController()).setMessage("Please choose an image file");
+            messageBox.show();
+        } else {
+            List<String> tagsAdded = tagSet.getSelectionModel().getSelectedItems();
+            for (String tagString: tagsAdded) {
+                Tag.addTagToSet(new Tag(tagString));
+            }
+        }
     }
 
     //@todo
@@ -154,6 +192,11 @@ public class MainWindowController implements Observer {
             tags = FXCollections.observableArrayList();
         }
         tagList.setItems(tags);
+    }
+
+    //todo
+    public void loadTagSet() {
+
     }
 
     @Override
