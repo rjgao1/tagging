@@ -23,6 +23,11 @@ public class Tag {
         this.content = content;
     }
 
+    /**
+     * Gets this Tag's content.
+     *
+     * @return A string representing this Tag's content.
+     */
     public String getContent() {
         return content;
     }
