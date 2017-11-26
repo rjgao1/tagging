@@ -60,6 +60,13 @@ public class Tag {
     }
 
     public static void readTagFile() throws IOException {
+        BufferedReader tagBR = new BufferedReader(new FileReader(tagFile));
+        defaultPath = tagBR.readLine();
+        File defaultPathFile = new File(defaultPath);
+        if (!defaultPathFile.isDirectory()) {
+            throw new ClassCastException();
+        }
+        tagBR.close();
     }
 
     public static void createTagFile() throws IOException {
