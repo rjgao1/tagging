@@ -28,7 +28,7 @@ public class Tag {
         return set1 != null && set2 != null && set1.size() == set2.size() && set1.containsAll(set2);
     }
 
-    public static Set getTagSet(){
+    public static Set<Tag> getTagSet(){
         return tagSet;
     }
 
