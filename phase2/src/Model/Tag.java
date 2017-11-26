@@ -85,6 +85,7 @@ public class Tag {
         }
     }
 
+
     public static void writeTagFile() throws IOException {
         FileOutputStream tagFOS = new FileOutputStream(tagFile);
         BufferedWriter tagBW = new BufferedWriter(new OutputStreamWriter(tagFOS));
