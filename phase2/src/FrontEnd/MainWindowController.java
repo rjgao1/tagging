@@ -149,6 +149,7 @@ public class MainWindowController implements Observer {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("TagHistory.fxml"));
         Stage tagHistory = loader.load();
         ((TagHistoryController) loader.getController()).setLogManager(image.getLogManager());
+        ((TagHistoryController) loader.getController()).setFileName(image.getFile().getName());
         tagHistory.show();
     }
 
