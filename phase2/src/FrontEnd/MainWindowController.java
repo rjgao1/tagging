@@ -87,11 +87,20 @@ public class MainWindowController implements Observer {
         loadTagList();
     }
 
-    //@todo
-    public void addTagToSet() {
-
+    public void addTagToSet() throws IOException{
+        Tag newTag = new Tag(tagText.getText());
+        if (Tag.getTagSet().contains(newTag)) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageBox.fxml"));
+            Stage messageBox = loader.load();
+            messageBox.setTitle("Warning");
+            ((MessageBoxController) loader.getController()).setMessage("The tag is already in tag set");
+            messageBox.show();
+        } else {
+            Tag.addTagToSet(newTag);
+        }
+        tagText.setText("");
     }
-    
+
     public void addTagToImage() throws IOException{
         if (image == null) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageBox.fxml"));
@@ -102,7 +111,7 @@ public class MainWindowController implements Observer {
         } else {
             List<String> tagsAdded = tagSet.getSelectionModel().getSelectedItems();
             for (String tagString: tagsAdded) {
-                Tag.addTagToSet(new Tag(tagString));
+                //@todo
             }
         }
     }
@@ -143,7 +152,6 @@ public class MainWindowController implements Observer {
         }
     }
 
-    //@todo
     public void deleteTags() throws IOException{
         List<String> list = tagList.getSelectionModel().getSelectedItems();
         if (tagList.getSelectionModel().getSelectedItem() != null) {
@@ -194,9 +202,12 @@ public class MainWindowController implements Observer {
         tagList.setItems(tags);
     }
 
-    //todo
     public void loadTagSet() {
-
+        tagSetList = FXCollections.observableArrayList();
+        for (Tag tag: Tag.getTagSet()) {
+            tagSetList.add(tag.getContent());
+        }
+        tagSet.setItems(tagSetList);
     }
 
     @Override
@@ -221,8 +232,6 @@ public class MainWindowController implements Observer {
                     System.out.println(s);
                     s = s + System.getProperty("file.separator") + image.getFile().getAbsolutePath().substring(
                             image.getFile().getAbsolutePath().lastIndexOf(System.getProperty("file.separator")) + 1);
-//                    Files.move(image.getFile().toPath(), Paths.get(s));
-//                    fileManager = new FileManager(selectedDirectory.getAbsolutePath());
                     image.rename(s);
                     image.getLogManager().renameLogFile(s, true);
                 } catch (IOException e) {

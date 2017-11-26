@@ -42,7 +42,7 @@
             </padding>
             <ListView prefWidth="200.0" fx:id = "tagSet"/>
             <TextField fx:id="tagText"/>
-            <Button mnemonicParsing="false" text="Add tags to tag set" onAction = "#addTagToSet"/>
+            <Button mnemonicParsing="false" text="Add tag to tag set" onAction = "#addTagToSet"/>
             <Separator prefWidth="200.0"/>
             <Button mnemonicParsing="false" text="Add tags to image" onAction = "#addTagToImage"/>
         </VBox>
