@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.*;
 import java.io.*;
 
+/**
+ * Represents a Tag object.
+ */
 public class Tag {
 
     private final String content;
@@ -11,6 +14,11 @@ public class Tag {
     private static String defaultPath = "";
     private static final File tagFile = new File(System.getProperty("user.dir"), "config.txt");
 
+    /**
+     * Creates a Tag object with content.
+     *
+     * @param content This Tag's content.
+     */
     public Tag(String content) {
         this.content = content;
     }
