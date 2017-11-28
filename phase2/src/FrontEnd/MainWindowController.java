@@ -174,10 +174,10 @@ public class MainWindowController implements Observer {
     }
 
     public void deleteTagsFromTagSet() {
-        List<String> tagStringSeleted = tagSet.getSelectionModel().getSelectedItems();
-        Tag[] tagSelected = new Tag[tagStringSeleted.size()];
-        for (int i = 1; i < tagSelected.length; i++) {
-            tagSelected[i] = new Tag(tagStringSeleted.get(i));
+        List<String> tagStringSelected = tagSet.getSelectionModel().getSelectedItems();
+        Tag[] tagSelected = new Tag[tagStringSelected.size()];
+        for (int i = 0; i < tagSelected.length; i++) {
+            tagSelected[i] = new Tag(tagStringSelected.get(i));
         }
         Tag.removeTagsFromTagSet(tagSelected);
         loadTagSet();

@@ -47,7 +47,7 @@
                 <TextField fx:id="tagText"/>
                 <Button mnemonicParsing="false" onAction="#addTagToSet" text="Add tag to tag set"/>
                 <Separator prefWidth="200.0"/>
-                <Button mnemonicParsing="false" text="Delete selected tags"/>
+                <Button mnemonicParsing="false" text="Delete selected tags" onAction="#deleteTagsFromTagSet"/>
                 <Button mnemonicParsing="false" textAlignment="CENTER" onAction="#removeTags">
                     <graphic>
                         <VBox alignment="TOP_CENTER">
