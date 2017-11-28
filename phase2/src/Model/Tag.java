@@ -89,6 +89,11 @@ public class Tag {
         }
     }
 
+    /**
+     * Writes the contents of this Tag's tagSet in the tagFile.
+     *
+     * @throws IOException when the tagFile is not found
+     */
     public static void writeTagFile() throws IOException {
         FileOutputStream tagFOS = new FileOutputStream(tagFile);
         BufferedWriter tagBW = new BufferedWriter(new OutputStreamWriter(tagFOS));
