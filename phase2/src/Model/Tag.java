@@ -64,7 +64,8 @@ public class Tag {
     /**
      * Adds Tag newTag to this Tag's tagSet, if it is not already contained in it.
      *
-     * @param newTag a Tag to be added to this Tag's tagSet.
+     * @param newTag  a Tag to be added to this Tag's tagSet.
+     * @throws IOException when the tagFile is not found.
      */
     public static void addTagToSet(Tag newTag) throws IOException{
         if (!Tag.tagSet.contains(newTag)) {
