@@ -88,6 +88,10 @@ public class Tag {
     public static void writeTagFile() throws IOException {
         FileOutputStream tagFOS = new FileOutputStream(tagFile);
         BufferedWriter tagBW = new BufferedWriter(new OutputStreamWriter(tagFOS));
+        for (Tag tag : tagSet) {
+            tagBW.write(tag.getContent());
+            tagBW.newLine();
+        }
         tagBW.write(defaultPath);
         tagBW.close();
         tagFOS.close();
