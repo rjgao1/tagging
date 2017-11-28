@@ -133,4 +133,9 @@ public class Tag {
             Tag.tagSet.remove(tag);
         }
     }
+
+    @Override
+    public int hashCode() {
+        return this.content.hashCode();
+    }
 }
