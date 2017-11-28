@@ -79,11 +79,11 @@ public class MainWindowController implements Observer {
         if (image != null) {
             image.deleteObserver(this);
         }
-        image = new Model.Image(Config.getDefaultPath() + System.getProperty(File.separator) +
+        image = new Model.Image(Config.getDefaultPath() + System.getProperty("file.separator") +
                 fileList.getSelectionModel().getSelectedItem());
         image.registerObserver(this);
         Tag[] tagsFromName = Model.Image.getTagsFromName(image.getFile().getAbsolutePath());
-        if (image.getLogManager().getTagInfos().size() == 0) {
+        if (image.getLogManager().getTagInfos().size() == 0 && tagsFromName.length > 0) {
             image.getLogManager().addTagInfo(new TagInfo(tagsFromName));
         }
         for (Tag tag: tagsFromName) {
@@ -91,20 +91,15 @@ public class MainWindowController implements Observer {
         }
         loadTagList();
         pathText.setText(image.getFile().getAbsolutePath());
-        imageView.setImage(new javafx.scene.image.Image(image.getFile().getAbsolutePath()));
+        imageView.setImage(new javafx.scene.image.Image(image.getFile().toURI().toString()));
     }
 
     public void addTagToSet() throws IOException{
-        String[] tagsString = tagText.getText().split(";");
-        ArrayList<Tag> tagsToAdd = new ArrayList<>(0);
-        for (String s: tagsString) {
-            Tag tag = new Tag(s);
-            if (!tagsToAdd.contains(tag)) {
-                tagsToAdd.add(tag);
-            }
+        if (tagText.getText().equals("")) {
+            return;
         }
-        for (Tag tag: tagsToAdd) {
-            if (Tag.getTagSet().contains(tag)) {
+        if (!tagText.getText().contains(";")) {
+            if (Tag.getTagSet().contains(new Tag(tagText.getText()))) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageBox.fxml"));
                 Stage messageBox = loader.load();
                 messageBox.setTitle("Warning");
@@ -112,11 +107,23 @@ public class MainWindowController implements Observer {
                 messageBox.show();
                 return;
             }
+            Tag.addTagToSet(new Tag(tagText.getText()));
+            return;
         }
-        for (Tag tag: tagsToAdd) {
-            Tag.addTagToSet(tag);
+        if (!tagText.getText().matches("^\\w(\\w|\\s\\w)(;\\w(\\w|\\s\\w))*")) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageBox.fxml"));
+            Stage messageBox = loader.load();
+            messageBox.setTitle("Warning");
+            ((MessageBoxController) loader.getController()).setMessage("The input is not a tag or multiple tags");
+            messageBox.show();
+            return;
+        }
+        String[] tagsString = tagText.getText().split(";");
+        for (String s: tagsString) {
+            Tag.addTagToSet(new Tag(s));
         }
         tagText.setText("");
+        loadTagSet();
     }
 
     public void addTagToImage() throws IOException{
@@ -164,6 +171,7 @@ public class MainWindowController implements Observer {
             tagSelected[i] = new Tag(tagStringSeleted.get(i));
         }
         Tag.removeTagsFromTagSet(tagSelected);
+        loadTagSet();
     }
 
     public void removeTags() throws IOException{
@@ -195,6 +203,7 @@ public class MainWindowController implements Observer {
     }
 
     private void loadFileList() {
+        fileManager = new FileManager(fileManager.getDirectoryAbsolutePath());
         files = FXCollections.observableArrayList();
         for (File file : fileManager.getImages()) {
             String path = file.getAbsolutePath();
@@ -202,6 +211,7 @@ public class MainWindowController implements Observer {
             path = path.substring(1);
             files.add(path);
         }
+        fileList.setItems(files);
     }
 
     private void loadTagList() {
@@ -229,6 +239,7 @@ public class MainWindowController implements Observer {
     public void update() {
         loadFileList();
         loadTagList();
+        loadTagSet();
     }
 
     public Stage getStage() {
