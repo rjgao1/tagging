@@ -56,6 +56,7 @@ public class MainWindowController implements Observer {
     @FXML
     public void initialize() {
         fileList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        tagSet.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         loadTagSet();
         loadFileList();
     }
