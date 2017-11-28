@@ -108,6 +108,8 @@ public class MainWindowController implements Observer {
                 return;
             }
             Tag.addTagToSet(new Tag(tagText.getText()));
+            tagText.setText("");
+            loadTagSet();
             return;
         }
         if (!tagText.getText().matches("^\\w(\\w|\\s\\w)(;\\w(\\w|\\s\\w))*")) {
@@ -136,12 +138,19 @@ public class MainWindowController implements Observer {
         } else {
             List<String> tagsAdded = tagSet.getSelectionModel().getSelectedItems();
             List<Tag> newTags = new ArrayList<>(0);
+            boolean hasNewTag = false;
+            for (String tagString: tags) {
+                newTags.add(new Tag(tagString));
+            }
             for (String tagString: tagsAdded) {
                 if (!tags.contains(tagString)) {
                     newTags.add(new Tag(tagString));
+                    hasNewTag = true;
                 }
             }
-            image.getLogManager().addTagInfo(new TagInfo(newTags.toArray(new Tag[newTags.size()])));
+            if (hasNewTag) {
+                image.getLogManager().addTagInfo(new TagInfo(newTags.toArray(new Tag[newTags.size()])));
+            }
         }
     }
 
