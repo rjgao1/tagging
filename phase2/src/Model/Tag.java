@@ -134,6 +134,12 @@ public class Tag {
         }
     }
 
+    /**
+     * Returns an hash code for a given Tag object, based on this Tag's content. Tags which are not equal, i.e. Tags
+     * with different content, have different hash codes.
+     *
+     * @return an int which is a hash code for a given Tag object
+     */
     @Override
     public int hashCode() {
         return this.content.hashCode();
