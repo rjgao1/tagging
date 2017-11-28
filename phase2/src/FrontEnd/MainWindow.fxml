@@ -19,8 +19,7 @@
 <?import javafx.stage.Stage?>
 <?import javafx.scene.Scene?>
 
-<VBox prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="FrontEnd.MainWindowController">
+<VBox prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FrontEnd.MainWindowController">
    <children>
    
    
@@ -33,9 +32,9 @@
                      <MenuItem mnemonicParsing="false" onAction="#openConfigPage" text="Open Configuration" />
                  </items>
               </Menu>
-              <Menu mnemonicParsing="false" text="Edit">
+              <Menu mnemonicParsing="false" text="Help">
                  <items>
-                     <MenuItem mnemonicParsing="false" text="Delete File with tag ..." />
+                     <MenuItem mnemonicParsing="false" text="About" />
                  </items>
               </Menu>
       </menus>
@@ -52,7 +51,18 @@
                      <ListView fx:id="tagSet" prefWidth="200.0" />
                      <TextField fx:id="tagText" />
                      <Button mnemonicParsing="false" onAction="#addTagToSet" text="Add tag to tag set" />
-                  <Button mnemonicParsing="false" onAction="#deleteTagsFromTagSet" text="Delete selected tags" />
+                  <Separator prefWidth="200.0" />
+                  <Button mnemonicParsing="false" text="Delete selected tags" />
+                  <Button mnemonicParsing="false" textAlignment="CENTER" onAction="#removeTags">
+                     <graphic>
+                        <VBox alignment="TOP_CENTER">
+                           <children>
+                              <Label text="Remove selected tags" />
+                              <Label text="from all files" />
+                           </children>
+                        </VBox>
+                     </graphic>
+                  </Button>
                      <Separator prefWidth="200.0" />
                      <Button mnemonicParsing="false" onAction="#addTagToImage" text="Add tags to image" />
                  </children>

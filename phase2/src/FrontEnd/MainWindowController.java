@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -163,6 +164,25 @@ public class MainWindowController implements Observer {
             tagSelected[i] = new Tag(tagStringSeleted.get(i));
         }
         Tag.removeTagsFromTagSet(tagSelected);
+    }
+
+    public void removeTags() throws IOException{
+        List<String> tagsToRemove = tagSet.getSelectionModel().getSelectedItems();
+        for (String s : files) {
+            Model.Image temp = new Model.Image(Config.getDefaultPath() + System.getProperty(File.separator) +
+                    fileList.getSelectionModel().getSelectedItem());
+            List<Tag> tags = Arrays.asList(Model.Image.getTagsFromName(s));
+            boolean changed = false;
+            for (String tag: tagsToRemove) {
+                if (s.contains("@" + tag +" ") || s.contains("@" + tag + ".")) {
+                    tags.remove(new Tag(tag));
+                    changed = true;
+                }
+            }
+            if (changed) {
+                temp.getLogManager().addTagInfo(new TagInfo(tags.toArray(new Tag[tags.size()])));
+            }
+        }
     }
 
     public void viewHistory() throws IOException {
