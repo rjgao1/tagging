@@ -15,7 +15,6 @@ public class Image extends Observable implements Observer {
     public Image(String pathname) throws IOException{
         logManager = new LogManager(pathname);
         logManager.registerObserver(this);
-        observers = new ArrayList<>(0);
         file = new File(pathname);
     }
 

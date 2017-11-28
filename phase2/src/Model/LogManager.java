@@ -40,7 +40,7 @@ public class LogManager extends Observable {
         } else {
             readLogFile();
         }
-        observers = new ArrayList<>(0);
+
 
     }
 
