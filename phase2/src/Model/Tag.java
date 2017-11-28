@@ -99,10 +99,10 @@ public class Tag {
 
     public static void readTagFile() throws IOException {
         BufferedReader tagBR = new BufferedReader(new FileReader(tagFile));
-        defaultPath = tagBR.readLine();
-        File defaultPathFile = new File(defaultPath);
-        if (!defaultPathFile.isDirectory()) {
-            throw new ClassCastException();
+        String line = tagBR.readLine();
+        while (line != null) {
+            tagSet.add(new Tag(line));
+            line = tagBR.readLine();
         }
         tagBR.close();
     }
