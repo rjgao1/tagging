@@ -110,7 +110,6 @@ public class Tag {
      * Reads the contents of a tagFile and adds the appropriate Tag objects generated from them in this Tag's tagSet.
      *
      * @throws IOException when the tagFile is not found
-     * @throws IOException when the tagFile is not found
      */
     public static void readTagFile() throws IOException {
         BufferedReader tagBR = new BufferedReader(new FileReader(tagFile));
@@ -122,6 +121,11 @@ public class Tag {
         tagBR.close();
     }
 
+    /**
+     * Creates a new tagFile.
+     *
+     * @throws IOException when the directory is non existent.
+     */
     public static void createTagFile() throws IOException {
         tagFile.createNewFile();
     }
@@ -139,7 +143,8 @@ public class Tag {
      * Removes the elements of tagSet that are in an Array of Tags, namely tagArray.
      * Precondition: All the elements of tagArray must be contained in tagSet.
      *
-     * @param tagArray an Array of Tags, whose elements are to be removed from tagSet.
+     * @param tagArray     an Array of Tags, whose elements are to be removed from tagSet.
+     * @throws IOException when the tagFile is not found
      */
     public static void removeTagsFromTagSet(Tag[] tagArray) throws IOException{
         for (Tag tag : tagArray) {
