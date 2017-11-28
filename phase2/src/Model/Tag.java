@@ -64,7 +64,8 @@ public class Tag {
     /**
      * Adds Tag newTag to this Tag's tagSet, if it is not already contained in it.
      *
-     * @param newTag a Tag to be added to this Tag's tagSet.
+     * @param newTag       a Tag to be added to this Tag's tagSet.
+     * @throws IOException when the tagFile is not found.
      */
     public static void addTagToSet(Tag newTag) throws IOException{
         if (!Tag.tagSet.contains(newTag)) {
@@ -76,7 +77,8 @@ public class Tag {
     /**
      * Adds the elements of newTagList to this Tag's tagSet, if they are not already contained in it.
      *
-     * @param newTagList an Array of Tags, whose elements are to be added to this Tag's tagSet.
+     * @param newTagList   an Array of Tags, whose elements are to be added to this Tag's tagSet.
+     * @throws IOException when the tagFile is not found.
      */
     public static void addTagToSet(Tag[] newTagList) throws IOException{
         for (Tag element : newTagList) {
@@ -87,6 +89,11 @@ public class Tag {
         }
     }
 
+    /**
+     * Writes the contents of this Tag's tagSet in the tagFile.
+     *
+     * @throws IOException when the tagFile is not found
+     */
     public static void writeTagFile() throws IOException {
         FileOutputStream tagFOS = new FileOutputStream(tagFile);
         BufferedWriter tagBW = new BufferedWriter(new OutputStreamWriter(tagFOS));
@@ -99,6 +106,11 @@ public class Tag {
         tagFOS.close();
     }
 
+    /**
+     * Reads the contents of a tagFile and adds the appropriate Tag objects generated from them in this Tag's tagSet.
+     *
+     * @throws IOException when the tagFile is not found
+     */
     public static void readTagFile() throws IOException {
         BufferedReader tagBR = new BufferedReader(new FileReader(tagFile));
         String line = tagBR.readLine();
@@ -134,6 +146,12 @@ public class Tag {
         }
     }
 
+    /**
+     * Returns an hash code for a given Tag object, based on this Tag's content. Tags which are not equal, i.e. Tags
+     * with different content, have different hash codes.
+     *
+     * @return an int which is a hash code for a given Tag object
+     */
     @Override
     public int hashCode() {
         return this.content.hashCode();
