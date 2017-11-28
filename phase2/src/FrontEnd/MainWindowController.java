@@ -173,7 +173,7 @@ public class MainWindowController implements Observer {
         }
     }
 
-    public void deleteTagsFromTagSet() {
+    public void deleteTagsFromTagSet() throws IOException{
         List<String> tagStringSelected = tagSet.getSelectionModel().getSelectedItems();
         Tag[] tagSelected = new Tag[tagStringSelected.size()];
         for (int i = 0; i < tagSelected.length; i++) {
@@ -185,13 +185,17 @@ public class MainWindowController implements Observer {
 
     public void removeTags() throws IOException{
         List<String> tagsToRemove = tagSet.getSelectionModel().getSelectedItems();
-        for (String s : files) {
-            Model.Image temp = new Model.Image(Config.getDefaultPath() + System.getProperty(File.separator) +
-                    fileList.getSelectionModel().getSelectedItem());
-            List<Tag> tags = Arrays.asList(Model.Image.getTagsFromName(s));
+        for (String fileName : files) {
+            Model.Image temp = new Model.Image(Config.getDefaultPath() + System.getProperty("file.separator") +
+                    fileName);
+            temp.registerObserver(this);
+            ArrayList<Tag> tags = new ArrayList<>(0);
+            for (Tag tag: Model.Image.getTagsFromName(fileName)) {
+                tags.add(tag);
+            }
             boolean changed = false;
             for (String tag: tagsToRemove) {
-                if (s.contains("@" + tag +" ") || s.contains("@" + tag + ".")) {
+                if (fileName.contains("@" + tag +" ") || fileName.contains("@" + tag + ".")) {
                     tags.remove(new Tag(tag));
                     changed = true;
                 }
