@@ -122,6 +122,12 @@ public class Tag {
         return tagFile.isFile();
     }
 
+    /**
+     * Removes the elements of tagSet that are in an Array of Tags, namely tagArray.
+     * Precondition: All the elements of tagArray must be contained in tagSet.
+     *
+     * @param tagArray an Array of Tags, whose elements are to be removed from tagSet.
+     */
     public static void removeTagsFromTagSet(Tag[] tagArray) {
         for (Tag tag : tagArray) {
             Tag.tagSet.remove(tag);
