@@ -2,10 +2,13 @@ package FrontEnd;
 
 import Model.Config;
 
+import Model.Tag;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+
+import java.util.Set;
 
 public class Main extends Application {
 
@@ -18,6 +21,9 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+        if (Tag.hasTagFile()) {
+            Tag.readTagFile();
+        }
         if (!Config.hasConfigFile()) {
             primaryStage = FXMLLoader.load(getClass().getResource("ConfigPage.fxml"));
             primaryStage.show();
