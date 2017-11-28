@@ -68,7 +68,7 @@ public class TagHistoryController {
             public ObservableValue<String> call(CellDataFeatures<TagInfo, String> p) {
                 String ret = fileName;
                 String suffix = ret.substring(ret.lastIndexOf("."));
-                ret = ret.substring(ret.indexOf("@"));
+                ret = ret.substring(0, ret.indexOf("@"));
                 ret = ret + " " + p.getValue().getTagListString() + suffix;
                 return new ReadOnlyObjectWrapper(ret);
             }
