@@ -94,15 +94,26 @@ public class MainWindowController implements Observer {
     }
 
     public void addTagToSet() throws IOException{
-        Tag newTag = new Tag(tagText.getText());
-        if (Tag.getTagSet().contains(newTag)) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageBox.fxml"));
-            Stage messageBox = loader.load();
-            messageBox.setTitle("Warning");
-            ((MessageBoxController) loader.getController()).setMessage("The tag is already in tag set");
-            messageBox.show();
-        } else {
-            Tag.addTagToSet(newTag);
+        String[] tagsString = tagText.getText().split(";");
+        ArrayList<Tag> tagsToAdd = new ArrayList<>(0);
+        for (String s: tagsString) {
+            Tag tag = new Tag(s);
+            if (!tagsToAdd.contains(tag)) {
+                tagsToAdd.add(tag);
+            }
+        }
+        for (Tag tag: tagsToAdd) {
+            if (Tag.getTagSet().contains(tag)) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageBox.fxml"));
+                Stage messageBox = loader.load();
+                messageBox.setTitle("Warning");
+                ((MessageBoxController) loader.getController()).setMessage("The tag is already in tag set");
+                messageBox.show();
+                return;
+            }
+        }
+        for (Tag tag: tagsToAdd) {
+            Tag.addTagToSet(tag);
         }
         tagText.setText("");
     }
@@ -143,6 +154,15 @@ public class MainWindowController implements Observer {
             TagInfo newTagInfo = new TagInfo(newTagArray);
             image.getLogManager().addTagInfo(newTagInfo);
         }
+    }
+
+    public void deleteTagsFromTagSet() {
+        List<String> tagStringSeleted = tagSet.getSelectionModel().getSelectedItems();
+        Tag[] tagSelected = new Tag[tagStringSeleted.size()];
+        for (int i = 1; i < tagSelected.length; i++) {
+            tagSelected[i] = new Tag(tagStringSeleted.get(i));
+        }
+        Tag.removeTagsFromTagSet(tagSelected);
     }
 
     public void viewHistory() throws IOException {
