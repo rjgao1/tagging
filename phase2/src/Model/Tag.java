@@ -113,6 +113,11 @@ public class Tag {
         tagFile.createNewFile();
     }
 
+    /**
+     * Returns if it already exists a tagFile.
+     *
+     * @return true if there exists a tagFile
+     */
     public static boolean hasTagFile() {
         return tagFile.isFile();
     }
