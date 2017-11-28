@@ -19,55 +19,74 @@
 <?import javafx.stage.Stage?>
 <?import javafx.scene.Scene?>
 
-<VBox prefHeight="450.0" prefWidth="700.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="FrontEnd.MainWindowController">x
-
-
-    <MenuBar>
-        <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" onAction="#openMainWindow" text="New Window"/>
-            <MenuItem mnemonicParsing="false" onAction="#closeWindow" text="Close"/>
-            <MenuItem mnemonicParsing="false" onAction="#openConfigPage" text="Open Configuration"/>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Help">
-            <MenuItem mnemonicParsing="false" text="About"/>
-        </Menu>
-    </MenuBar>
-
-
-    <HBox prefHeight="421.0" prefWidth="700.0">
-        <VBox alignment="TOP_CENTER" prefWidth="200.0" spacing="10.0">
-            <padding>
-                <Insets bottom="10.0"/>
-            </padding>
-            <ListView prefWidth="200.0" fx:id = "tagSet"/>
-            <TextField fx:id="tagText"/>
-            <Button mnemonicParsing="false" text="Add tag to tag set" onAction = "#addTagToSet"/>
-            <Separator prefWidth="200.0"/>
-            <Button mnemonicParsing="false" text="Add tags to image" onAction = "#addTagToImage"/>
-        </VBox>
-
-        <ListView fx:id="fileList" onMouseClicked="#chooseFile"/>
-        <VBox alignment="TOP_CENTER" prefWidth="290.0" spacing="10.0">
-            <ImageView fitHeight="200.0" fitWidth="279.0" pickOnBounds="true" preserveRatio="true" fx:id="imageView"/>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" fx:id="pathText"/>
-            <HBox>
-                <VBox alignment="CENTER" spacing="10.0">
-                    <HBox.margin>
-                        <Insets/>
-                    </HBox.margin>
-                    <padding>
-                        <Insets bottom="10.0" top="10.0"/>
-                    </padding>
-                    <Button mnemonicParsing="false" text="Delete tags" onAction="#deleteTags"/>
-                    <Separator prefWidth="200.0"/>
-                    <Button mnemonicParsing="false" text="Move file" onAction="#moveFile"/>
-                    <Separator prefWidth="200.0"/>
-                    <Button mnemonicParsing="false" text="View History" onAction="#viewHistory"/>
-                </VBox>
-
-                <ListView fx:id="tagList"/>
-            </HBox>
-        </VBox>
-    </HBox>
+<VBox prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="FrontEnd.MainWindowController">
+   <children>
+   
+   
+       <MenuBar>
+      <menus>
+              <Menu mnemonicParsing="false" text="File">
+                 <items>
+                     <MenuItem mnemonicParsing="false" onAction="#openMainWindow" text="New Window" />
+                     <MenuItem mnemonicParsing="false" onAction="#closeWindow" text="Close" />
+                     <MenuItem mnemonicParsing="false" onAction="#openConfigPage" text="Open Configuration" />
+                 </items>
+              </Menu>
+              <Menu mnemonicParsing="false" text="Edit">
+                 <items>
+                     <MenuItem mnemonicParsing="false" text="Delete File with tag ..." />
+                 </items>
+              </Menu>
+      </menus>
+       </MenuBar>
+   
+   
+       <HBox prefHeight="421.0" prefWidth="700.0">
+      <children>
+              <VBox alignment="TOP_CENTER" prefWidth="200.0" spacing="10.0">
+                  <padding>
+                      <Insets bottom="10.0" />
+                  </padding>
+                 <children>
+                     <ListView fx:id="tagSet" prefWidth="200.0" />
+                     <TextField fx:id="tagText" />
+                     <Button mnemonicParsing="false" onAction="#addTagToSet" text="Add tag to tag set" />
+                  <Button mnemonicParsing="false" onAction="#deleteTagsFromTagSet" text="Delete selected tags" />
+                     <Separator prefWidth="200.0" />
+                     <Button mnemonicParsing="false" onAction="#addTagToImage" text="Add tags to image" />
+                 </children>
+              </VBox>
+      
+              <ListView fx:id="fileList" onMouseClicked="#chooseFile" />
+              <VBox alignment="TOP_CENTER" prefWidth="290.0" spacing="10.0">
+                 <children>
+                     <ImageView fx:id="imageView" fitHeight="200.0" fitWidth="279.0" pickOnBounds="true" preserveRatio="true" />
+                     <Text fx:id="pathText" strokeType="OUTSIDE" strokeWidth="0.0" />
+                     <HBox>
+                        <children>
+                            <VBox alignment="CENTER" spacing="10.0">
+                                <HBox.margin>
+                                    <Insets />
+                                </HBox.margin>
+                                <padding>
+                                    <Insets bottom="10.0" top="10.0" />
+                                </padding>
+                               <children>
+                                   <Button mnemonicParsing="false" onAction="#deleteTags" text="Delete tags" />
+                                   <Separator prefWidth="200.0" />
+                                   <Button mnemonicParsing="false" onAction="#moveFile" text="Move file" />
+                                   <Separator prefWidth="200.0" />
+                                   <Button mnemonicParsing="false" onAction="#viewHistory" text="View History" />
+                               </children>
+                            </VBox>
+            
+                            <ListView fx:id="tagList" />
+                        </children>
+                     </HBox>
+                 </children>
+              </VBox>
+      </children>
+       </HBox>
+   </children>
 </VBox>
