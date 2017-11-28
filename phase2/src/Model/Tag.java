@@ -116,4 +116,10 @@ public class Tag {
     public static boolean hasTagFile() {
         return tagFile.isFile();
     }
+
+    public static void removeTagsFromTagSet(Tag[] tagArray) {
+        for (Tag tag : tagArray) {
+            Tag.tagSet.remove(tag);
+        }
+    }
 }
