@@ -110,7 +110,6 @@ public class Tag {
      * Reads the contents of a tagFile and adds the appropriate Tag objects generated from them in this Tag's tagSet.
      *
      * @throws IOException when the tagFile is not found
-     * @throws IOException when the tagFile is not found
      */
     public static void readTagFile() throws IOException {
         BufferedReader tagBR = new BufferedReader(new FileReader(tagFile));
@@ -122,6 +121,11 @@ public class Tag {
         tagBR.close();
     }
 
+    /**
+     * Creates a new tagFile.
+     *
+     * @throws IOException when the directory is non existent.
+     */
     public static void createTagFile() throws IOException {
         tagFile.createNewFile();
     }
