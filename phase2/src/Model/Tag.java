@@ -12,7 +12,7 @@ public class Tag {
     private final String content;
     private static Set<Tag> tagSet = new HashSet<>();
     private static String defaultPath = "";
-    private static final File tagFile = new File(System.getProperty("user.dir"), "config.txt");
+    private static final File tagFile = new File(System.getProperty("user.dir"), "tag.txt");
 
     /**
      * Creates a Tag object with content.
