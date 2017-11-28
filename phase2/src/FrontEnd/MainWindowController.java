@@ -80,6 +80,7 @@ public class MainWindowController implements Observer {
         }
         image = new Model.Image(Config.getDefaultPath() + System.getProperty(File.separator) +
                 fileList.getSelectionModel().getSelectedItem());
+        image.registerObserver(this);
         Tag[] tagsFromName = Model.Image.getTagsFromName(image.getFile().getAbsolutePath());
         if (image.getLogManager().getTagInfos().size() == 0) {
             image.getLogManager().addTagInfo(new TagInfo(tagsFromName));
