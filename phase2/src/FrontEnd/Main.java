@@ -23,6 +23,8 @@ public class Main extends Application {
 
         if (Tag.hasTagFile()) {
             Tag.readTagFile();
+        } else {
+            Tag.createTagFile();
         }
         if (!Config.hasConfigFile()) {
             primaryStage = FXMLLoader.load(getClass().getResource("ConfigPage.fxml"));
