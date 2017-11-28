@@ -6,14 +6,14 @@ import java.util.ArrayList;
 import java.nio.file.*;
 
 
-public class LogManager {
+public class LogManager extends Observable {
 
     //    private File logFile;
     private final Path logDirPath;
     private Path logFilePath;
     private ArrayList<TagInfo> tagInfos;
 //    private ArrayList<String> tagInfosStrings;
-    private ArrayList<Observer> observers;
+//    private ArrayList<Observer> observers;
     private String modifiedImagePathString;
 
     public LogManager(String pathname) throws IOException {

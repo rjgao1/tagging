@@ -6,10 +6,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class Image implements Observer {
+public class Image extends Observable implements Observer {
 
     private LogManager logManager;
-    private ArrayList<Observer> observers;
+//    private ArrayList<Observer> observers;
     private File file;
 
     public Image(String pathname) throws IOException{
