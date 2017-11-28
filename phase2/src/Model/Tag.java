@@ -64,7 +64,7 @@ public class Tag {
     /**
      * Adds Tag newTag to this Tag's tagSet, if it is not already contained in it.
      *
-     * @param newTag  a Tag to be added to this Tag's tagSet.
+     * @param newTag       a Tag to be added to this Tag's tagSet.
      * @throws IOException when the tagFile is not found.
      */
     public static void addTagToSet(Tag newTag) throws IOException{
@@ -77,7 +77,8 @@ public class Tag {
     /**
      * Adds the elements of newTagList to this Tag's tagSet, if they are not already contained in it.
      *
-     * @param newTagList an Array of Tags, whose elements are to be added to this Tag's tagSet.
+     * @param newTagList   an Array of Tags, whose elements are to be added to this Tag's tagSet.
+     * @throws IOException when the tagFile is not found.
      */
     public static void addTagToSet(Tag[] newTagList) throws IOException{
         for (Tag element : newTagList) {
