@@ -27,13 +27,13 @@ public class Image extends Observable implements Observer {
         }
     }
 
-    public void registerObserver(Observer observer) {
-        observers.add(observer);
-    }
-
-    public void deleteObserver(Observer observer) {
-        observers.remove(observer);
-    }
+//    public void registerObserver(Observer observer) {
+//        observers.add(observer);
+//    }
+//
+//    public void deleteObserver(Observer observer) {
+//        observers.remove(observer);
+//    }
 
     public boolean hasObserver(Observer observer) {
         return observers.contains(observer);
