@@ -106,6 +106,11 @@ public class Tag {
         tagFOS.close();
     }
 
+    /**
+     * Reads the contents of a tagFile and adds the appropriate Tag objects generated from them in this Tag's tagSet.
+     *
+     * @throws IOException when the tagFile is not found
+     */
     public static void readTagFile() throws IOException {
         BufferedReader tagBR = new BufferedReader(new FileReader(tagFile));
         String line = tagBR.readLine();
