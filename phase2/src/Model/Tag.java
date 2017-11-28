@@ -143,7 +143,8 @@ public class Tag {
      * Removes the elements of tagSet that are in an Array of Tags, namely tagArray.
      * Precondition: All the elements of tagArray must be contained in tagSet.
      *
-     * @param tagArray an Array of Tags, whose elements are to be removed from tagSet.
+     * @param tagArray     an Array of Tags, whose elements are to be removed from tagSet.
+     * @throws IOException when the tagFile is not found
      */
     public static void removeTagsFromTagSet(Tag[] tagArray) throws IOException{
         for (Tag tag : tagArray) {
