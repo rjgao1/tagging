@@ -66,9 +66,10 @@ public class Tag {
      *
      * @param newTag a Tag to be added to this Tag's tagSet.
      */
-    public static void addTagToSet(Tag newTag){
+    public static void addTagToSet(Tag newTag) throws IOException{
         if (!Tag.tagSet.contains(newTag)) {
             Tag.tagSet.add(newTag);
+            writeTagFile();
         }
     }
 
@@ -77,10 +78,11 @@ public class Tag {
      *
      * @param newTagList an Array of Tags, whose elements are to be added to this Tag's tagSet.
      */
-    public static void addTagToSet(Tag[] newTagList){
+    public static void addTagToSet(Tag[] newTagList) throws IOException{
         for (Tag element : newTagList) {
             if (!Tag.tagSet.contains(element)) {
                 Tag.tagSet.add(element);
+                writeTagFile();
             }
         }
     }
