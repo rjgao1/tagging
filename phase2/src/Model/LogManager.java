@@ -51,7 +51,7 @@ public class LogManager extends Observable {
 //    }
 
     private Path constructLogFilePath(String imagePath) {
-        String withoutFirstSeparator = imagePath.substring(1);
+        String withoutFirstSeparator = imagePath.substring(System.getProperty("file.separator").length());
         modifiedImagePathString = withoutFirstSeparator.replaceAll(System.getProperty("file.separator"), ":");
         return Paths.get(logDirPath.toString(), modifiedImagePathString + ".txt");
     }
