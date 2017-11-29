@@ -195,6 +195,9 @@ public class MainWindowController implements Observer {
 
     public void removeTags() throws IOException{
         List<String> tagsToRemove = tagSet.getSelectionModel().getSelectedItems();
+        if (tagsToRemove.size() == 0) {
+            return;
+        }
         for (String fileName : files) {
             Model.Image temp = new Model.Image(Config.getDefaultPath() + System.getProperty("file.separator") +
                     fileName);
@@ -246,15 +249,16 @@ public class MainWindowController implements Observer {
             }
             if (tagsToAdd.size() != 0) {
                 Model.Image temp = new Model.Image(image.getAbsolutePath());
+                temp.registerObserver(this);
                 ArrayList<Tag> tags= new ArrayList<>(0);
                 for (Tag tag: Model.Image.getTagsFromName(image.getName())) {
                     tags.add(tag);
                 }
                 tags.addAll(tagsToAdd);
                 temp.getLogManager().addTagInfo(new TagInfo(tags.toArray(new Tag[tags.size()])));
+                temp.deleteObserver(this);
             }
         }
-        update();
     }
 
     private void loadFileList() {
