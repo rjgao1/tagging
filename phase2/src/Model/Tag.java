@@ -113,7 +113,7 @@ public class Tag {
     /**
      * Reads the contents of a tagFile and adds the appropriate Tag objects generated from them in this Tag's tagSet.
      *
-     * @throws IOException when the tagFile is not found
+     * @throws IOException when the tagFile is empty
      */
     public static void readTagFile() throws IOException {
         BufferedReader tagBR = new BufferedReader(new FileReader(tagFile));
