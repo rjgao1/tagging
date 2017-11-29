@@ -48,9 +48,9 @@ public class Tag {
     }
 
     /**
-     * Returns this Tag's tagSet.
+     * Returns a set of Tags representing this Tag's tagSet.
      *
-     * @return a set of Tags representing this Tag's tagSet.
+     * @return this Tag's tagSet.
      */
     public static Set<Tag> getTagSet() {
         return tagSet;
