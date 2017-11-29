@@ -22,33 +22,49 @@ import java.util.List;
 
 public class MainWindowController implements Observer {
 
+    /* The fileManager of the root directory */
     private FileManager fileManager;
+    /* The image selected */
     private Model.Image image;
 
     @FXML
+    /* The list of image files */
     ListView<String> fileList;
     @FXML
+    /* The list of tags for the image */
     ListView<String> tagList;
     @FXML
+    /* The textField for user to add tags */
     TextField tagText;
     @FXML
+    /* The stage of this window */
     Stage stage;
     @FXML
+    /* The list of independent tag set */
     ListView<String> tagSet;
     @FXML
+    /* The image view */
     ImageView imageView;
     @FXML
+    /* The text to show */
     Text pathText;
 
+    /* The list of all image files */
     private ObservableList<String> files;
+    /* The list of all tags for the image chose */
     private ObservableList<String> tags;
-    private ObservableList<String> tagSetList;
 
+    /**
+     * Initiates the MainWindowController to set root directory to fileManager.
+     */
     public MainWindowController() {
         fileManager = new FileManager(Config.getDefaultPath());
     }
 
     @FXML
+    /**
+     * Initializes the MainWindowController to set the load the data and add tags to tag set.
+     */
     public void initialize() throws IOException {
         fileList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         tagSet.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -64,6 +80,9 @@ public class MainWindowController implements Observer {
         loadFileList();
     }
 
+    /**
+     * Closes this window.
+     */
     public void closeWindow() {
         if (image != null) {
             image.deleteObserver(this);
@@ -72,6 +91,11 @@ public class MainWindowController implements Observer {
         Main.decreaseMainWindowCount();
     }
 
+    /**
+     * Opens a new window.
+     *
+     * @throws IOException
+     */
     public void openMainWindow() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MainWindow.fxml"));
         Stage mainWindow = loader.load();
@@ -79,6 +103,11 @@ public class MainWindowController implements Observer {
         Main.incrementMainWindowCount();
     }
 
+    /**
+     * Shows the image and its tags when an image is chooses.
+     *
+     * @throws IOException
+     */
     public void chooseFile() throws IOException {
         if (image != null) {
             image.deleteObserver(this);
@@ -99,6 +128,11 @@ public class MainWindowController implements Observer {
         imageView.setImage(new javafx.scene.image.Image(image.getFile().toURI().toString()));
     }
 
+    /**
+     * Adds tags in the textField to the tag set.
+     *
+     * @throws IOException
+     */
     public void addTagToSet() throws IOException {
         if (tagText.getText().equals("")) {
             return;
@@ -133,6 +167,11 @@ public class MainWindowController implements Observer {
         loadTagSet();
     }
 
+    /**
+     * Adds tags selected in the tag set to the image.
+     *
+     * @throws IOException
+     */
     public void addTagToImage() throws IOException {
         if (image == null) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageBox.fxml"));
@@ -159,6 +198,11 @@ public class MainWindowController implements Observer {
         }
     }
 
+    /**
+     * Deletes tags from the image.
+     *
+     * @throws IOException
+     */
     public void deleteTags() throws IOException {
         List<String> list = tagList.getSelectionModel().getSelectedItems();
         if (tagList.getSelectionModel().getSelectedItem() != null) {
@@ -178,6 +222,11 @@ public class MainWindowController implements Observer {
         }
     }
 
+    /**
+     * Deletes tags from the tag set.
+     *
+     * @throws IOException
+     */
     public void deleteTagsFromTagSet() throws IOException {
         List<String> tagStringSelected = tagSet.getSelectionModel().getSelectedItems();
         Tag[] tagSelected = new Tag[tagStringSelected.size()];
@@ -188,6 +237,11 @@ public class MainWindowController implements Observer {
         loadTagSet();
     }
 
+    /**
+     * Deletes tags from all the image files under the root directory.
+     *
+     * @throws IOException
+     */
     public void removeTags() throws IOException {
         List<String> tagsToRemove = tagSet.getSelectionModel().getSelectedItems();
         if (tagsToRemove.size() == 0) {
@@ -218,6 +272,11 @@ public class MainWindowController implements Observer {
         }
     }
 
+    /**
+     * Opens the history window to view history.
+     *
+     * @throws IOException
+     */
     public void viewHistory() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("TagHistory.fxml"));
         Stage tagHistory = loader.load();
@@ -226,6 +285,11 @@ public class MainWindowController implements Observer {
         tagHistory.show();
     }
 
+    /**
+     * Adds tags to the selected directory.
+     *
+     * @throws IOException
+     */
     public void addTagsToDir() throws IOException {
         List<String> tagStringList = tagSet.getSelectionModel().getSelectedItems();
         if (tagStringList.size() == 0) {
@@ -262,6 +326,9 @@ public class MainWindowController implements Observer {
         }
     }
 
+    /**
+     * Loads the file list with the files.
+     */
     private void loadFileList() {
         fileManager = new FileManager(fileManager.getDirectoryAbsolutePath());
         files = FXCollections.observableArrayList();
@@ -274,6 +341,9 @@ public class MainWindowController implements Observer {
         fileList.setItems(files);
     }
 
+    /**
+     * Loads the image tag list with its tags.
+     */
     private void loadTagList() {
         if (image == null) {
             return;
@@ -290,8 +360,11 @@ public class MainWindowController implements Observer {
         tagList.setItems(tags);
     }
 
-    public void loadTagSet() {
-        tagSetList = FXCollections.observableArrayList();
+    /**
+     * Loads that tag set.
+     */
+    private void loadTagSet() {
+        ObservableList<String> tagSetList = FXCollections.observableArrayList();
         for (Tag tag : Tag.getTagSet()) {
             tagSetList.add(tag.getContent());
         }
@@ -299,16 +372,20 @@ public class MainWindowController implements Observer {
     }
 
     @Override
+    /**
+     * Updates the data in view.
+     */
     public void update() {
         loadFileList();
         loadTagList();
         loadTagSet();
     }
 
-    public Stage getStage() {
-        return stage;
-    }
-
+    /**
+     * Moves file to the new directory.
+     *
+     * @throws IOException
+     */
     public void moveFile() throws IOException {
         if (image != null && image.getFile().isFile()) {
             DirectoryChooser directoryChooser = new DirectoryChooser();
@@ -337,6 +414,11 @@ public class MainWindowController implements Observer {
         }
     }
 
+    /**
+     * Opens the config window for user to change config.
+     * 
+     * @throws IOException
+     */
     public void openConfigPage() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ConfigPage.fxml"));
         Stage configPage = loader.load();
