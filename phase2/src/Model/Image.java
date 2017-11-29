@@ -7,16 +7,29 @@ import java.nio.file.Paths;
 
 public class Image extends Observable implements Observer {
 
+    /* The logManager of the image file */
     private LogManager logManager;
-    //    private ArrayList<Observer> observers;
+    /* The path of the image file */
     private File file;
 
+    /**
+     * Initiates the Image with its path and register to its logManager.
+     *
+     * @param pathname the path of the image file
+     * @throws IOException if there is not file on the input path
+     */
     public Image(String pathname) throws IOException {
         logManager = new LogManager(pathname);
         logManager.registerObserver(this);
         file = new File(pathname);
     }
 
+    /**
+     * Renames the image file to the input path.
+     *
+     * @param newPathname the new path of the image file
+     * @throws IOException if there is another file on the input path
+     */
     public void rename(String newPathname) throws IOException {
         Files.move(file.toPath(), Paths.get(newPathname));
         file = new File(newPathname);
@@ -25,22 +38,21 @@ public class Image extends Observable implements Observer {
         }
     }
 
-//    public void registerObserver(Observer observer) {
-//        observers.add(observer);
-//    }
-//
-//    public void deleteObserver(Observer observer) {
-//        observers.remove(observer);
-//    }
-
-    public boolean hasObserver(Observer observer) {
-        return observers.contains(observer);
-    }
-
+    /**
+     * Returns the logManager of the image file.
+     *
+     * @return the logManager of the image file.
+     */
     public LogManager getLogManager() {
         return logManager;
     }
 
+    /**
+     * Returns the tags of the file.
+     *
+     * @param filename name of the file
+     * @return the tags in the file name
+     */
     public static Tag[] getTagsFromName(String filename) {
         Tag[] tags;
         filename = filename.substring(filename.lastIndexOf(System.getProperty("file.separator")) + 1);
@@ -53,11 +65,19 @@ public class Image extends Observable implements Observer {
         return tags;
     }
 
+    /**
+     * Returns the image file.
+     *
+     * @return the image file.
+     */
     public File getFile() {
         return this.file;
     }
 
     @Override
+    /**
+     * Renames image file to the new name according to the latest tags in the logManager.
+     */
     public void update() throws IOException {
         String newFileName = file.getAbsolutePath();
         int index;
