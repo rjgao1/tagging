@@ -90,6 +90,7 @@ public class MainWindowController implements Observer {
         for (Tag tag: tagsFromName) {
             Tag.addTagToSet(tag);
         }
+        loadTagSet();
         loadTagList();
         pathText.setText(image.getFile().getAbsolutePath());
         imageView.setImage(new javafx.scene.image.Image(image.getFile().toURI().toString()));
