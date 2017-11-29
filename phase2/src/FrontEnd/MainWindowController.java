@@ -196,7 +196,7 @@ public class MainWindowController implements Observer {
             }
             boolean changed = false;
             for (String tag: tagsToRemove) {
-                if (fileName.contains("@" + tag +" ") || fileName.contains("@" + tag + ".")) {
+                if (fileName.contains("@" + tag +" @") || fileName.contains("@" + tag + ".")) {
                     tags.remove(new Tag(tag));
                     changed = true;
                 }
@@ -216,8 +216,31 @@ public class MainWindowController implements Observer {
         tagHistory.show();
     }
 
-    public void addTagsToDir() {
-
+    public void addTagsToDir() throws IOException{
+        List<String> tagStringList = tagSet.getSelectionModel().getSelectedItems();
+        if (tagStringList.size() == 0) {
+            return;
+        }
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle("Choose the directory to add tags");
+        File selectedDirectory = directoryChooser.showDialog(stage);
+        if (selectedDirectory == null) {
+            return;
+        }
+        FileManager dir = new FileManager(selectedDirectory.getAbsolutePath());
+        for (File image: dir.getImages()) {
+            ArrayList<Tag> tagsToAdd = new ArrayList<>(0);
+            for (String s: tagStringList) {
+                if (!(image.getName().contains("@"+s+" @") || image.getName().contains("@" + s + "."))){
+                    tagsToAdd.add(new Tag(s));
+                }
+            }
+            if (tagsToAdd.size() != 0) {
+                Model.Image temp = new Model.Image(dir.getDirectoryAbsolutePath() +
+                        System.getProperty("file.separator") + image.getName());
+                temp.getLogManager().addTagInfo(new TagInfo(tagsToAdd.toArray(new Tag[tagsToAdd.size()])));
+            }
+        }
     }
 
     private void loadFileList() {
