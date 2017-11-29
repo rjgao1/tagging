@@ -245,11 +245,16 @@ public class MainWindowController implements Observer {
                 }
             }
             if (tagsToAdd.size() != 0) {
-                Model.Image temp = new Model.Image(dir.getDirectoryAbsolutePath() +
-                        System.getProperty("file.separator") + image.getName());
-                temp.getLogManager().addTagInfo(new TagInfo(tagsToAdd.toArray(new Tag[tagsToAdd.size()])));
+                Model.Image temp = new Model.Image(image.getAbsolutePath());
+                ArrayList<Tag> tags= new ArrayList<>(0);
+                for (Tag tag: Model.Image.getTagsFromName(image.getName())) {
+                    tags.add(tag);
+                }
+                tags.addAll(tagsToAdd);
+                temp.getLogManager().addTagInfo(new TagInfo(tags.toArray(new Tag[tags.size()])));
             }
         }
+        update();
     }
 
     private void loadFileList() {
@@ -265,6 +270,9 @@ public class MainWindowController implements Observer {
     }
 
     private void loadTagList() {
+        if (image == null) {
+            return;
+        }
         if (image.getLogManager().getTagInfos().size() > 0) {
             Tag[] list = image.getLogManager().getTagInfos().get(image.getLogManager().getTagInfos().size() - 1).getTagList();
             tags = FXCollections.observableArrayList();
