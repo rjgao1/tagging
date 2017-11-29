@@ -128,7 +128,7 @@ public class Tag {
     /**
      * Creates a new tagFile.
      *
-     * @throws IOException when the directory is non existent.
+     * @throws IOException if there is an existing tagFile
      */
     public static void createTagFile() throws IOException {
         tagFile.createNewFile();
