@@ -15,15 +15,16 @@ import java.io.IOException;
 public class ConfigPageController {
 
     @FXML
+    /* The textField to show and write the directory */
     private TextField directory;
     @FXML
-    private RadioButton viewWithTags;
-    @FXML
-    private RadioButton viewWithoutTags;
-    @FXML
+    /* The stage of the window */
     private Stage stage;
 
     @FXML
+    /**
+     * Initializes the configPage to read config file and update the textField
+     */
     public void initialize() throws IOException {
         // Read the config file if there is one
         if (Config.hasConfigFile()) {
@@ -38,10 +39,9 @@ public class ConfigPageController {
         }
     }
 
-    public Stage getStage() {
-        return stage;
-    }
-
+    /**
+     * Opens a directory chooser for user to choose directory
+     */
     public void selectDirectory() {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Choose root directory");
@@ -52,6 +52,13 @@ public class ConfigPageController {
         }
     }
 
+    /**
+     * Applies the change of configuration.
+     * If there is no main window opening, opens a main window. Otherwise, user should restart the application
+     * for new config to work.
+     *
+     * @throws IOException
+     */
     public void applyButtonClicked() throws IOException {
         File directoryPath = new File(directory.getText());
         if (!directoryPath.isDirectory()) {
@@ -72,6 +79,11 @@ public class ConfigPageController {
         }
     }
 
+    /**
+     * Pops warning box if the root directory is empty, otherwise closes the config window.
+     *
+     * @throws IOException
+     */
     public void cancelButtonClicked() throws IOException {
         if (!Config.getDefaultPath().equals("")) {
             stage.close();
@@ -80,7 +92,12 @@ public class ConfigPageController {
         }
     }
 
-    public void popWarningMessageBox() throws IOException {
+    /**
+     * Pops up warning box with message "Please enter a valid directory"
+     *
+     * @throws IOException
+     */
+    private void popWarningMessageBox() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageBox.fxml"));
         Stage messageBox = loader.load();
         messageBox.setTitle("Warning");
