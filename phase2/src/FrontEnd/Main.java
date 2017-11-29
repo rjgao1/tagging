@@ -8,8 +8,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 
-import java.util.Set;
-
 public class Main extends Application {
 
     private static int mainWindowCount = 0;

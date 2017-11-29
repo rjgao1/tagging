@@ -4,8 +4,6 @@ import Model.Config;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
@@ -26,7 +24,7 @@ public class ConfigPageController {
     private Stage stage;
 
     @FXML
-    public void initialize() throws IOException{
+    public void initialize() throws IOException {
         // Read the config file if there is one
         if (Config.hasConfigFile()) {
             try {
@@ -40,8 +38,8 @@ public class ConfigPageController {
         }
     }
 
-    public Stage getStage(){
-        return  stage;
+    public Stage getStage() {
+        return stage;
     }
 
     public void selectDirectory() {
@@ -54,7 +52,7 @@ public class ConfigPageController {
         }
     }
 
-    public void applyButtonClicked() throws IOException{
+    public void applyButtonClicked() throws IOException {
         File directoryPath = new File(directory.getText());
         if (!directoryPath.isDirectory()) {
             popWarningMessageBox();
@@ -74,7 +72,7 @@ public class ConfigPageController {
         }
     }
 
-    public void cancelButtonClicked() throws IOException{
+    public void cancelButtonClicked() throws IOException {
         if (!Config.getDefaultPath().equals("")) {
             stage.close();
         } else {
@@ -82,11 +80,11 @@ public class ConfigPageController {
         }
     }
 
-    public void popWarningMessageBox() throws IOException{
+    public void popWarningMessageBox() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageBox.fxml"));
         Stage messageBox = loader.load();
         messageBox.setTitle("Warning");
-        ((MessageBoxController)loader.getController()).setMessage("Please enter a valid directory");
+        ((MessageBoxController) loader.getController()).setMessage("Please enter a valid directory");
         messageBox.show();
     }
 

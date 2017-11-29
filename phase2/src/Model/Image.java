@@ -4,21 +4,20 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 
 public class Image extends Observable implements Observer {
 
     private LogManager logManager;
-//    private ArrayList<Observer> observers;
+    //    private ArrayList<Observer> observers;
     private File file;
 
-    public Image(String pathname) throws IOException{
+    public Image(String pathname) throws IOException {
         logManager = new LogManager(pathname);
         logManager.registerObserver(this);
         file = new File(pathname);
     }
 
-    public void rename(String newPathname) throws IOException{
+    public void rename(String newPathname) throws IOException {
         Files.move(file.toPath(), Paths.get(newPathname));
         file = new File(newPathname);
         for (Observer observer : observers) {
@@ -59,7 +58,7 @@ public class Image extends Observable implements Observer {
     }
 
     @Override
-    public void update() throws IOException{
+    public void update() throws IOException {
         String newFileName = file.getAbsolutePath();
         int index;
         index = newFileName.indexOf(" @", newFileName.lastIndexOf(System.getProperty("file.separator")) - 1);
@@ -68,7 +67,7 @@ public class Image extends Observable implements Observer {
         if (index != -1) {
             newFileName = newFileName.substring(0, index);
         }
-        for (Tag tag: logManager.getTagInfos().get(logManager.getTagInfos().size() - 1).getTagList()) {
+        for (Tag tag : logManager.getTagInfos().get(logManager.getTagInfos().size() - 1).getTagList()) {
             newFileName = newFileName + " @" + tag.getContent();
         }
         newFileName = newFileName + postfix;

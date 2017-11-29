@@ -36,7 +36,7 @@ public class Tag {
      * Compares the specified Object obj with this Tag to check if they are equal.
      *
      * @param obj the object to be compared.
-     * @return    true if this object is a Tag with the same content as obj's.
+     * @return true if this object is a Tag with the same content as obj's.
      */
     @Override
     public boolean equals(Object obj) {
@@ -48,7 +48,7 @@ public class Tag {
      *
      * @return a set of Tags representing this Tag's tagSet.
      */
-    public static Set<Tag> getTagSet(){
+    public static Set<Tag> getTagSet() {
         return tagSet;
     }
 
@@ -57,17 +57,17 @@ public class Tag {
      *
      * @param newTagSet a new set of Tags.
      */
-    public static void setTagSet(Set<Tag> newTagSet){
+    public static void setTagSet(Set<Tag> newTagSet) {
         Tag.tagSet = newTagSet;
     }
 
     /**
      * Adds Tag newTag to this Tag's tagSet, if it is not already contained in it.
      *
-     * @param newTag       a Tag to be added to this Tag's tagSet.
+     * @param newTag a Tag to be added to this Tag's tagSet.
      * @throws IOException when the tagFile is not found.
      */
-    public static void addTagToSet(Tag newTag) throws IOException{
+    public static void addTagToSet(Tag newTag) throws IOException {
         if (!Tag.tagSet.contains(newTag)) {
             Tag.tagSet.add(newTag);
             writeTagFile();
@@ -77,10 +77,10 @@ public class Tag {
     /**
      * Adds the elements of newTagList to this Tag's tagSet, if they are not already contained in it.
      *
-     * @param newTagList   an Array of Tags, whose elements are to be added to this Tag's tagSet.
+     * @param newTagList an Array of Tags, whose elements are to be added to this Tag's tagSet.
      * @throws IOException when the tagFile is not found.
      */
-    public static void addTagToSet(Tag[] newTagList) throws IOException{
+    public static void addTagToSet(Tag[] newTagList) throws IOException {
         for (Tag element : newTagList) {
             if (!Tag.tagSet.contains(element)) {
                 Tag.tagSet.add(element);
@@ -143,10 +143,10 @@ public class Tag {
      * Removes the elements of tagSet that are in an Array of Tags, namely tagArray.
      * Precondition: All the elements of tagArray must be contained in tagSet.
      *
-     * @param tagArray     an Array of Tags, whose elements are to be removed from tagSet.
+     * @param tagArray an Array of Tags, whose elements are to be removed from tagSet.
      * @throws IOException when the tagFile is not found
      */
-    public static void removeTagsFromTagSet(Tag[] tagArray) throws IOException{
+    public static void removeTagsFromTagSet(Tag[] tagArray) throws IOException {
         for (Tag tag : tagArray) {
             Tag.tagSet.remove(tag);
             writeTagFile();

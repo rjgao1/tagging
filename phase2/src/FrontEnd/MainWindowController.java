@@ -7,21 +7,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.Image;
 
 import Model.*;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -54,12 +49,12 @@ public class MainWindowController implements Observer {
     }
 
     @FXML
-    public void initialize() throws IOException{
+    public void initialize() throws IOException {
         fileList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         tagSet.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        for (File file: fileManager.getImages()) {
+        for (File file : fileManager.getImages()) {
             Tag[] tagsInFile = Model.Image.getTagsFromName(file.getName());
-            for (Tag tag: tagsInFile) {
+            for (Tag tag : tagsInFile) {
                 if (!Tag.getTagSet().contains(tag)) {
                     Tag.addTagToSet(tag);
                 }
@@ -84,7 +79,7 @@ public class MainWindowController implements Observer {
         Main.incrementMainWindowCount();
     }
 
-    public void chooseFile() throws IOException{
+    public void chooseFile() throws IOException {
         if (image != null) {
             image.deleteObserver(this);
         }
@@ -95,7 +90,7 @@ public class MainWindowController implements Observer {
         if (image.getLogManager().getTagInfos().size() == 0 && tagsFromName.length > 0) {
             image.getLogManager().addTagInfo(new TagInfo(tagsFromName));
         }
-        for (Tag tag: tagsFromName) {
+        for (Tag tag : tagsFromName) {
             Tag.addTagToSet(tag);
         }
         loadTagSet();
@@ -104,7 +99,7 @@ public class MainWindowController implements Observer {
         imageView.setImage(new javafx.scene.image.Image(image.getFile().toURI().toString()));
     }
 
-    public void addTagToSet() throws IOException{
+    public void addTagToSet() throws IOException {
         if (tagText.getText().equals("")) {
             return;
         }
@@ -131,14 +126,14 @@ public class MainWindowController implements Observer {
             return;
         }
         String[] tagsString = tagText.getText().split(";");
-        for (String s: tagsString) {
+        for (String s : tagsString) {
             Tag.addTagToSet(new Tag(s));
         }
         tagText.setText("");
         loadTagSet();
     }
 
-    public void addTagToImage() throws IOException{
+    public void addTagToImage() throws IOException {
         if (image == null) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageBox.fxml"));
             Stage messageBox = loader.load();
@@ -149,10 +144,10 @@ public class MainWindowController implements Observer {
             List<String> tagsAdded = tagSet.getSelectionModel().getSelectedItems();
             List<Tag> newTags = new ArrayList<>(0);
             boolean hasNewTag = false;
-            for (String tagString: tags) {
+            for (String tagString : tags) {
                 newTags.add(new Tag(tagString));
             }
-            for (String tagString: tagsAdded) {
+            for (String tagString : tagsAdded) {
                 if (!tags.contains(tagString)) {
                     newTags.add(new Tag(tagString));
                     hasNewTag = true;
@@ -164,7 +159,7 @@ public class MainWindowController implements Observer {
         }
     }
 
-    public void deleteTags() throws IOException{
+    public void deleteTags() throws IOException {
         List<String> list = tagList.getSelectionModel().getSelectedItems();
         if (tagList.getSelectionModel().getSelectedItem() != null) {
             List<String> tagNameList = tagList.getItems();
@@ -183,7 +178,7 @@ public class MainWindowController implements Observer {
         }
     }
 
-    public void deleteTagsFromTagSet() throws IOException{
+    public void deleteTagsFromTagSet() throws IOException {
         List<String> tagStringSelected = tagSet.getSelectionModel().getSelectedItems();
         Tag[] tagSelected = new Tag[tagStringSelected.size()];
         for (int i = 0; i < tagSelected.length; i++) {
@@ -193,19 +188,19 @@ public class MainWindowController implements Observer {
         loadTagSet();
     }
 
-    public void removeTags() throws IOException{
+    public void removeTags() throws IOException {
         List<String> tagsToRemove = tagSet.getSelectionModel().getSelectedItems();
         if (tagsToRemove.size() == 0) {
             return;
         }
         for (String fileName : files) {
             ArrayList<Tag> tags = new ArrayList<>(0);
-            for (Tag tag: Model.Image.getTagsFromName(fileName)) {
+            for (Tag tag : Model.Image.getTagsFromName(fileName)) {
                 tags.add(tag);
             }
             boolean changed = false;
-            for (String tag: tagsToRemove) {
-                if (fileName.contains("@" + tag +" @") || fileName.contains("@" + tag + ".")) {
+            for (String tag : tagsToRemove) {
+                if (fileName.contains("@" + tag + " @") || fileName.contains("@" + tag + ".")) {
                     tags.remove(new Tag(tag));
                     changed = true;
                 }
@@ -231,7 +226,7 @@ public class MainWindowController implements Observer {
         tagHistory.show();
     }
 
-    public void addTagsToDir() throws IOException{
+    public void addTagsToDir() throws IOException {
         List<String> tagStringList = tagSet.getSelectionModel().getSelectedItems();
         if (tagStringList.size() == 0) {
             return;
@@ -243,10 +238,10 @@ public class MainWindowController implements Observer {
             return;
         }
         FileManager dir = new FileManager(selectedDirectory.getAbsolutePath());
-        for (File tempImage: dir.getImages()) {
+        for (File tempImage : dir.getImages()) {
             ArrayList<Tag> tagsToAdd = new ArrayList<>(0);
-            for (String s: tagStringList) {
-                if (!(tempImage.getName().contains("@"+s+" @") || tempImage.getName().contains("@" + s + "."))){
+            for (String s : tagStringList) {
+                if (!(tempImage.getName().contains("@" + s + " @") || tempImage.getName().contains("@" + s + "."))) {
                     tagsToAdd.add(new Tag(s));
                 }
             }
@@ -256,8 +251,8 @@ public class MainWindowController implements Observer {
                     temp = image;
                 }
                 temp.registerObserver(this);
-                ArrayList<Tag> tags= new ArrayList<>(0);
-                for (Tag tag: Model.Image.getTagsFromName(tempImage.getName())) {
+                ArrayList<Tag> tags = new ArrayList<>(0);
+                for (Tag tag : Model.Image.getTagsFromName(tempImage.getName())) {
                     tags.add(tag);
                 }
                 tags.addAll(tagsToAdd);
@@ -294,7 +289,7 @@ public class MainWindowController implements Observer {
 
     public void loadTagSet() {
         tagSetList = FXCollections.observableArrayList();
-        for (Tag tag: Tag.getTagSet()) {
+        for (Tag tag : Tag.getTagSet()) {
             tagSetList.add(tag.getContent());
         }
         tagSet.setItems(tagSetList);
@@ -311,7 +306,7 @@ public class MainWindowController implements Observer {
         return stage;
     }
 
-    public void moveFile() throws IOException{
+    public void moveFile() throws IOException {
         if (image != null && image.getFile().isFile()) {
             DirectoryChooser directoryChooser = new DirectoryChooser();
             directoryChooser.setTitle("Choose the new directory");
@@ -329,7 +324,7 @@ public class MainWindowController implements Observer {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageBox.fxml"));
                     Stage messageBox = loader.load();
                     messageBox.setTitle("Warning");
-                    ((MessageBoxController)loader.getController()).setMessage(
+                    ((MessageBoxController) loader.getController()).setMessage(
                             "The file with same name exists in the Directory selected"
                                     + System.getProperty("line.separator") + "Please select a new directory");
                     messageBox.show();
@@ -339,7 +334,7 @@ public class MainWindowController implements Observer {
         }
     }
 
-    public void openConfigPage() throws IOException{
+    public void openConfigPage() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ConfigPage.fxml"));
         Stage configPage = loader.load();
         configPage.show();

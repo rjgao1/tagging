@@ -37,7 +37,7 @@ public class TagHistoryController {
 
     private ObservableList<TagInfo> data;
 
-    public void setLogManager(LogManager logManager) throws IOException{
+    public void setLogManager(LogManager logManager) throws IOException {
         this.logManager = logManager;
         if (logManager.getTagInfos().size() != 0) {
             loadData();
@@ -46,7 +46,7 @@ public class TagHistoryController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageBox.fxml"));
             Stage messageBox = loader.load();
             messageBox.setTitle("Warning");
-            ((MessageBoxController)loader.getController()).setMessage("Image file do not has tag history");
+            ((MessageBoxController) loader.getController()).setMessage("Image file do not has tag history");
             messageBox.show();
         }
     }
@@ -81,7 +81,7 @@ public class TagHistoryController {
     }
 
 
-    public void goToHistory() throws IOException{
+    public void goToHistory() throws IOException {
         TagInfo historyTagInfo = historyTable.getSelectionModel().getSelectedItem();
         TagInfo newTagInfo = new TagInfo(historyTagInfo.getTagList());
         logManager.addTagInfo(newTagInfo);

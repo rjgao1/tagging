@@ -1,14 +1,13 @@
 package Model;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class FileManager {
 
     private File directory;
     private ArrayList<File> images;
-    private static final String[] IMAGE_EXTENSION= {".png", ".jpg",".img", "jpeg"};
+    private static final String[] IMAGE_EXTENSION = {".png", ".jpg", ".img", "jpeg"};
 
     public FileManager(String directoryRoute) {
         this.directory = new File(directoryRoute);
@@ -23,7 +22,7 @@ public class FileManager {
         return images;
     }
 
-    public ArrayList<File> getAllImages(File dir){
+    public ArrayList<File> getAllImages(File dir) {
         ArrayList<File> ret = new ArrayList<>(0);
         if (dir.listFiles() != null) {
             for (File file : dir.listFiles()) {
@@ -38,7 +37,7 @@ public class FileManager {
     }
 
     private boolean isImage(File file) {
-        for (String imageExtension: IMAGE_EXTENSION) {
+        for (String imageExtension : IMAGE_EXTENSION) {
             if (file.getPath().endsWith(imageExtension)) {
                 return true;
             }

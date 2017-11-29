@@ -25,7 +25,7 @@ public class TagInfo {
         Date dateObj = new Date();
         time = dateFormat.format(dateObj);
         StringBuilder s = new StringBuilder();
-        for (Tag tag: tagList) {
+        for (Tag tag : tagList) {
             s.append("@");
             s.append(tag.getContent());
             s.append(" ");
@@ -72,7 +72,7 @@ public class TagInfo {
         StringBuilder result = new StringBuilder("");
         result.append(this.getTime());
         result.append("|");
-        for (Tag tag: tagList) {
+        for (Tag tag : tagList) {
             result.append("@");
             result.append(tag.getContent());
         }
@@ -94,7 +94,7 @@ public class TagInfo {
      * of this particular form.
      *
      * @param tagString a String representing a TagInfo.
-     * @return          a TagInfo object with the information of the input string.
+     * @return a TagInfo object with the information of the input string.
      */
     public static TagInfo stringToTagInfo(String tagString) {
         String currentTime = tagString.substring(0, 19);
@@ -108,8 +108,7 @@ public class TagInfo {
             TagInfo result = new TagInfo(tags);
             result.setTime(currentTime);
             return result;
-        }
-        else {
+        } else {
             TagInfo result = new TagInfo(new Tag[0]);
             result.setTime(currentTime);
             return result;

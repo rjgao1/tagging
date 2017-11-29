@@ -7,7 +7,6 @@ import java.io.OutputStreamWriter;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.nio.file.Files;
 
 public class Config {
 
@@ -18,7 +17,7 @@ public class Config {
         return configFile.isFile();
     }
 
-    public static void readConfigFile() throws IOException{
+    public static void readConfigFile() throws IOException {
         BufferedReader configBR = new BufferedReader(new FileReader(configFile));
 
         defaultPath = configBR.readLine();
@@ -34,8 +33,8 @@ public class Config {
         configFile.delete();
     }
 
-    public static void createConfigFile() throws IOException{
-         configFile.createNewFile();
+    public static void createConfigFile() throws IOException {
+        configFile.createNewFile();
     }
 
 

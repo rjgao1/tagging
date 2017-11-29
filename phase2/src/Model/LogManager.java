@@ -1,7 +1,6 @@
 package Model;
 
 import java.io.*;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.nio.file.*;
 
@@ -12,7 +11,7 @@ public class LogManager extends Observable {
     private final Path logDirPath;
     private Path logFilePath;
     private ArrayList<TagInfo> tagInfos;
-//    private ArrayList<String> tagInfosStrings;
+    //    private ArrayList<String> tagInfosStrings;
 //    private ArrayList<Observer> observers;
     private String modifiedImagePathString;
 
@@ -87,7 +86,7 @@ public class LogManager extends Observable {
 
     }
 
-    public void readLogFile() throws  IOException {
+    public void readLogFile() throws IOException {
         BufferedReader logBR = new BufferedReader(new FileReader(logFilePath.toString()));
 
         String line = logBR.readLine();
@@ -107,8 +106,7 @@ public class LogManager extends Observable {
             Path newLogFilePath = constructLogFilePath(newPath);
             Files.move(logFilePath, newLogFilePath);
             logFilePath = newLogFilePath;
-        }
-        else {
+        } else {
 //            Files.move(logFilePath, logFilePath.resolveSibling(modifiedImagePathString));
             Path result = Paths.get(newPath);
             Files.move(logFilePath, result);
@@ -116,7 +114,7 @@ public class LogManager extends Observable {
         }
     }
 
-    private String tagListStringToPathString (String newTagListString) {
+    private String tagListStringToPathString(String newTagListString) {
         int index = modifiedImagePathString.indexOf(" @", modifiedImagePathString.lastIndexOf(":"));
         String substring;
         if (index != -1) {
@@ -140,7 +138,7 @@ public class LogManager extends Observable {
         tagListString = tagListString.substring(0, tagListString.length() - 1);
         writeLogFile();
         renameLogFile(tagListStringToPathString(tagListString), false);
-        for (Observer observer: observers) {
+        for (Observer observer : observers) {
             observer.update();
         }
     }
