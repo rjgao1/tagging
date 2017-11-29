@@ -84,7 +84,7 @@ public class Config {
 
     /**
      * Returns the root directory.
-     * 
+     *
      * @return the root directory
      */
     public static String getDefaultPath() {
