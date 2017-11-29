@@ -208,7 +208,7 @@ public class MainWindowController implements Observer {
             if (changed) {
                 Model.Image temp = new Model.Image(Config.getDefaultPath() + System.getProperty("file.separator") +
                         fileName);
-                if (temp.getFile().getAbsolutePath().equals(image.getFile().getAbsolutePath())) {
+                if (image != null && temp.getFile().getAbsolutePath().equals(image.getFile().getAbsolutePath())) {
                     temp = image;
                 }
                 temp.registerObserver(this);
@@ -247,7 +247,7 @@ public class MainWindowController implements Observer {
             }
             if (tagsToAdd.size() != 0) {
                 Model.Image temp = new Model.Image(tempImage.getAbsolutePath());
-                if (temp.getFile().getAbsolutePath().equals(image.getFile().getAbsolutePath())) {
+                if (image != null && temp.getFile().getAbsolutePath().equals(image.getFile().getAbsolutePath())) {
                     temp = image;
                 }
                 temp.registerObserver(this);
@@ -275,6 +275,9 @@ public class MainWindowController implements Observer {
     }
 
     private void loadTagList() {
+        if (image == null) {
+            return;
+        }
         if (image.getLogManager().getTagInfos().size() > 0) {
             Tag[] list = image.getLogManager().getTagInfos().get(image.getLogManager().getTagInfos().size() - 1).getTagList();
             tags = FXCollections.observableArrayList();
