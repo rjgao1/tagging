@@ -10,8 +10,11 @@ import java.text.SimpleDateFormat;
  */
 public class TagInfo {
 
+    /* The list of all Tags if this TagInfo.*/
     Tag[] tagList;
+    /* The date and time this TagInfo was created.*/
     String time;
+    /* The String which contains all the Tags of this TagInfo.*/
     String tagListString;
 
     /**
