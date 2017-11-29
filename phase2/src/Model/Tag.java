@@ -135,9 +135,9 @@ public class Tag {
     }
 
     /**
-     * Returns if it already exists a tagFile.
+     * Returns whether tagFile is in the project directory.
      *
-     * @return true if there exists a tagFile
+     * @return true if the tagFile is in the project directory
      */
     public static boolean hasTagFile() {
         return tagFile.isFile();
