@@ -9,9 +9,13 @@ import java.io.*;
  */
 public class Tag {
 
+    /* The content of this Tag.*/
     private final String content;
+    /* The set of all Tags.*/
     private static Set<Tag> tagSet = new HashSet<>();
+    /* The root directory path. */
     private static String defaultPath = "";
+    /* The path of the tag file. */
     private static final File tagFile = new File(System.getProperty("user.dir"), "tag.txt");
 
     /**
