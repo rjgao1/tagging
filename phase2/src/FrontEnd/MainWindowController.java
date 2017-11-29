@@ -199,9 +199,6 @@ public class MainWindowController implements Observer {
             return;
         }
         for (String fileName : files) {
-            Model.Image temp = new Model.Image(Config.getDefaultPath() + System.getProperty("file.separator") +
-                    fileName);
-            temp.registerObserver(this);
             ArrayList<Tag> tags = new ArrayList<>(0);
             for (Tag tag: Model.Image.getTagsFromName(fileName)) {
                 tags.add(tag);
@@ -214,13 +211,19 @@ public class MainWindowController implements Observer {
                 }
             }
             if (changed) {
+                Model.Image temp = new Model.Image(Config.getDefaultPath() + System.getProperty("file.separator") +
+                        fileName);
+                if (temp.getFile().getAbsolutePath().equals(image.getFile().getAbsolutePath())) {
+                    temp = image;
+                }
+                temp.registerObserver(this);
                 temp.getLogManager().addTagInfo(new TagInfo(tags.toArray(new Tag[tags.size()])));
+                temp.deleteObserver(this);
             }
         }
     }
 
     public void viewHistory() throws IOException {
-        String fileString = image.getFile().getPath();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("TagHistory.fxml"));
         Stage tagHistory = loader.load();
         ((TagHistoryController) loader.getController()).setLogManager(image.getLogManager());
@@ -240,18 +243,21 @@ public class MainWindowController implements Observer {
             return;
         }
         FileManager dir = new FileManager(selectedDirectory.getAbsolutePath());
-        for (File image: dir.getImages()) {
+        for (File tempImage: dir.getImages()) {
             ArrayList<Tag> tagsToAdd = new ArrayList<>(0);
             for (String s: tagStringList) {
-                if (!(image.getName().contains("@"+s+" @") || image.getName().contains("@" + s + "."))){
+                if (!(tempImage.getName().contains("@"+s+" @") || tempImage.getName().contains("@" + s + "."))){
                     tagsToAdd.add(new Tag(s));
                 }
             }
             if (tagsToAdd.size() != 0) {
-                Model.Image temp = new Model.Image(image.getAbsolutePath());
+                Model.Image temp = new Model.Image(tempImage.getAbsolutePath());
+                if (temp.getFile().getAbsolutePath().equals(image.getFile().getAbsolutePath())) {
+                    temp = image;
+                }
                 temp.registerObserver(this);
                 ArrayList<Tag> tags= new ArrayList<>(0);
-                for (Tag tag: Model.Image.getTagsFromName(image.getName())) {
+                for (Tag tag: Model.Image.getTagsFromName(tempImage.getName())) {
                     tags.add(tag);
                 }
                 tags.addAll(tagsToAdd);
@@ -274,9 +280,6 @@ public class MainWindowController implements Observer {
     }
 
     private void loadTagList() {
-        if (image == null) {
-            return;
-        }
         if (image.getLogManager().getTagInfos().size() > 0) {
             Tag[] list = image.getLogManager().getTagInfos().get(image.getLogManager().getTagInfos().size() - 1).getTagList();
             tags = FXCollections.observableArrayList();
