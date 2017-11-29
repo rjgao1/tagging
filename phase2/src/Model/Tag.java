@@ -96,7 +96,7 @@ public class Tag {
     /**
      * Writes the contents of this Tag's tagSet in the tagFile.
      *
-     * @throws IOException when the tagFile is not found
+     * @throws IOException when the tagFile does not exist
      */
     public static void writeTagFile() throws IOException {
         FileOutputStream tagFOS = new FileOutputStream(tagFile);
