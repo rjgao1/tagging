@@ -216,6 +216,10 @@ public class MainWindowController implements Observer {
         tagHistory.show();
     }
 
+    public void addTagsToDir() {
+
+    }
+
     private void loadFileList() {
         fileManager = new FileManager(fileManager.getDirectoryAbsolutePath());
         files = FXCollections.observableArrayList();
