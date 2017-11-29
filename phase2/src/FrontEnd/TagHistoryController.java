@@ -21,22 +21,30 @@ import java.io.IOException;
 
 public class TagHistoryController {
 
+    /* The logManager to get history from */
     private LogManager logManager;
+    /* The name of file of which to get history */
     private String fileName;
 
     @FXML
+    /* The table of history */
     private TableView<TagInfo> historyTable;
     @FXML
+    /* The column of time */
     private TableColumn<TagInfo, String> timeColumn;
     @FXML
+    /* The column of file name */
     private TableColumn<TagInfo, String> tagsColumn;
     @FXML
-    private Button closeButton;
-    @FXML
+    /* The stage of the window */
     private Stage stage;
 
-    private ObservableList<TagInfo> data;
-
+    /**
+     * Sets the logManager.
+     *
+     * @param logManager the logManager to set to
+     * @throws IOException
+     */
     public void setLogManager(LogManager logManager) throws IOException {
         this.logManager = logManager;
         if (logManager.getTagInfos().size() != 0) {
@@ -51,12 +59,19 @@ public class TagHistoryController {
         }
     }
 
+    /**
+     * Sets file name.
+     * @param fileName the file name to set to
+     */
     public void setFileName(String fileName) {
         this.fileName = fileName;
     }
 
+    /**
+     * Loads data for history table.
+     */
     public void loadData() {
-        data = FXCollections.observableArrayList(logManager.getTagInfos());
+        ObservableList<TagInfo> data = FXCollections.observableArrayList(logManager.getTagInfos());
         historyTable.setItems(data);
         timeColumn.setCellValueFactory(new Callback<CellDataFeatures<TagInfo, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(CellDataFeatures<TagInfo, String> p) {
@@ -75,12 +90,11 @@ public class TagHistoryController {
         });
     }
 
-
-    public Stage getStage() {
-        return stage;
-    }
-
-
+    /**
+     * Goes back to the history name.
+     *
+     * @throws IOException
+     */
     public void goToHistory() throws IOException {
         TagInfo historyTagInfo = historyTable.getSelectionModel().getSelectedItem();
         TagInfo newTagInfo = new TagInfo(historyTagInfo.getTagList());
@@ -88,8 +102,10 @@ public class TagHistoryController {
         this.close();
     }
 
+    /**
+     * Closes the window.
+     */
     public void close() {
-        Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
     }
 }
