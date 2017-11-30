@@ -91,13 +91,12 @@ class TagInfoTest {
     }
 
 
-//    @Test
-//    void testStringToTagInfoWithTags() {
-//        String tagInfoString = "2017/11/30 02:27:11|@tag1@tag2@tag3@tag4";
-//        TagInfo testTagInfo = TagInfo.stringToTagInfo(tagInfoString);
-//        assertEquals("2017/11/30 02:27:11", testTagInfo.getTime());
-//        assertEquals()
-//    }
+    @Test
+    void testStringToTagInfoWithTags() {
+        String tagInfoString = "2017/11/30 02:27:11|@tag1@tag2@tag3@tag4";
+        assertEquals("2017/11/30 02:27:11", TagInfo.stringToTagInfo(tagInfoString).getTime());
+        assertEquals("@tag1 @tag2 @tag3 @tag4 ", TagInfo.stringToTagInfo(tagInfoString).getTagListString());
+    }
 
 
     @org.junit.jupiter.api.Test
