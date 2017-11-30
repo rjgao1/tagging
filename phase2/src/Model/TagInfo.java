@@ -115,13 +115,4 @@ public class TagInfo {
             return result;
         }
     }
-
-    /**
-     * Sets this TagInfo's tagListString to tagListString.
-     *
-     * @param tagListString a new String representing tagListString
-     */
-    public void setTagListString(String tagListString) {
-        this.tagListString = tagListString;
-    }
 }
