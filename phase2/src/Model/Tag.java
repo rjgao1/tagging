@@ -9,9 +9,11 @@ import java.io.*;
  */
 public class Tag {
 
+    /* The content of this Tag.*/
     private final String content;
+    /* The set of all Tags.*/
     private static Set<Tag> tagSet = new HashSet<>();
-    private static String defaultPath = "";
+    /* The path of the tag file. */
     private static final File tagFile = new File(System.getProperty("user.dir"), "tag.txt");
 
     /**
@@ -44,9 +46,9 @@ public class Tag {
     }
 
     /**
-     * Returns this Tag's tagSet.
+     * Returns a set of Tags representing this Tag's tagSet.
      *
-     * @return a set of Tags representing this Tag's tagSet.
+     * @return this Tag's tagSet.
      */
     public static Set<Tag> getTagSet() {
         return tagSet;
@@ -92,7 +94,7 @@ public class Tag {
     /**
      * Writes the contents of this Tag's tagSet in the tagFile.
      *
-     * @throws IOException when the tagFile is not found
+     * @throws IOException when the tagFile does not exist
      */
     public static void writeTagFile() throws IOException {
         FileOutputStream tagFOS = new FileOutputStream(tagFile);
@@ -101,7 +103,6 @@ public class Tag {
             tagBW.write(tag.getContent());
             tagBW.newLine();
         }
-        tagBW.write(defaultPath);
         tagBW.close();
         tagFOS.close();
     }
@@ -109,7 +110,7 @@ public class Tag {
     /**
      * Reads the contents of a tagFile and adds the appropriate Tag objects generated from them in this Tag's tagSet.
      *
-     * @throws IOException when the tagFile is not found
+     * @throws IOException when the tagFile is empty
      */
     public static void readTagFile() throws IOException {
         BufferedReader tagBR = new BufferedReader(new FileReader(tagFile));
@@ -124,16 +125,16 @@ public class Tag {
     /**
      * Creates a new tagFile.
      *
-     * @throws IOException when the directory is non existent.
+     * @throws IOException if there is an existing tagFile
      */
     public static void createTagFile() throws IOException {
         tagFile.createNewFile();
     }
 
     /**
-     * Returns if it already exists a tagFile.
+     * Returns whether tagFile is in the project directory.
      *
-     * @return true if there exists a tagFile
+     * @return true if the tagFile is in the project directory
      */
     public static boolean hasTagFile() {
         return tagFile.isFile();
