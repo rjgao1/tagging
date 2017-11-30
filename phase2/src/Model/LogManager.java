@@ -16,6 +16,12 @@ public class LogManager extends Observable {
     /* The string representing the path of the modified Image */
     private String modifiedImagePathString;
 
+    /**
+     * Initiates LogManager with log directory path, log file path and a list of TagInfos.
+     *
+     * @param pathname the name of the path on which the logDirPath is based
+     * @throws IOException if there is an existing directory, the logFile is empty or there is an existing logFile.
+     */
     public LogManager(String pathname) throws IOException {
 
         String userDirString = System.getProperty("user.dir");
@@ -79,11 +85,14 @@ public class LogManager extends Observable {
         logBR.close();
     }
 
+    /**
+     * Renames the logFile according to the newPath, if isImage is true.
+     *
+     * @param newPath the path of the new directory in which the Image will be moved.
+     * @param isImage is true if a file is an Image.
+     * @throws IOException
+     */
     public void renameLogFile(String newPath, boolean isImage) throws IOException {
-
-/*        String substring is of of all the tags of the image whose log is to be renamed,
-        i.e. everything between the image label and the suffix.*/
-
         if (isImage) {
             Path newLogFilePath = constructLogFilePath(newPath);
             Files.move(logFilePath, newLogFilePath);
@@ -97,6 +106,9 @@ public class LogManager extends Observable {
 
     private String tagListStringToPathString(String newTagListString) {
         int index = modifiedImagePathString.indexOf(" @", modifiedImagePathString.lastIndexOf(":"));
+
+/*        String substring is of of all the tags of the image whose log is to be renamed,
+        i.e. everything between the image label and the suffix.*/
         String substring;
         if (index != -1) {
             substring = modifiedImagePathString.substring(index, modifiedImagePathString.lastIndexOf("."));
@@ -111,6 +123,7 @@ public class LogManager extends Observable {
         return logFilePath.resolveSibling(modifiedImagePathString).toString() + ".txt";
     }
 
+    
     public void addTagInfo(TagInfo tagInfo) throws IOException {
         tagInfos.add(tagInfo);
         String tagListString = " " + tagInfo.getTagListString();
