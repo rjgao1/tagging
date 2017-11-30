@@ -49,8 +49,23 @@ class TagInfoTest {
         assertEquals(tagList, res);
     }
 
+//    @Test
+//    void testGetTagListWithoutTags() {
+//        this.tagList = new Tag[0];
+//        this.tagInfo = new TagInfo(this.tagList);
+//        Tag[] res = tagInfo.getTagList();
+//        assertEquals();
+//    }
+
     @org.junit.jupiter.api.Test
     void getTagList() {
+    }
+
+    @Test
+    void testGetTagListStringWithTags() {
+        String exp = "@tag1 @tag2 @tag3 @tag4 ";
+        String result = tagInfo.getTagListString();
+        assertEquals(exp, result);
     }
 
     @org.junit.jupiter.api.Test
@@ -74,7 +89,8 @@ class TagInfoTest {
 //    void testStringToTagInfoWithTags() {
 //        String tagInfoString = "2017/11/30 02:27:11|@tag1@tag2@tag3@tag4";
 //        TagInfo testTagInfo = TagInfo.stringToTagInfo(tagInfoString);
-//        testTagInfo.getTime()
+//        assertEquals("2017/11/30 02:27:11", testTagInfo.getTime());
+//        assertEquals()
 //    }
 
 
