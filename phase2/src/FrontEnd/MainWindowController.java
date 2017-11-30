@@ -61,10 +61,11 @@ public class MainWindowController implements Observer {
         fileManager = new FileManager(Config.getDefaultPath());
     }
 
-    @FXML
+
     /**
      * Initializes the MainWindowController to set the load the data and add tags to tag set.
      */
+    @FXML
     public void initialize() throws IOException {
         fileList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         tagSet.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -94,7 +95,7 @@ public class MainWindowController implements Observer {
     /**
      * Opens a new window.
      *
-     * @throws IOException
+     * @throws IOException if MainWindow.fxml is moved
      */
     public void openMainWindow() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MainWindow.fxml"));
@@ -106,7 +107,7 @@ public class MainWindowController implements Observer {
     /**
      * Shows the image and its tags when an image is chooses.
      *
-     * @throws IOException
+     * @throws IOException if the image file is moved
      */
     public void chooseFile() throws IOException {
         if (image != null) {
@@ -131,7 +132,7 @@ public class MainWindowController implements Observer {
     /**
      * Adds tags in the textField to the tag set.
      *
-     * @throws IOException
+     * @throws IOException if the MessageBox.fxml if moved
      */
     public void addTagToSet() throws IOException {
         if (tagText.getText().equals("")) {
@@ -170,7 +171,7 @@ public class MainWindowController implements Observer {
     /**
      * Adds tags selected in the tag set to the image.
      *
-     * @throws IOException
+     * @throws IOException if the MessageBox.fxml is moved
      */
     public void addTagToImage() throws IOException {
         if (image == null) {
@@ -201,7 +202,7 @@ public class MainWindowController implements Observer {
     /**
      * Deletes tags from the image.
      *
-     * @throws IOException
+     * @throws IOException if the image file is moved
      */
     public void deleteTags() throws IOException {
         List<String> list = tagList.getSelectionModel().getSelectedItems();
@@ -225,7 +226,7 @@ public class MainWindowController implements Observer {
     /**
      * Deletes tags from the tag set.
      *
-     * @throws IOException
+     * @throws IOException if the image file is moved
      */
     public void deleteTagsFromTagSet() throws IOException {
         List<String> tagStringSelected = tagSet.getSelectionModel().getSelectedItems();
@@ -240,7 +241,7 @@ public class MainWindowController implements Observer {
     /**
      * Deletes tags from all the image files under the root directory.
      *
-     * @throws IOException
+     * @throws IOException if the image file is moved
      */
     public void removeTags() throws IOException {
         ArrayList<String> tagsToRemove = new ArrayList<>(0);
@@ -278,7 +279,7 @@ public class MainWindowController implements Observer {
     /**
      * Opens the history window to view history.
      *
-     * @throws IOException
+     * @throws IOException if TagHistory.fxml is moved
      */
     public void viewHistory() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("TagHistory.fxml"));
@@ -291,7 +292,7 @@ public class MainWindowController implements Observer {
     /**
      * Adds tags to the selected directory.
      *
-     * @throws IOException
+     * @throws IOException if the image file is moved
      */
     public void addTagsToDir() throws IOException {
         ArrayList<String> tagStringList = new ArrayList<>(0);
@@ -377,10 +378,11 @@ public class MainWindowController implements Observer {
         tagSet.setItems(tagSetList);
     }
 
-    @Override
+
     /**
      * Updates the data in view.
      */
+    @Override
     public void update() {
         loadFileList();
         loadTagList();
@@ -390,7 +392,7 @@ public class MainWindowController implements Observer {
     /**
      * Moves file to the new directory.
      *
-     * @throws IOException
+     * @throws IOException if MessageBox.fxml is moved
      */
     public void moveFile() throws IOException {
         if (image != null && image.getFile().isFile()) {
@@ -423,7 +425,7 @@ public class MainWindowController implements Observer {
     /**
      * Opens the config window for user to change config.
      * 
-     * @throws IOException
+     * @throws IOException if ConfigPage.fxml is moved
      */
     public void openConfigPage() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ConfigPage.fxml"));
