@@ -7,32 +7,23 @@ import java.nio.file.*;
 
 public class LogManager extends Observable {
 
-    //    private File logFile;
     private final Path logDirPath;
     private Path logFilePath;
     private ArrayList<TagInfo> tagInfos;
-    //    private ArrayList<String> tagInfosStrings;
-//    private ArrayList<Observer> observers;
+
     private String modifiedImagePathString;
 
     public LogManager(String pathname) throws IOException {
-//        String userDirString = System.getProperty("user.dir");
-////        String imageFileName = pathname.substring(pathname.lastIndexOf(System.getProperty(File.separator)));
-//        String logDirString = userDirString + System.getProperty("file.separator") + "Logs";
-//        logDirPath = Paths.get(logDirString);
-//        constructLogDirPath();
-//        private void constructLogDirPath() {
+
         String userDirString = System.getProperty("user.dir");
         String logDirString = userDirString + System.getProperty("file.separator") + "Logs";
         logDirPath = Paths.get(logDirString);
-//        }
+
         logFilePath = constructLogFilePath(pathname);
         if (!Files.exists(logDirPath)) {
             Files.createDirectory(logDirPath);
         }
-//        File logFile = new File(pathname);
 
-//        logFilePath = Paths.get(logFilePath.toString(), "Pathname: " + pathname);
         tagInfos = new ArrayList<>(0);
         if (!Files.exists(logFilePath)) {
             createLogFile();
@@ -43,11 +34,6 @@ public class LogManager extends Observable {
 
     }
 
-//    private void constructLogDirPath() {
-//        String userDirString = System.getProperty("user.dir");
-//        String logDirString = userDirString + System.getProperty("file.separator") + "Logs";
-//        logDirPath = Paths.get(logDirString);
-//    }
 
     private Path constructLogFilePath(String imagePath) {
         String withoutFirstSeparator = imagePath.substring(System.getProperty("file.separator").length());
@@ -59,20 +45,13 @@ public class LogManager extends Observable {
         return Files.exists(logFilePath);
     }
 
-    public void createLogFile() throws IOException {
+    private void createLogFile() throws IOException {
         if (!logFileExists()) {
             Files.createFile(logFilePath);
-//            Files.write(logFilePath, tagInfosStrings, Charset.forName("UTF-8"));
         }
     }
 
-    public void writeLogFile() throws IOException {
-//        BufferedWriter bufferedWriter = Files.newBufferedWriter(logFilePath, Charset.forName("UTF-8"));
-//        for (TagInfo tagInfo : tagInfos) {
-//            bufferedWriter.write(tagInfo.toString());
-//            bufferedWriter.newLine();
-//        }
-////        bufferedWriter.write(tagInfosStrings.get(tagInfosStrings.size() - 1));
+    private void writeLogFile() throws IOException {
         File logFile = logFilePath.toFile();
         FileOutputStream logFileFOS = new FileOutputStream(logFile);
         BufferedWriter logFileBW = new BufferedWriter(new OutputStreamWriter(logFileFOS));
@@ -86,7 +65,7 @@ public class LogManager extends Observable {
 
     }
 
-    public void readLogFile() throws IOException {
+    private void readLogFile() throws IOException {
         BufferedReader logBR = new BufferedReader(new FileReader(logFilePath.toString()));
 
         String line = logBR.readLine();
@@ -107,7 +86,6 @@ public class LogManager extends Observable {
             Files.move(logFilePath, newLogFilePath);
             logFilePath = newLogFilePath;
         } else {
-//            Files.move(logFilePath, logFilePath.resolveSibling(modifiedImagePathString));
             Path result = Paths.get(newPath);
             Files.move(logFilePath, result);
             logFilePath = result;
@@ -141,13 +119,7 @@ public class LogManager extends Observable {
         notifyObserver();
     }
 
-//    public void registerObserver(Observer observer) {
-//        observers.add(observer);
-//    }
-//
-//    public void deleteObserver(Observer observer) {
-//        observers.remove(observer);
-//    }
+
 
     public ArrayList<TagInfo> getTagInfos() {
         return tagInfos;
