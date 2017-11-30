@@ -53,12 +53,14 @@ class TagInfoTest {
 
     @Test
     void testToStringWithTags() {
-        assertEquals(tagInfo.getTime()+"|@tag1@tag2@tag3@tag4", tagInfo.toString());
+        assertEquals(tagInfo.getTime() + "|@tag1@tag2@tag3@tag4", tagInfo.toString());
     }
 
     @Test
     void testToStringWithoutTags() {
-
+        this.tagList = new Tag[0];
+        this.tagInfo = new TagInfo(this.tagList);
+        assertEquals(tagInfo.getTime() + "|", tagInfo.toString());
     }
 
 
