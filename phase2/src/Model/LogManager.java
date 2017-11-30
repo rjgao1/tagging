@@ -123,7 +123,13 @@ public class LogManager extends Observable {
         return logFilePath.resolveSibling(modifiedImagePathString).toString() + ".txt";
     }
 
-    
+    /**
+     * Adds a TagInfo object to the list TagInfos, writes and renames the logFile accordingly and notifies the
+     * Observer.
+     *
+     * @param tagInfo a TagInfo object to be added to tagInfos
+     * @throws IOException if the logFile does not exist
+     */
     public void addTagInfo(TagInfo tagInfo) throws IOException {
         tagInfos.add(tagInfo);
         String tagListString = " " + tagInfo.getTagListString();
