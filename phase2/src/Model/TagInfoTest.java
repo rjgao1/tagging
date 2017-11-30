@@ -53,11 +53,9 @@ class TagInfoTest {
 
     @Test
     void testGetTagListWithTags() {
-        Tag[] testTagList = new Tag[] {tag1, tag2, tag3, tag4};
         assertTrue(tagInfo.getTagList().length == 4);
-        assertEquals(tagList, tagInfo.getTagList());
-        for (int i = 0; i < tagInfo.getTagList().length; i++) {
-            assertEquals(Array.get(testTagList, i), Array.get(tagInfo.getTagList(), i));
+        for (int i =0; i < tagInfo.getTagList().length; i++) {
+            assertEquals(Array.get(this.tagList, i), Array.get(tagInfo.getTagList(), i));
         }
     }
 

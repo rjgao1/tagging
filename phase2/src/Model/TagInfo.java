@@ -52,8 +52,7 @@ public class TagInfo {
      * @return an Array of this TagInfo's Tags.
      */
     public Tag[] getTagList() {
-//        return tagList.clone();
-        return tagList;
+        return tagList.clone();
     }
 
     /**
