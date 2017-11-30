@@ -243,7 +243,10 @@ public class MainWindowController implements Observer {
      * @throws IOException
      */
     public void removeTags() throws IOException {
-        List<String> tagsToRemove = tagSet.getSelectionModel().getSelectedItems();
+        ArrayList<String> tagsToRemove = new ArrayList<>(0);
+        for (String s: tagSet.getSelectionModel().getSelectedItems()) {
+            tagsToRemove.add(s);
+        }
         if (tagsToRemove.size() == 0) {
             return;
         }
@@ -291,7 +294,10 @@ public class MainWindowController implements Observer {
      * @throws IOException
      */
     public void addTagsToDir() throws IOException {
-        List<String> tagStringList = tagSet.getSelectionModel().getSelectedItems();
+        ArrayList<String> tagStringList = new ArrayList<>(0);
+        for (String s: tagSet.getSelectionModel().getSelectedItems()) {
+            tagStringList.add(s);
+        }
         if (tagStringList.size() == 0) {
             return;
         }
