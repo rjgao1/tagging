@@ -79,6 +79,15 @@ class TagInfoTest {
         assertEquals(exp, result);
     }
 
+    @Test
+    void testGetTagListStringWithoutTags() {
+        this.tagList = new Tag[0];
+        this.tagInfo = new TagInfo(tagList);
+        String exp = "";
+        String result = tagInfo.getTagListString();
+        assertEquals(exp, result);
+    }
+
     @org.junit.jupiter.api.Test
     void getTagListString() {
     }
@@ -113,10 +122,6 @@ class TagInfoTest {
 
     @org.junit.jupiter.api.Test
     void stringToTagInfo() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void setTagListString() {
     }
 
 
