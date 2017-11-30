@@ -39,10 +39,6 @@ public class Main extends Application {
         return mainWindowCount;
     }
 
-    public static void setMainWindowCount(int newCount) {
-        mainWindowCount = newCount;
-    }
-
     public static void incrementMainWindowCount() {
         mainWindowCount++;
     }
