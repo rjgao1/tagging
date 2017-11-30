@@ -55,15 +55,6 @@ public class Tag {
     }
 
     /**
-     * Sets this Tag's tagSet to newTagSet.
-     *
-     * @param newTagSet a new set of Tags.
-     */
-    public static void setTagSet(Set<Tag> newTagSet) {
-        Tag.tagSet = newTagSet;
-    }
-
-    /**
      * Adds Tag newTag to this Tag's tagSet, if it is not already contained in it.
      *
      * @param newTag a Tag to be added to this Tag's tagSet.
