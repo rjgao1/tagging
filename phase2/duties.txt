@@ -8,3 +8,5 @@ Jingyuan Gao
 
 ========
 Afroditi Rizou
+
+Wrote Tag.java and TagInfo.java and added javadoc to LogManager.java.
