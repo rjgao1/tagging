@@ -16,6 +16,7 @@ import java.util.*;
 import java.io.*;
 
 class TagInfoTest {
+
     private Tag tag1 = new Tag("tag1");
     private Tag tag2 = new Tag("tag2");
     private Tag tag3 = new Tag("tag3");
@@ -36,13 +37,17 @@ class TagInfoTest {
     }
 
     @Test
-    public void testTagInfoGetTime() {
+    public void testGetTime() {
 //        Tag[] tagList = {new Tag("tag1"), new Tag("tag2"), new Tag("tag3"), new Tag("tag4")};
 //        TagInfo tagInfo = new TagInfo(tagList);
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date dateObj = new Date();
 
         assertEquals(dateFormat.format(dateObj), tagInfo.getTime());
+    }
+
+    @org.junit.jupiter.api.Test
+    void getTime() {
     }
 
 
@@ -90,7 +95,6 @@ class TagInfoTest {
         assertEquals(tagInfo.getTime() + "|", tagInfo.toString());
     }
 
-
     @Test
     void testStringToTagInfoWithTags() {
         String tagInfoString = "2017/11/30 02:27:11|@tag1@tag2@tag3@tag4";
@@ -98,6 +102,18 @@ class TagInfoTest {
         assertEquals("@tag1 @tag2 @tag3 @tag4 ", TagInfo.stringToTagInfo(tagInfoString).getTagListString());
     }
 
+    @Test
+    void testStringToTagInfoWithoutTags() {
+        String tagInfoString = "2017/11/30 02:27:11|";
+        assertEquals("2017/11/30 02:27:11", TagInfo.stringToTagInfo(tagInfoString).getTime());
+        assertTrue(TagInfo.stringToTagInfo(tagInfoString).getTagList().length == 0);
+        assertTrue(TagInfo.stringToTagInfo(tagInfoString).getTagListString().equals(""));
+        assertEquals("2017/11/30 02:27:11|", TagInfo.stringToTagInfo(tagInfoString).toString());
+    }
+
+    @org.junit.jupiter.api.Test
+    void stringToTagInfo() {
+    }
 
     @org.junit.jupiter.api.Test
     void setTagListString() {
