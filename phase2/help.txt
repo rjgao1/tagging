@@ -1,8 +1,8 @@
 To run the application on the teaching lab computer, please run the following command:
 $ cd phase2
 $ cd src
-$ javac -cp “.:./junit-jupiter-api-5.0.0.jar” */*.java
-$ java -cp “.:./junit-jupiter-api-5.0.0.jar” FrontEnd.Main
+$ javac -cp ".:./junit-jupiter-api-5.0.0.jar" */*.java
+$ java -cp ".:./junit-jupiter-api-5.0.0.jar" FrontEnd.Main
 
 =========
 
