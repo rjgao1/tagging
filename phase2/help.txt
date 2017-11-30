@@ -1,0 +1,12 @@
+To run the application on the teaching lab computer, please run the following command:
+$ cd phase2
+$ cd src
+$ javac */*.java
+$ java FrontEnd.Main
+
+=========
+
+Specification:
+1. If you changed the config in the application (by clicking the open config in the File in menu bar), please restart the application or open a new window.
+2. Please do not move and rename the image file under root directory using OS, or you will lost the history of the file. If you move and rename the image file under root directory when application is running, the application may crash.
+3. Please do not change the files under log directory, tag.txt and config.txt. Manually deleting these files may lead to the loss of history and tag set and may need to set the root directory in the configuration again.
