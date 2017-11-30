@@ -1,0 +1,10 @@
+Sitao Wang
+
+Designed most of the frame work in back end and all of the frame work in front end. Wrote Config.java, FileManager.java, Image.java and every .fxml and .java files in FrontEnd package (including their javadoc). Drew the UML diagram Wrote the help.txt.
+
+========
+Jingyuan Gao
+
+
+========
+Afroditi Rizou
