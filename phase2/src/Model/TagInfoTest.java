@@ -18,11 +18,12 @@ class TagInfoTest {
     private Tag tag3 = new Tag("tag3");
     private Tag tag4 = new Tag("tag4");
 
-    private Tag[] tagList = new Tag[] {tag1, tag2, tag3, tag4};
+    private Tag[] tagList;
     private TagInfo tagInfo;
 
     @BeforeEach
     void setUp() {
+        this.tagList = new Tag[] {tag1, tag2, tag3, tag4};
         this.tagInfo = new TagInfo(tagList);
     }
 
@@ -42,6 +43,11 @@ class TagInfoTest {
     }
 
 
+    @Test
+    void testGetTagListWithTags() {
+        Tag[] res = tagInfo.getTagList();
+        assertEquals(tagList, res);
+    }
 
     @org.junit.jupiter.api.Test
     void getTagList() {
@@ -64,10 +70,13 @@ class TagInfoTest {
     }
 
 
+//    @Test
+//    void testStringToTagInfoWithTags() {
+//        String tagInfoString = "2017/11/30 02:27:11|@tag1@tag2@tag3@tag4";
+//        TagInfo testTagInfo = TagInfo.stringToTagInfo(tagInfoString);
+//        testTagInfo.getTime()
+//    }
 
-    @org.junit.jupiter.api.Test
-    void stringToTagInfo() {
-    }
 
     @org.junit.jupiter.api.Test
     void setTagListString() {
