@@ -110,6 +110,9 @@ public class MainWindowController implements Observer {
      * @throws IOException if the image file is moved
      */
     public void chooseFile() throws IOException {
+        if (fileList.getSelectionModel().getSelectedItem() == null) {
+            return;
+        }
         if (image != null) {
             image.deleteObserver(this);
         }
