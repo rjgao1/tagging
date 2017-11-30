@@ -9,7 +9,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.*;
@@ -43,7 +42,7 @@ public class TagHistoryController {
      * Sets the logManager.
      *
      * @param logManager the logManager to set to
-     * @throws IOException
+     * @throws IOException if MessageBox.fxml if moved
      */
     public void setLogManager(LogManager logManager) throws IOException {
         this.logManager = logManager;
@@ -70,7 +69,7 @@ public class TagHistoryController {
     /**
      * Loads data for history table.
      */
-    public void loadData() {
+    private void loadData() {
         ObservableList<TagInfo> data = FXCollections.observableArrayList(logManager.getTagInfos());
         historyTable.setItems(data);
         timeColumn.setCellValueFactory(new Callback<CellDataFeatures<TagInfo, String>, ObservableValue<String>>() {
@@ -93,7 +92,7 @@ public class TagHistoryController {
     /**
      * Goes back to the history name.
      *
-     * @throws IOException
+     * @throws IOException if image file is moved
      */
     public void goToHistory() throws IOException {
         TagInfo historyTagInfo = historyTable.getSelectionModel().getSelectedItem();

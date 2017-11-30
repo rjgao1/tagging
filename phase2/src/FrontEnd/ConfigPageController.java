@@ -4,7 +4,6 @@ import Model.Config;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
@@ -21,10 +20,10 @@ public class ConfigPageController {
     /* The stage of the window */
     private Stage stage;
 
-    @FXML
     /**
      * Initializes the configPage to read config file and update the textField
      */
+    @FXML
     public void initialize() throws IOException {
         // Read the config file if there is one
         if (Config.hasConfigFile()) {
@@ -57,7 +56,7 @@ public class ConfigPageController {
      * If there is no main window opening, opens a main window. Otherwise, user should restart the application
      * for new config to work.
      *
-     * @throws IOException
+     * @throws IOException if MainWindow.fxml is moved
      */
     public void applyButtonClicked() throws IOException {
         File directoryPath = new File(directory.getText());
@@ -82,7 +81,7 @@ public class ConfigPageController {
     /**
      * Pops warning box if the root directory is empty, otherwise closes the config window.
      *
-     * @throws IOException
+     * @throws IOException if MessageBox.fxml is moved
      */
     public void cancelButtonClicked() throws IOException {
         if (!Config.getDefaultPath().equals("")) {
@@ -95,7 +94,7 @@ public class ConfigPageController {
     /**
      * Pops up warning box with message "Please enter a valid directory"
      *
-     * @throws IOException
+     * @throws IOException if MessageBox.fxml is moved
      */
     private void popWarningMessageBox() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageBox.fxml"));
