@@ -7,10 +7,13 @@ import java.nio.file.*;
 
 public class LogManager extends Observable {
 
+    /* The path of log directory */
     private final Path logDirPath;
+    /* The path of the logFile */
     private Path logFilePath;
+    /* The list of TagInfos of this LogManager */
     private ArrayList<TagInfo> tagInfos;
-
+    /* The string representing the path of the modified Image */
     private String modifiedImagePathString;
 
     public LogManager(String pathname) throws IOException {
