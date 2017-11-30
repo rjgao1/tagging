@@ -11,15 +11,16 @@ import java.text.SimpleDateFormat;
 public class TagInfo {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     private Tag[] tagList;
     private String time;
     private String tagListString;
 =======
     /* The list of all Tags if this TagInfo.*/
+=======
+>>>>>>> ec3065c083ee5340aed94fbbb3aa7d78c5fe19ff
     Tag[] tagList;
-    /* The date and time this TagInfo was created.*/
     String time;
-    /* The String which contains all the Tags of this TagInfo.*/
     String tagListString;
 >>>>>>> 4676c877e3eb4b43aac1a77466aad781ad973f95
 
