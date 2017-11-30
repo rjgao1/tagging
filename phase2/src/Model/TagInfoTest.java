@@ -56,13 +56,12 @@ class TagInfoTest {
         }
     }
 
-//    @Test
-//    void testGetTagListWithoutTags() {
-//        this.tagList = new Tag[0];
-//        this.tagInfo = new TagInfo(this.tagList);
-//        Tag[] res = tagInfo.getTagList();
-//        assertEquals();
-//    }
+    @Test
+    void testGetTagListWithoutTags() {
+        this.tagList = new Tag[0];
+        this.tagInfo = new TagInfo(this.tagList);
+        assertTrue(tagInfo.getTagList().length == 0);
+    }
 
     @org.junit.jupiter.api.Test
     void getTagList() {
