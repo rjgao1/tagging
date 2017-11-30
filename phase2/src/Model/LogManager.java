@@ -77,10 +77,10 @@ public class LogManager extends Observable {
     }
 
     public void renameLogFile(String newPath, boolean isImage) throws IOException {
-        /**
-         * String substring is of of all the tags of the image whose log is to be renamed,
-         * i.e. everything between the image label and the suffix.
-         */
+
+/*        String substring is of of all the tags of the image whose log is to be renamed,
+        i.e. everything between the image label and the suffix.*/
+
         if (isImage) {
             Path newLogFilePath = constructLogFilePath(newPath);
             Files.move(logFilePath, newLogFilePath);
@@ -105,9 +105,7 @@ public class LogManager extends Observable {
                     substring + newTagListString);
         }
 
-        String result = logFilePath.resolveSibling(modifiedImagePathString).toString() + ".txt";
-
-        return result;
+        return logFilePath.resolveSibling(modifiedImagePathString).toString() + ".txt";
     }
 
     public void addTagInfo(TagInfo tagInfo) throws IOException {
