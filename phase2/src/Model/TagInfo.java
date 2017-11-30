@@ -10,9 +10,9 @@ import java.text.SimpleDateFormat;
  */
 public class TagInfo {
 
-    Tag[] tagList;
-    String time;
-    String tagListString;
+    private Tag[] tagList;
+    private String time;
+    private String tagListString;
 
     /**
      * Creates a TagInfo object with a tagList, time and tagListString.
