@@ -138,9 +138,7 @@ public class LogManager extends Observable {
         tagListString = tagListString.substring(0, tagListString.length() - 1);
         writeLogFile();
         renameLogFile(tagListStringToPathString(tagListString), false);
-        for (Observer observer : observers) {
-            observer.update();
-        }
+        notifyObserver();
     }
 
 //    public void registerObserver(Observer observer) {

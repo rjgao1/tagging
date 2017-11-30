@@ -1,8 +1,9 @@
 package Model;
 
 import java.util.ArrayList;
+import java.io.*;
 
-public class Observable {
+abstract public class Observable {
     ArrayList<Observer> observers = new ArrayList<>(0);
 
     public void registerObserver(Observer observer) {
@@ -11,5 +12,11 @@ public class Observable {
 
     public void deleteObserver(Observer observer) {
         observers.remove(observer);
+    }
+
+    public void notifyObserver() throws IOException {
+        for (Observer observer : observers) {
+            observer.update();
+        }
     }
 }

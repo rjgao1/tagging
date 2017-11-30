@@ -33,9 +33,7 @@ public class Image extends Observable implements Observer {
     public void rename(String newPathname) throws IOException {
         Files.move(file.toPath(), Paths.get(newPathname));
         file = new File(newPathname);
-        for (Observer observer : observers) {
-            observer.update();
-        }
+        notifyObserver();
     }
 
     /**
