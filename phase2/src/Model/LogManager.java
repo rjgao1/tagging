@@ -139,8 +139,11 @@ public class LogManager extends Observable {
         notifyObserver();
     }
 
-
-
+    /**
+     * Returns a list of all TagInfos in this LogManager.
+     *
+     * @return this LogManager's tagInfos
+     */
     public ArrayList<TagInfo> getTagInfos() {
         return tagInfos;
     }
