@@ -72,23 +72,23 @@ public class Image extends Observable implements Observer {
         return this.file;
     }
 
-    @Override
     /**
      * Renames image file to the new name according to the latest tags in the logManager.
      */
+    @Override
     public void update() throws IOException {
-        String newFileName = file.getAbsolutePath();
+        StringBuilder newFileName = new StringBuilder(file.getAbsolutePath());
         int index;
         index = newFileName.indexOf(" @", newFileName.lastIndexOf(System.getProperty("file.separator")) - 1);
         String postfix = newFileName.substring(newFileName.lastIndexOf("."));
-        newFileName = newFileName.substring(0, newFileName.lastIndexOf("."));
+        newFileName = new StringBuilder(newFileName.substring(0, newFileName.lastIndexOf(".")));
         if (index != -1) {
-            newFileName = newFileName.substring(0, index);
+            newFileName = new StringBuilder(newFileName.substring(0, index));
         }
         for (Tag tag : logManager.getTagInfos().get(logManager.getTagInfos().size() - 1).getTagList()) {
-            newFileName = newFileName + " @" + tag.getContent();
+            newFileName.append(" @").append(tag.getContent());
         }
-        newFileName = newFileName + postfix;
-        rename(newFileName);
+        newFileName.append(postfix);
+        rename(newFileName.toString());
     }
 }
