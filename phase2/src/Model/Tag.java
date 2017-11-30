@@ -87,7 +87,7 @@ public class Tag {
      *
      * @throws IOException when the tagFile does not exist
      */
-    public static void writeTagFile() throws IOException {
+    private static void writeTagFile() throws IOException {
         FileOutputStream tagFOS = new FileOutputStream(tagFile);
         BufferedWriter tagBW = new BufferedWriter(new OutputStreamWriter(tagFOS));
         for (Tag tag : tagSet) {
@@ -141,8 +141,8 @@ public class Tag {
     public static void removeTagsFromTagSet(Tag[] tagArray) throws IOException {
         for (Tag tag : tagArray) {
             Tag.tagSet.remove(tag);
-            writeTagFile();
         }
+        writeTagFile();
     }
 
     /**
