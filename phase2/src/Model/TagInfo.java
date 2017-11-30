@@ -86,7 +86,7 @@ public class TagInfo {
      *
      * @param newTime a new String representing time
      */
-    public void setTime(String newTime) {
+    private void setTime(String newTime) {
         this.time = newTime;
     }
 
