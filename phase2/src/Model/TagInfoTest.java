@@ -4,7 +4,10 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.lang.reflect.Array;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -45,8 +48,12 @@ class TagInfoTest {
 
     @Test
     void testGetTagListWithTags() {
-        Tag[] res = tagInfo.getTagList();
-        assertEquals(tagList, res);
+        Tag[] testTagList = new Tag[] {tag1, tag2, tag3, tag4};
+        assertTrue(tagInfo.getTagList().length == 4);
+        assertEquals(tagList, tagInfo.getTagList());
+        for (int i = 0; i < tagInfo.getTagList().length; i++) {
+            assertEquals(Array.get(testTagList, i), Array.get(tagInfo.getTagList(), i));
+        }
     }
 
 //    @Test
