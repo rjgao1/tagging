@@ -53,9 +53,12 @@ class TagInfoTest {
 
     @Test
     void testToStringWithTags() {
-        Tag[] tagList = {new Tag("tag1"), new Tag("tag2"), new Tag("tag3"), new Tag("tag4")};
-        TagInfo tagInfo = new TagInfo(tagList);
         assertEquals(tagInfo.getTime()+"|@tag1@tag2@tag3@tag4", tagInfo.toString());
+    }
+
+    @Test
+    void testToStringWithoutTags() {
+
     }
 
 
