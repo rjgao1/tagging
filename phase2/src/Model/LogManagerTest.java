@@ -6,11 +6,15 @@ import org.junit.rules.TemporaryFolder;
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static org.junit.Assert.*;
 
 public class LogManagerTest {
     private final String oldUserDir = System.getProperty("user.dir");
-
+    private String logDirString;
     @Rule
 //    public TemporaryFolder tempFolder = new TemporaryFolder(new File(System.getProperty("user.dir")));
     public TemporaryFolder tempFolder = new TemporaryFolder();
@@ -18,22 +22,18 @@ public class LogManagerTest {
     @org.junit.Before
     public void setUp() throws IOException {
         System.setProperty("user.dir", tempFolder.getRoot().toString());
+        logDirString = Paths.get(tempFolder.getRoot().toString(), "Logs").toString();
     }
 
     @org.junit.After
     public void tearDown() throws Exception {
+        logDirString = null;
         System.setProperty("user.dir", oldUserDir);
     }
 
     @Test
     public void testLogManagerCreateNewLog() throws IOException {
-        String logDirString = Paths.get(tempFolder.getRoot().toString(), "Logs").toString();
 
-
-//        tempFolder.newFile("testImage1.jpg");
-//        Image testImage1 = new Image(Paths.get(tempFolder.getRoot().getPath(), "testImage1.jpg").toString());
-
-//        LogManager lm = testImage1.getLogManager();
         LogManager lm = new LogManager(Paths.get(tempFolder.getRoot().getPath(), "testImage1.jpg").toString());
 
 
@@ -87,7 +87,6 @@ public class LogManagerTest {
     public void testRenameLogFileNewLogPath() throws Exception {
         boolean result1 = true;
         boolean result2 = false;
-        String logDirString = Paths.get(tempFolder.getRoot().toString(), "Logs").toString();
         String oldPath = Paths.get(logDirString, "testImage1 @tag1 @tag2 @tag3.jpg.txt").toString();
         String newPath = Paths.get(logDirString, "testImage1 @tag1 @tag3 @tag4.jpg.txt").toString();
         LogManager lm = new LogManager(oldPath);
@@ -108,6 +107,40 @@ public class LogManagerTest {
     @org.junit.Test
     public void renameLogFile() throws Exception {
 
+    }
+
+    @Test
+    public void testAddTagInfoToEmpty() throws Exception {
+        /* construct a timestamp string as part of the expected String */
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date dateObj = new Date();
+        String time = dateFormat.format(dateObj);
+
+        String logFilePathString = new String("");
+        TagInfo newTagInfo = new TagInfo(new Tag[] {new Tag("@tag1"), new Tag("@tag2"), new Tag("@tag3")});
+        String exp = time + "|@tag1@tag2@tag3@tag4";
+        String act = new String("");
+
+        LogManager lm = new LogManager(Paths.get(tempFolder.getRoot().getPath(), "testImage1.jpg").toString());
+        lm.addTagInfo(newTagInfo);
+
+        File[] fileList = Paths.get(logDirString).toFile().listFiles();
+
+        for (File file : fileList) {
+            if (file.toString().endsWith("testImage1 @tag1 @tag2 @tag3.jpg.txt")) {
+                logFilePathString = file.toString();
+            }
+        }
+        if (!logFilePathString.equals("")) {
+            BufferedReader br = new BufferedReader(new FileReader(logFilePathString));
+            String line = br.readLine();
+            while (line != null) {
+                act = line;
+            }
+        }
+        if (!act.equals("")) {
+            assertEquals(exp, act);
+        }
     }
 
     @org.junit.Test
