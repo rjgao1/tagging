@@ -12,6 +12,9 @@ import java.text.SimpleDateFormat;
 
 import static org.junit.Assert.*;
 
+/**
+ * The unit test classes utilize JUnit4 for its TemporaryFolder Rule
+ */
 public class TagInfoTest {
     private Tag tag1 = new Tag("tag1");
     private Tag tag2 = new Tag("tag2");

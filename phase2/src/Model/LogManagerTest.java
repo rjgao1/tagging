@@ -6,7 +6,6 @@ import org.junit.rules.TemporaryFolder;
 
 import java.io.*;
 import java.lang.reflect.Array;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -14,6 +13,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import static org.junit.Assert.*;
+
+/**
+ * The unit test classes utilize JUnit4 for its TemporaryFolder Rule
+ */
 
 public class LogManagerTest {
     private final String oldUserDir = System.getProperty("user.dir");
@@ -106,10 +109,6 @@ public class LogManagerTest {
         assertTrue(result2);
     }
 
-    @org.junit.Test
-    public void renameLogFile() throws Exception {
-
-    }
 
     @Test
     public void testAddSingleTagInfo() throws Exception {
@@ -190,9 +189,7 @@ public class LogManagerTest {
         }
     }
 
-    @org.junit.Test
-    public void addTagInfo() throws Exception {
-    }
+
 
     @Test
     public void testGetTagInfosGeneral() throws Exception {
@@ -224,8 +221,6 @@ public class LogManagerTest {
         }
     }
 
-    @org.junit.Test
-    public void getTagInfos() throws Exception {
-    }
+
 
 }
