@@ -5,10 +5,12 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import static org.junit.Assert.*;
@@ -16,6 +18,7 @@ import static org.junit.Assert.*;
 public class LogManagerTest {
     private final String oldUserDir = System.getProperty("user.dir");
     private String logDirString;
+    private String testImagePathString;
     @Rule
 //    public TemporaryFolder tempFolder = new TemporaryFolder(new File(System.getProperty("user.dir")));
     public TemporaryFolder tempFolder = new TemporaryFolder();
@@ -24,6 +27,7 @@ public class LogManagerTest {
     public void setUp() throws IOException {
         System.setProperty("user.dir", tempFolder.getRoot().toString());
         logDirString = Paths.get(tempFolder.getRoot().toString(), "Logs").toString();
+        testImagePathString = Paths.get(tempFolder.getRoot().getPath(), "testImage1.jpg").toString();
     }
 
     @org.junit.After
@@ -35,7 +39,7 @@ public class LogManagerTest {
     @Test
     public void testLogManagerCreateNewLog() throws IOException {
 
-        LogManager lm = new LogManager(Paths.get(tempFolder.getRoot().getPath(), "testImage1.jpg").toString());
+        LogManager lm = new LogManager(testImagePathString);
 
 
         File[] fileList1 = Paths.get(System.getProperty("user.dir")).toFile().listFiles();
@@ -62,9 +66,8 @@ public class LogManagerTest {
     public void testRenameLogFileImagePath() throws Exception {
         boolean result1 = true;
         boolean result2 = false;
-        String testImage1PathString = Paths.get(tempFolder.getRoot().getPath(), "testImage1.jpg").toString();
         String newTestImage1PathString = Paths.get(tempFolder.getRoot().getPath(), "testImage1 @tag1 @tag2.jpg").toString();
-        LogManager lm = new LogManager(testImage1PathString);
+        LogManager lm = new LogManager(testImagePathString);
         lm.renameLogFile(newTestImage1PathString, true);
         File[] fileList = Paths.get(tempFolder.getRoot().getPath(), "Logs").toFile().listFiles();
         for (File file : fileList) {
@@ -120,7 +123,7 @@ public class LogManagerTest {
         String exp = time + "|@tag1@tag2@tag3";
         String act = new String("");
 
-        LogManager lm = new LogManager(Paths.get(tempFolder.getRoot().getPath(), "testImage1.jpg").toString());
+        LogManager lm = new LogManager(testImagePathString);
         lm.addTagInfo(newTagInfo);
 
         File[] fileList = Paths.get(logDirString).toFile().listFiles();
@@ -164,7 +167,7 @@ public class LogManagerTest {
         String[] exp = new String[] {time + "|@tag1@tag2@tag3", time + "|@tag2@tag3@tag5@tag6", time + "|"};
         String[] act = new String[0];
 
-        LogManager lm = new LogManager(Paths.get(tempFolder.getRoot().getPath(), "testImage1.jpg").toString());
+        LogManager lm = new LogManager(testImagePathString);
         lm.addTagInfo(newTagInfo1);
         lm.addTagInfo(newTagInfo2);
         lm.addTagInfo(newTagInfo3);
@@ -192,6 +195,30 @@ public class LogManagerTest {
 
     @org.junit.Test
     public void addTagInfo() throws Exception {
+    }
+
+    @Test
+    public void testGetTagInfosWithoutEmptyTagInfo() throws Exception {
+        ArrayList<TagInfo> tagInfosExp = new ArrayList<TagInfo>(0);
+        TagInfo tagInfo1 = new TagInfo(new Tag[] {new Tag("tag1"), new Tag("tag2"), new Tag("tag3")});
+        TagInfo tagInfo2 = new TagInfo(new Tag[] {new Tag("tagA"), new Tag("tag2"), new Tag("tagC")});
+        tagInfosExp.add(tagInfo1);
+        tagInfosExp.add(tagInfo2);
+
+        LogManager lm = new LogManager(testImagePathString);
+        lm.addTagInfo(tagInfo1);
+        lm.addTagInfo(tagInfo2);
+        ArrayList<TagInfo> tagInfosAct = lm.getTagInfos();
+
+        assertEquals(tagInfosExp.size(), tagInfosAct.size());
+
+        for (int i = 0; i < tagInfosAct.size(); i++) {
+            assertEquals(tagInfosExp.get(i).getTagList().length, tagInfosAct.get(i).getTagList().length);
+            for (int k = 0; k < tagInfosAct.get(i).getTagList().length; k++) {
+                assertEquals(Array.get(tagInfosExp.get(i).getTagList(), k), Array.get(tagInfosAct.get(i).getTagList(), k));
+            }
+        }
+
     }
 
     @org.junit.Test
