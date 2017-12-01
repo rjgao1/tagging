@@ -23,7 +23,6 @@ public class LogManagerTest {
     private String logDirString;
     private String testImagePathString;
     @Rule
-//    public TemporaryFolder tempFolder = new TemporaryFolder(new File(System.getProperty("user.dir")));
     public TemporaryFolder tempFolder = new TemporaryFolder();
 
     @org.junit.Before
