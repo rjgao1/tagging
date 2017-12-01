@@ -4,7 +4,7 @@ Designed most of the frame work in back end and all of the frame work in front e
 
 ========
 Jingyuan Gao
-
+Designed and implemented LogManager.java; implemented some methods and debugged in LogManager, Image, TagInfo, Image, FileManager, Config, MainWindowController, and TagHistoryController; implemented Observable to refactor; wrote LogManagerTest.java and TagInfoTest.java; wrote part of help.txt.
 
 ========
 Afroditi Rizou
