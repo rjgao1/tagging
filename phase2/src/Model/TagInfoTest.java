@@ -8,9 +8,7 @@ import java.lang.reflect.Array;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.io.IOException;
-import java.util.*;
-import java.io.*;
+
 
 import static org.junit.Assert.*;
 
@@ -22,9 +20,10 @@ public class TagInfoTest {
 
     private Tag[] tagList;
     private TagInfo tagInfo;
+
     @Before
     public void setUp() throws Exception {
-        this.tagList = new Tag[] {tag1, tag2, tag3, tag4};
+        this.tagList = new Tag[]{tag1, tag2, tag3, tag4};
         this.tagInfo = new TagInfo(tagList);
     }
 
@@ -42,11 +41,10 @@ public class TagInfoTest {
     }
 
 
-
     @Test
     public void testGetTagListWithTags() {
         assertTrue(tagInfo.getTagList().length == 4);
-        for (int i =0; i < tagInfo.getTagList().length; i++) {
+        for (int i = 0; i < tagInfo.getTagList().length; i++) {
             assertEquals(Array.get(this.tagList, i), Array.get(tagInfo.getTagList(), i));
         }
     }
@@ -78,6 +76,7 @@ public class TagInfoTest {
     public void testToStringWithTags() {
         assertEquals(tagInfo.getTime() + "|@tag1@tag2@tag3@tag4", tagInfo.toString());
     }
+
     @Test
     public void testToStringWithoutTags() {
         this.tagList = new Tag[0];
@@ -100,7 +99,6 @@ public class TagInfoTest {
         assertTrue(TagInfo.stringToTagInfo(tagInfoString).getTagListString().equals(""));
         assertEquals("2017/11/30 02:27:11|", TagInfo.stringToTagInfo(tagInfoString).toString());
     }
-
 
 
 }

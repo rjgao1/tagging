@@ -3,6 +3,7 @@ package Model;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -42,13 +43,11 @@ public class LogManagerTest {
         boolean result1 = false;
         boolean result2 = false;
         for (File file : fileList1) {
-            System.out.println(file.toPath());
             if (file.toPath().endsWith("Logs")) {
                 result1 = true;
             }
         }
         for (File file : fileList2) {
-            System.out.println(file.toPath());
             if (file.toString().endsWith("testImage1.jpg.txt")) {
                 result2 = true;
             }
@@ -110,15 +109,15 @@ public class LogManagerTest {
     }
 
     @Test
-    public void testAddTagInfoToEmpty() throws Exception {
+    public void testAddSingleTagInfo() throws Exception {
         /* construct a timestamp string as part of the expected String */
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date dateObj = new Date();
         String time = dateFormat.format(dateObj);
 
         String logFilePathString = new String("");
-        TagInfo newTagInfo = new TagInfo(new Tag[] {new Tag("@tag1"), new Tag("@tag2"), new Tag("@tag3")});
-        String exp = time + "|@tag1@tag2@tag3@tag4";
+        TagInfo newTagInfo = new TagInfo(new Tag[]{new Tag("tag1"), new Tag("tag2"), new Tag("tag3")});
+        String exp = time + "|@tag1@tag2@tag3";
         String act = new String("");
 
         LogManager lm = new LogManager(Paths.get(tempFolder.getRoot().getPath(), "testImage1.jpg").toString());
@@ -136,10 +135,58 @@ public class LogManagerTest {
             String line = br.readLine();
             while (line != null) {
                 act = line;
+                line = br.readLine();
             }
+        }
+        else {
+            assertTrue(false);
         }
         if (!act.equals("")) {
             assertEquals(exp, act);
+        }
+        else {
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void addMultipleTagInfos() throws Exception {
+        /* construct a timestamp string as part of the expected String */
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date dateObj = new Date();
+        String time = dateFormat.format(dateObj);
+
+        String logFilePathString = new String("");
+        TagInfo newTagInfo1 = new TagInfo(new Tag[]{new Tag("tag1"), new Tag("tag2"), new Tag("tag3")});
+        TagInfo newTagInfo2 = new TagInfo(new Tag[]{new Tag("tag2"), new Tag("tag3"),
+                new Tag("tag5"), new Tag("tag6")});
+        TagInfo newTagInfo3 = new TagInfo(new Tag[0]);
+        String[] exp = new String[] {time + "|@tag1@tag2@tag3", time + "|@tag2@tag3@tag5@tag6", time + "|"};
+        String[] act = new String[0];
+
+        LogManager lm = new LogManager(Paths.get(tempFolder.getRoot().getPath(), "testImage1.jpg").toString());
+        lm.addTagInfo(newTagInfo1);
+        lm.addTagInfo(newTagInfo2);
+        lm.addTagInfo(newTagInfo3);
+
+        File[] fileList = Paths.get(logDirString).toFile().listFiles();
+        for (File file : fileList) {
+            if (file.toString().endsWith("testImage1.jpg.txt")) {
+                logFilePathString = file.toString();
+            }
+        }
+        if(!logFilePathString.equals("")) {
+            BufferedReader br = new BufferedReader(new FileReader(logFilePathString));
+            String line = br.readLine();
+            int i = 0;
+            while (line != null) {
+                assertEquals(exp[i], line);
+                i++;
+                line = br.readLine();
+            }
+        }
+        else {
+            assertTrue(false);
         }
     }
 
