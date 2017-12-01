@@ -140,14 +140,12 @@ public class LogManagerTest {
                 act = line;
                 line = br.readLine();
             }
-        }
-        else {
+        } else {
             assertTrue(false);
         }
         if (!act.equals("")) {
             assertEquals(exp, act);
-        }
-        else {
+        } else {
             assertTrue(false);
         }
     }
@@ -164,7 +162,7 @@ public class LogManagerTest {
         TagInfo newTagInfo2 = new TagInfo(new Tag[]{new Tag("tag2"), new Tag("tag3"),
                 new Tag("tag5"), new Tag("tag6")});
         TagInfo newTagInfo3 = new TagInfo(new Tag[0]);
-        String[] exp = new String[] {time + "|@tag1@tag2@tag3", time + "|@tag2@tag3@tag5@tag6", time + "|"};
+        String[] exp = new String[]{time + "|@tag1@tag2@tag3", time + "|@tag2@tag3@tag5@tag6", time + "|"};
         String[] act = new String[0];
 
         LogManager lm = new LogManager(testImagePathString);
@@ -178,7 +176,7 @@ public class LogManagerTest {
                 logFilePathString = file.toString();
             }
         }
-        if(!logFilePathString.equals("")) {
+        if (!logFilePathString.equals("")) {
             BufferedReader br = new BufferedReader(new FileReader(logFilePathString));
             String line = br.readLine();
             int i = 0;
@@ -187,8 +185,7 @@ public class LogManagerTest {
                 i++;
                 line = br.readLine();
             }
-        }
-        else {
+        } else {
             assertTrue(false);
         }
     }
@@ -198,27 +195,33 @@ public class LogManagerTest {
     }
 
     @Test
-    public void testGetTagInfosWithoutEmptyTagInfo() throws Exception {
-        ArrayList<TagInfo> tagInfosExp = new ArrayList<TagInfo>(0);
-        TagInfo tagInfo1 = new TagInfo(new Tag[] {new Tag("tag1"), new Tag("tag2"), new Tag("tag3")});
-        TagInfo tagInfo2 = new TagInfo(new Tag[] {new Tag("tagA"), new Tag("tag2"), new Tag("tagC")});
+    public void testGetTagInfosGeneral() throws Exception {
+        ArrayList<TagInfo> tagInfosExp = new ArrayList<>(0);
+        TagInfo tagInfo1 = new TagInfo(new Tag[]{new Tag("tag1"), new Tag("tag2"), new Tag("tag3")});
+        TagInfo tagInfo2 = new TagInfo(new Tag[0]);
+        TagInfo tagInfo3 = new TagInfo(new Tag[]{new Tag("tagA"), new Tag("tag2"), new Tag("tagC")});
         tagInfosExp.add(tagInfo1);
         tagInfosExp.add(tagInfo2);
+        tagInfosExp.add(tagInfo3);
+
 
         LogManager lm = new LogManager(testImagePathString);
         lm.addTagInfo(tagInfo1);
         lm.addTagInfo(tagInfo2);
+        lm.addTagInfo(tagInfo3);
+
         ArrayList<TagInfo> tagInfosAct = lm.getTagInfos();
 
         assertEquals(tagInfosExp.size(), tagInfosAct.size());
 
         for (int i = 0; i < tagInfosAct.size(); i++) {
             assertEquals(tagInfosExp.get(i).getTagList().length, tagInfosAct.get(i).getTagList().length);
+            assertEquals(tagInfosExp.get(i).getTime(), tagInfosAct.get(i).getTime());
+
             for (int k = 0; k < tagInfosAct.get(i).getTagList().length; k++) {
                 assertEquals(Array.get(tagInfosExp.get(i).getTagList(), k), Array.get(tagInfosAct.get(i).getTagList(), k));
             }
         }
-
     }
 
     @org.junit.Test
