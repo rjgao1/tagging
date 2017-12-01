@@ -13,14 +13,14 @@ public class LogManager extends Observable {
     private Path logFilePath;
     /* The list of TagInfos of this LogManager */
     private ArrayList<TagInfo> tagInfos;
-    /* The string representing the path of the modified Image */
+    /* The string representing the Image's modified pathname used in the log file's naming */
     private String modifiedImagePathString;
 
     /**
-     * Initiates LogManager with log directory path, log file path and a list of TagInfos.
+     * Constructs a LogManager for an Image with pathname
      *
-     * @param pathname the name of the path on which the logDirPath is based
-     * @throws IOException if there is an existing directory, the logFile is empty or there is an existing logFile.
+     * @param pathname pathname of the Image for which the LogManager is constructed for.
+     * @throws IOException if directory/file represented by pathname does not exist or conflicted directory/file.
      */
     public LogManager(String pathname) throws IOException {
 
@@ -43,23 +43,43 @@ public class LogManager extends Observable {
 
     }
 
-
+    /**
+     * Returns a Path to the log file for the image represented by imagePath
+     *
+     * @param imagePath pathname String of the image
+     * @return a Path to the log file for the image represented by imagePath
+     */
     private Path constructLogFilePath(String imagePath) {
         String withoutFirstSeparator = imagePath.substring(System.getProperty("file.separator").length());
         modifiedImagePathString = withoutFirstSeparator.replaceAll(System.getProperty("file.separator"), ":");
         return Paths.get(logDirPath.toString(), modifiedImagePathString + ".txt");
     }
 
+    /**
+     * Returns whether or not the log file of the LogManager exist
+     *
+     * @return whether or not the log file of the LogManager exist
+     */
     private boolean logFileExists() {
         return Files.exists(logFilePath);
     }
 
+    /**
+     * Creates an empty log file if it does already not exist
+     *
+     * @throws IOException if the file/director represented by logFilePath already exists
+     */
     private void createLogFile() throws IOException {
         if (!logFileExists()) {
             Files.createFile(logFilePath);
         }
     }
 
+    /**
+     * Writes TagInfo's in tagInfos to the log file if it already exists
+     *
+     * @throws IOException if the log file does not exist
+     */
     private void writeLogFile() throws IOException {
         File logFile = logFilePath.toFile();
         FileOutputStream logFileFOS = new FileOutputStream(logFile);
@@ -74,6 +94,11 @@ public class LogManager extends Observable {
 
     }
 
+    /**
+     * Reads the log file, collects TagInfo's from it, and populates tagInfos
+     *
+     * @throws IOException if directory/file represented by logFilePath does not exist
+     */
     private void readLogFile() throws IOException {
         BufferedReader logBR = new BufferedReader(new FileReader(logFilePath.toString()));
 
@@ -86,11 +111,12 @@ public class LogManager extends Observable {
     }
 
     /**
-     * Renames the logFile according to the newPath, if isImage is true.
+     * Renames the log file based on the newPath of the Image file, if the file represented by newPath isImage
+     * Renames the log file directly to the newPath, if the newPath !isImage
      *
-     * @param newPath the path of the new directory in which the Image will be moved.
-     * @param isImage is true if a file is an Image.
-     * @throws IOException
+     * @param newPath the new pathname String the renaming is based on
+     * @param isImage whether or not newPath represents the new pathname of an Image file
+     * @throws IOException if file/directory represented by newPath already exists
      */
     public void renameLogFile(String newPath, boolean isImage) throws IOException {
         if (isImage) {
@@ -104,6 +130,13 @@ public class LogManager extends Observable {
         }
     }
 
+    /**
+     * Returns a new logFilePath to reflect the current set of tags of the Image file
+     * associated with the log file
+     *
+     * @param newTagListString String of the current tags of the Image file
+     * @return a String representation of the pathname of the log file to reflects the current tags if its Image file
+     */
     private String tagListStringToPathString(String newTagListString) {
         int index = modifiedImagePathString.indexOf(" @", modifiedImagePathString.lastIndexOf(":"));
 
@@ -125,10 +158,10 @@ public class LogManager extends Observable {
 
     /**
      * Adds a TagInfo object to the list TagInfos, writes and renames the logFile accordingly and notifies the
-     * Observer.
+     * Observer's.
      *
      * @param tagInfo a TagInfo object to be added to tagInfos
-     * @throws IOException if the logFile does not exist
+     * @throws IOException if the logFile does not exist or attempt to rename the log file to a conflicted pathname
      */
     public void addTagInfo(TagInfo tagInfo) throws IOException {
         tagInfos.add(tagInfo);
@@ -140,7 +173,7 @@ public class LogManager extends Observable {
     }
 
     /**
-     * Returns a list of all TagInfos in this LogManager.
+     * Returns a list of all TagInfos in the log file created by the LogManager.
      *
      * @return this LogManager's tagInfos
      */
