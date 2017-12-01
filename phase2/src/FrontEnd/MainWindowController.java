@@ -67,6 +67,7 @@ public class MainWindowController implements Observer {
      */
     @FXML
     public void initialize() throws IOException {
+        pathText.setWrappingWidth(290);
         fileList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         tagSet.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         tagList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -439,6 +440,6 @@ public class MainWindowController implements Observer {
     }
 
     public void viewAllHistory() {
-        
+
     }
 }
