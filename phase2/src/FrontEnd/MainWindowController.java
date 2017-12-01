@@ -437,4 +437,8 @@ public class MainWindowController implements Observer {
         configPage.show();
         configPage.setOnCloseRequest(e -> loadFileList());
     }
+
+    public void viewAllHistory() {
+        
+    }
 }

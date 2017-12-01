@@ -80,6 +80,8 @@
             </Button>
             <Separator prefWidth="200.0"/>
             <Button mnemonicParsing="false" onAction="#addTagToImage" text="Add tags to image"/>
+            <Separator prefWidth="200.0"/>
+            <Button mnemonicParsing="false" onAction="#viewAllHistory" text="View all history"/>
         </VBox>
 
         <ListView fx:id="fileList" onMouseClicked="#chooseFile"/>
