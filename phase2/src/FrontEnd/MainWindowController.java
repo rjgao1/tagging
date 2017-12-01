@@ -69,6 +69,7 @@ public class MainWindowController implements Observer {
     public void initialize() throws IOException {
         fileList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         tagSet.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        tagList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         for (File file : fileManager.getImages()) {
             Tag[] tagsInFile = Model.Image.getTagsFromName(file.getName());
             for (Tag tag : tagsInFile) {
