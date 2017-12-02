@@ -81,6 +81,14 @@ public class Image extends Observable implements Observer {
                 logManager.getTagInfos().get(logManager.getTagInfos().size() - 1).getTagList()));
     }
 
+    /**
+     * Generates a new file name based on the old file name and the new tags
+     *
+     * @param oldName the old file name
+     * @param tags the new tags of the file
+     *
+     * @return the file name with new tags
+     */
     public static String getNewName(String oldName, Tag[] tags) {
         StringBuilder newFileName = new StringBuilder(oldName);
         int index;
