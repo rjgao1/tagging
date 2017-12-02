@@ -77,18 +77,23 @@ public class Image extends Observable implements Observer {
      */
     @Override
     public void update() throws IOException {
-        StringBuilder newFileName = new StringBuilder(file.getAbsolutePath());
+        rename(getNewName(file.getAbsolutePath(),
+                logManager.getTagInfos().get(logManager.getTagInfos().size() - 1).getTagList()));
+    }
+
+    public static String getNewName(String oldName, Tag[] tags) {
+        StringBuilder newFileName = new StringBuilder(oldName);
         int index;
         index = newFileName.indexOf(" @", newFileName.lastIndexOf(System.getProperty("file.separator")) - 1);
-        String postfix = newFileName.substring(newFileName.lastIndexOf("."));
+        String suffix = newFileName.substring(newFileName.lastIndexOf("."));
         newFileName = new StringBuilder(newFileName.substring(0, newFileName.lastIndexOf(".")));
         if (index != -1) {
             newFileName = new StringBuilder(newFileName.substring(0, index));
         }
-        for (Tag tag : logManager.getTagInfos().get(logManager.getTagInfos().size() - 1).getTagList()) {
+        for (Tag tag: tags) {
             newFileName.append(" @").append(tag.getContent());
         }
-        newFileName.append(postfix);
-        rename(newFileName.toString());
+        newFileName.append(suffix);
+        return newFileName.toString();
     }
 }
