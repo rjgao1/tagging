@@ -392,6 +392,9 @@ public class MainWindowController implements Observer {
         loadFileList();
         loadTagList();
         loadTagSet();
+        if (image != null) {
+            pathText.setText(image.getFile().getAbsolutePath());
+        }
     }
 
     /**
