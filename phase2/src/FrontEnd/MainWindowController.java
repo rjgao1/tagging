@@ -439,7 +439,9 @@ public class MainWindowController implements Observer {
         configPage.setOnCloseRequest(e -> loadFileList());
     }
 
-    public void viewAllHistory() {
-
+    public void viewAllHistory() throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FileNameHistory.fxml"));
+        Stage fileNameHistory = loader.load();
+        fileNameHistory.show();
     }
 }
