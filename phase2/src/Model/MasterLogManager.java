@@ -68,6 +68,7 @@ public class MasterLogManager {
         BufferedWriter masterLogBW = new BufferedWriter(masterLogFW);
 
         masterLogBW.write(time + "|" + oldName + " -> " + newName);
+        masterLogBW.newLine();
 
         masterLogBW.close();
         masterLogFW.close();
