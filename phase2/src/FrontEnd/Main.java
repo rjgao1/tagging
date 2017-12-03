@@ -2,6 +2,7 @@ package FrontEnd;
 
 import Model.Config;
 
+import Model.MasterLogManager;
 import Model.Tag;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -23,6 +24,11 @@ public class Main extends Application {
             Tag.readTagFile();
         } else {
             Tag.createTagFile();
+        }
+        if (MasterLogManager.masterLogExists()) {
+            MasterLogManager.readMasterLogs();
+        } else {
+            MasterLogManager.createMaterLogs();
         }
         if (!Config.hasConfigFile()) {
             primaryStage = FXMLLoader.load(getClass().getResource("ConfigPage.fxml"));
