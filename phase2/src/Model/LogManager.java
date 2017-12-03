@@ -8,7 +8,7 @@ import java.nio.file.*;
 public class LogManager extends Observable {
 
     /* The path of log directory */
-    private final Path logDirPath;
+    private final Path logDirPath = Paths.get(System.getProperty("user.dir"), "Logs");
     /* The path of the logFile */
     private Path logFilePath;
     /* The list of TagInfos of this LogManager */
@@ -24,9 +24,9 @@ public class LogManager extends Observable {
      */
     public LogManager(String pathname) throws IOException {
 
-        String userDirString = System.getProperty("user.dir");
-        String logDirString = userDirString + System.getProperty("file.separator") + "Logs";
-        logDirPath = Paths.get(logDirString);
+//        String userDirString = System.getProperty("user.dir");
+//        String logDirString = userDirString + System.getProperty("file.separator") + "Logs";
+//        logDirPath = Paths.get(logDirString);
 
         logFilePath = constructLogFilePath(pathname);
         if (!Files.exists(logDirPath)) {
@@ -134,8 +134,8 @@ public class LogManager extends Observable {
      * Returns a new logFilePath to reflect the current set of tags of the Image file
      * associated with the log file
      *
-     * @param newTagListString String of the current tags of the Image file
-     * @return a String representation of the pathname of the log file to reflects the current tags if its Image file
+     * @param newTagListString String of the current tags of the Image file in the form of " @tag1 @tag2 @tag3..."
+     * @return a String representation of the pathname of the log file to reflect the current tags of its Image file
      */
     private String tagListStringToPathString(String newTagListString) {
         int index = modifiedImagePathString.indexOf(" @", modifiedImagePathString.lastIndexOf(":"));
