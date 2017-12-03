@@ -28,26 +28,26 @@ public class MainWindowController implements Observer {
     private Model.Image image;
 
     @FXML
-            /* The list of image files */
-            ListView<String> fileList;
+    /* The list of image files */
+    ListView<String> fileList;
     @FXML
-            /* The list of tags for the image */
-            ListView<String> tagList;
+    /* The list of tags for the image */
+    ListView<String> tagList;
     @FXML
-            /* The textField for user to add tags */
-            TextField tagText;
+    /* The textField for user to add tags */
+    TextField tagText;
     @FXML
-            /* The stage of this window */
-            Stage stage;
+    /* The stage of this window */
+    Stage stage;
     @FXML
-            /* The list of independent tag set */
-            ListView<String> tagSet;
+    /* The list of independent tag set */
+    ListView<String> tagSet;
     @FXML
-            /* The image view */
-            ImageView imageView;
+    /* The image view */
+    ImageView imageView;
     @FXML
-            /* The text to show */
-            Text pathText;
+    /* The text to show */
+    Text pathText;
 
     /* The list of all image files */
     private ObservableList<String> files;

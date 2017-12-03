@@ -10,11 +10,11 @@ import javafx.stage.Stage;
 public class FileNameHistoryController {
 
     @FXML
-            /* The list of all logs in master log*/
-            ListView<String> masterLogListView;
+    /* The list of all logs in master log*/
+    private ListView<String> masterLogListView;
     @FXML
-            /* The stage of this window */
-            Stage stage;
+    /* The stage of this window */
+    private Stage stage;
 
     @FXML
     /**
