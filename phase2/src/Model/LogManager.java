@@ -15,6 +15,8 @@ public class LogManager extends Observable {
     private ArrayList<TagInfo> tagInfos;
     /* The string representing the Image's modified pathname used in the log file's naming */
     private String modifiedImagePathString;
+    /* The String pathname of the Image file whose Image object this logManager is stored in */
+    private String imagePathName;
 
     /**
      * Constructs a LogManager for an Image with pathname
@@ -27,6 +29,7 @@ public class LogManager extends Observable {
 //        String userDirString = System.getProperty("user.dir");
 //        String logDirString = userDirString + System.getProperty("file.separator") + "Logs";
 //        logDirPath = Paths.get(logDirString);
+        imagePathName = pathname;
 
         logFilePath = constructLogFilePath(pathname);
         if (!Files.exists(logDirPath)) {
@@ -169,6 +172,10 @@ public class LogManager extends Observable {
         tagListString = tagListString.substring(0, tagListString.length() - 1);
         writeLogFile();
         renameLogFile(tagListStringToPathString(tagListString), false);
+
+        String newImageName = Image.getNewName(imagePathName, tagInfo.getTagList());
+        MasterLogManager.writeMasterLogs(tagInfo.getTime(), imagePathName, newImageName);
+
         notifyObserver();
     }
 
