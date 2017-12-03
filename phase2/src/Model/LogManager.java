@@ -160,8 +160,8 @@ public class LogManager extends Observable {
     }
 
     /**
-     * Adds a TagInfo object to the list TagInfos, writes and renames the logFile accordingly and notifies the
-     * Observer's.
+     * Adds a TagInfo object to the list TagInfos, writes to to the master log file, and writes and renames the logFile
+     * accordingly and notifies the Observer's.
      *
      * @param tagInfo a TagInfo object to be added to tagInfos
      * @throws IOException if the logFile does not exist or attempt to rename the log file to a conflicted pathname
