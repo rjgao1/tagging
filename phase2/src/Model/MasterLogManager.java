@@ -55,7 +55,7 @@ public class MasterLogManager {
     }
 
     /**
-     * Writes a new piece of master log to the master log file
+     * Writes a new piece of master log to the master log file and add the master log to the masterLogs ArrayList
      *
      * @param time    the time at which the renaming is done
      * @param oldName old pathname of the Image file
@@ -63,11 +63,14 @@ public class MasterLogManager {
      * @throws IOException if the file/directory represented by Path masterLogPath does not exist
      */
     static void writeMasterLogs(String time, String oldName, String newName) throws IOException {
+        String newMasterLog = time + "|" + oldName + " -> " + newName;
+
         File masterLogFile = masterLogPath.toFile();
         FileWriter masterLogFW = new FileWriter(masterLogFile, true);
         BufferedWriter masterLogBW = new BufferedWriter(masterLogFW);
 
-        masterLogBW.write(time + "|" + oldName + " -> " + newName);
+        masterLogBW.write(newMasterLog);
+        masterLogs.add(newMasterLog);
         masterLogBW.newLine();
 
         masterLogBW.close();
