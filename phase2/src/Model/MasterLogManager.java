@@ -15,6 +15,11 @@ public class MasterLogManager {
     private static final Path masterLogPath = Paths.get(System.getProperty("user.dir"), "Logs", "Master Log.txt");
 
     /**
+     * Private declaration of the no-argument constructor so this utility class cannot be instantiated by another class
+     */
+    private MasterLogManager() {}
+
+    /**
      * @return whether or not the master log file exists
      */
     public static boolean masterLogExists() {
