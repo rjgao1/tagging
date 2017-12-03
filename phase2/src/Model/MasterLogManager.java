@@ -17,7 +17,8 @@ public class MasterLogManager {
     /**
      * Private declaration of the no-argument constructor so this utility class cannot be instantiated by another class
      */
-    private MasterLogManager() {}
+    private MasterLogManager() {
+    }
 
     /**
      * @return whether or not the master log file exists
@@ -56,7 +57,7 @@ public class MasterLogManager {
     /**
      * Writes a new piece of master log to the master log file
      *
-     * @param time the time at which the renaming is done
+     * @param time    the time at which the renaming is done
      * @param oldName old pathname of the Image file
      * @param newName new pathname of the Image file
      * @throws IOException if the file/directory represented by Path masterLogPath does not exist
@@ -73,7 +74,6 @@ public class MasterLogManager {
     }
 
     /**
-     *
      * @return the ArrayList of String masterLogs
      */
     public static ArrayList getMasterLogs() {

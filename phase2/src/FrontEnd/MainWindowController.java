@@ -28,26 +28,26 @@ public class MainWindowController implements Observer {
     private Model.Image image;
 
     @FXML
-    /* The list of image files */
-    ListView<String> fileList;
+            /* The list of image files */
+            ListView<String> fileList;
     @FXML
-    /* The list of tags for the image */
-    ListView<String> tagList;
+            /* The list of tags for the image */
+            ListView<String> tagList;
     @FXML
-    /* The textField for user to add tags */
-    TextField tagText;
+            /* The textField for user to add tags */
+            TextField tagText;
     @FXML
-    /* The stage of this window */
-    Stage stage;
+            /* The stage of this window */
+            Stage stage;
     @FXML
-    /* The list of independent tag set */
-    ListView<String> tagSet;
+            /* The list of independent tag set */
+            ListView<String> tagSet;
     @FXML
-    /* The image view */
-    ImageView imageView;
+            /* The image view */
+            ImageView imageView;
     @FXML
-    /* The text to show */
-    Text pathText;
+            /* The text to show */
+            Text pathText;
 
     /* The list of all image files */
     private ObservableList<String> files;
@@ -250,7 +250,7 @@ public class MainWindowController implements Observer {
      */
     public void removeTags() throws IOException {
         ArrayList<String> tagsToRemove = new ArrayList<>(0);
-        for (String s: tagSet.getSelectionModel().getSelectedItems()) {
+        for (String s : tagSet.getSelectionModel().getSelectedItems()) {
             tagsToRemove.add(s);
         }
         if (tagsToRemove.size() == 0) {
@@ -301,7 +301,7 @@ public class MainWindowController implements Observer {
      */
     public void addTagsToDir() throws IOException {
         ArrayList<String> tagStringList = new ArrayList<>(0);
-        for (String s: tagSet.getSelectionModel().getSelectedItems()) {
+        for (String s : tagSet.getSelectionModel().getSelectedItems()) {
             tagStringList.add(s);
         }
         if (tagStringList.size() == 0) {
@@ -429,7 +429,7 @@ public class MainWindowController implements Observer {
 
     /**
      * Opens the config window for user to change config.
-     * 
+     *
      * @throws IOException if ConfigPage.fxml is moved
      */
     public void openConfigPage() throws IOException {
@@ -439,7 +439,12 @@ public class MainWindowController implements Observer {
         configPage.setOnCloseRequest(e -> loadFileList());
     }
 
-    public void viewAllHistory() throws IOException{
+    /**
+     * Opens a new window to view the master log.
+     *
+     * @throws IOException if FileNameHistory.fxml is moved
+     */
+    public void viewAllHistory() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FileNameHistory.fxml"));
         Stage fileNameHistory = loader.load();
         fileNameHistory.show();
