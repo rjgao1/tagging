@@ -64,13 +64,13 @@ public class MasterLogManager {
      */
     static void writeMasterLogs(String time, String oldName, String newName) throws IOException {
         File masterLogFile = masterLogPath.toFile();
-        FileOutputStream masterLogFOS = new FileOutputStream(masterLogFile);
-        BufferedWriter masterLogBW = new BufferedWriter(new OutputStreamWriter(masterLogFOS));
+        FileWriter masterLogFW = new FileWriter(masterLogFile, true);
+        BufferedWriter masterLogBW = new BufferedWriter(masterLogFW);
 
         masterLogBW.write(time + "|" + oldName + " -> " + newName);
 
         masterLogBW.close();
-        masterLogFOS.close();
+        masterLogFW.close();
     }
 
     /**
