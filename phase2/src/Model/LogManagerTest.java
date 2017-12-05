@@ -6,6 +6,7 @@ import org.junit.rules.TemporaryFolder;
 
 import java.io.*;
 import java.lang.reflect.Array;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -122,7 +123,9 @@ public class LogManagerTest {
         String act = new String("");
 
         LogManager lm = new LogManager(testImagePathString);
-        lm.addTagInfo(newTagInfo);
+        try {
+            lm.addTagInfo(newTagInfo);
+        } catch (FileNotFoundException e){/* Not testing MasterLogManager which throws the exception */}
 
         File[] fileList = Paths.get(logDirString).toFile().listFiles();
 
@@ -149,7 +152,7 @@ public class LogManagerTest {
     }
 
     @Test
-    public void addMultipleTagInfos() throws Exception {
+    public void testAddMultipleTagInfos() throws Exception {
         /* construct a timestamp string as part of the expected String */
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date dateObj = new Date();
@@ -164,9 +167,17 @@ public class LogManagerTest {
         String[] act = new String[0];
 
         LogManager lm = new LogManager(testImagePathString);
-        lm.addTagInfo(newTagInfo1);
-        lm.addTagInfo(newTagInfo2);
-        lm.addTagInfo(newTagInfo3);
+        /* Not testing MasterLogManager which throws the exception*/
+        try {
+            lm.addTagInfo(newTagInfo1);
+        } catch (FileNotFoundException e) {}
+        try {
+            lm.addTagInfo(newTagInfo2);
+        } catch (FileNotFoundException e) {}
+        try {
+            lm.addTagInfo(newTagInfo3);
+        } catch (FileNotFoundException e) {}
+
 
         File[] fileList = Paths.get(logDirString).toFile().listFiles();
         for (File file : fileList) {
