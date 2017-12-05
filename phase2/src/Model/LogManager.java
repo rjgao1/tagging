@@ -25,10 +25,6 @@ public class LogManager extends Observable {
      * @throws IOException if directory/file represented by pathname does not exist or conflicted directory/file.
      */
     public LogManager(String pathname) throws IOException {
-
-//        String userDirString = System.getProperty("user.dir");
-//        String logDirString = userDirString + System.getProperty("file.separator") + "Logs";
-//        logDirPath = Paths.get(logDirString);
         imagePathName = pathname;
 
         logFilePath = constructLogFilePath(pathname);
