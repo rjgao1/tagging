@@ -89,7 +89,7 @@ public class Image extends Observable implements Observer {
      *
      * @return the file name with new tags
      */
-    public static String getNewName(String oldName, Tag[] tags) {
+    static String getNewName(String oldName, Tag[] tags) {
         StringBuilder newFileName = new StringBuilder(oldName);
         int index;
         index = newFileName.indexOf(" @", newFileName.lastIndexOf(System.getProperty("file.separator")) - 1);

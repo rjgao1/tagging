@@ -99,7 +99,7 @@ public class TagInfo {
      * @param tagString a String representing a TagInfo.
      * @return a TagInfo object with the information of the input string.
      */
-    public static TagInfo stringToTagInfo(String tagString) {
+    static TagInfo stringToTagInfo(String tagString) {
         String currentTime = tagString.substring(0, 19);
         if (tagString.length() >= 21) {
             String initialTagsString = tagString.substring(21, tagString.length());
