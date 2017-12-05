@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.nio.file.*;
 
 /**
- * A utility class that only contains static members and methods. It maintains the Master Log.txt file which keeps
+ * A class that only contains static members and methods. It maintains the Master Log.txt file which keeps
  * track of all renamings that all images have ever done.
  */
 public class MasterLogManager {
