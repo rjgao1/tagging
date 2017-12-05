@@ -68,21 +68,6 @@ public class Tag {
     }
 
     /**
-     * Adds the elements of newTagList to this Tag's tagSet, if they are not already contained in it.
-     *
-     * @param newTagList an Array of Tags, whose elements are to be added to this Tag's tagSet.
-     * @throws IOException when the tagFile is not found.
-     */
-    public static void addTagToSet(Tag[] newTagList) throws IOException {
-        for (Tag element : newTagList) {
-            if (!Tag.tagSet.contains(element)) {
-                Tag.tagSet.add(element);
-                writeTagFile();
-            }
-        }
-    }
-
-    /**
      * Writes the contents of this Tag's tagSet in the tagFile.
      *
      * @throws IOException when the tagFile does not exist
