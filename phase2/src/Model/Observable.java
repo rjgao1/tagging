@@ -34,7 +34,7 @@ abstract public class Observable {
      *
      * @throws IOException if the Observer's update methods throws an IOException
      */
-    public void notifyObserver() throws IOException {
+    void notifyObserver() throws IOException {
         for (Observer observer : observers) {
             observer.update();
         }
